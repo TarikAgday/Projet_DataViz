@@ -12,7 +12,7 @@ export function setColorScaleDomain (colorScale, data) {
   let min = 0
   let max = 0
   for (let index = 0; index < data.length; index++) {
-      const element = data[index].Comptes;
+      const element = data[index].Salary;
       if (element > max)
           max = element
   }
@@ -24,13 +24,14 @@ export function setColorScaleDomain (colorScale, data) {
  *
  * @param {object[]} data The data to use for binding
  */
-export function appendRects (data) {
+export function appendHeatMap (data) {
   // TODO : Append SVG rect elements
   // Ajoutez la structure SVG et liez-y les données (fonction appendRects).
   // Cette structure sera utilisée
   // pour dessiner la carte de chaleur dans les étapes suivantes.
 
-            d3.select("#graph-g")
+            d3.select("#viz_area_5")
+            .append("g")
             .selectAll(".ageGroupSalaries-g")
             .data(data)
             .join("g")

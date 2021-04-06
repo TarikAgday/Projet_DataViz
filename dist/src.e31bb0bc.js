@@ -123,80 +123,64 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.cleanNames = cleanNames;
-exports.getTopPlayers = getTopPlayers;
-exports.summarizeLines = summarizeLines;
-exports.replaceOthers = replaceOthers;
+exports.stackedBarChartData = stackedBarChartData;
 
-/**
- * Sanitizes the names from the data in the "Player" column.
- *
- * Ensures each word in the name begins with an uppercase letter followed by lowercase letters.
- *
- * @param {object[]} data The dataset with unsanitized names
- * @returns {object[]} The dataset with properly capitalized names
- */
-function cleanNames(data) {
-  // TODO: Clean the player name data
-  return [];
-}
-/**
- * Finds the names of the 5 players with the most lines in the play.
- *
- * @param {object[]} data The dataset containing all the lines of the play
- * @returns {string[]} The names of the top 5 players with most lines
- */
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function getTopPlayers(data) {
-  // TODO: Find the five top players with the most lines in the play
-  return [];
-}
-/**
- * Transforms the data by nesting it, grouping by act and then by player, indicating the line count
- * for each player in each act.
- *
- * The resulting data structure ressembles the following :
- *
- * [
- *  { Act : ___,
- *    Players : [
- *     {
- *       Player : ___,
- *       Count : ___
- *     }, ...
- *    ]
- *  }, ...
- * ]
- *
- * The number of the act (starting at 1) follows the 'Act' key. The name of the player follows the
- * 'Player' key. The number of lines that player has in that act follows the 'Count' key.
- *
- * @param {object[]} data The dataset
- * @returns {object[]} The nested data set grouping the line count by player and by act
- */
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function summarizeLines(data) {
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function stackedBarChartData(data) {
   // TODO : Generate the data structure as defined above
-  return [];
-}
-/**
- * For each act, replaces the players not in the top 5 with a player named 'Other',
- * whose line count corresponds to the sum of lines uttered in the act by players other
- * than the top 5 players.
- *
- * @param {object[]} data The dataset containing the count of lines of all players
- * @param {string[]} top The names of the top 5 players with the most lines in the play
- * @returns {object[]} The dataset with players not in the top 5 summarized as 'Other'
- */
+  var res = [];
 
+  var Clubs = _toConsumableArray(new Set(data.map(function (d) {
+    return d.Club;
+  })));
 
-function replaceOthers(data, top) {
-  // TODO : For each act, sum the lines uttered by players not in the top 5 for the play
-  // and replace these players in the data structure by a player with name 'Other' and
-  // a line count corresponding to the sum of lines
-  return [];
+  var _loop = function _loop(i) {
+    var m = 0;
+    var d = 0;
+    var f = 0;
+    var gk = 0;
+    var data_per_club = data.filter(function (d) {
+      return d.Club == Clubs[i];
+    });
+
+    for (var j = 0; j < data_per_club.length; j++) {
+      if (data_per_club[j]["Playing Position"] == "M") {
+        m += parseInt(data_per_club[j]["Salaire"].slice(2));
+      } else if (data_per_club[j]["Playing Position"] == "D") {
+        d += parseInt(data_per_club[j]["Salaire"].slice(2));
+      } else if (data_per_club[j]["Playing Position"] == "F") {
+        f += parseInt(data_per_club[j]["Salaire"].slice(2));
+      } else if (data_per_club[j]["Playing Position"] == "GK") {
+        gk += parseInt(data_per_club[j]["Salaire"].slice(2));
+      }
+    }
+
+    res.push({
+      club: Clubs[i],
+      M: m,
+      D: d,
+      F: f,
+      GK: gk,
+      sum: m + d + f + gk
+    });
+  };
+
+  for (var i = 0; i < Clubs.length; i++) {
+    _loop(i);
+  }
+
+  return res;
 }
 },{}],"scripts/viz.js":[function(require,module,exports) {
 "use strict";
@@ -207,7 +191,19 @@ Object.defineProperty(exports, "__esModule", {
 exports.updateGroupXScale = updateGroupXScale;
 exports.updateYScale = updateYScale;
 exports.createGroups = createGroups;
-exports.drawBars = drawBars;
+exports.drawStackedBarChart = drawStackedBarChart;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 /**
  * Sets the domain and range of the X scale.
@@ -254,9 +250,81 @@ function createGroups(data, x) {
  */
 
 
-function drawBars(y, xSubgroup, players, height, color, tip) {
-  // TODO : Draw the bars
-  d3.select('#graph-g');
+function drawStackedBarChart(data) {
+  var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
+  var legendCellSize = 20;
+  var tooltipWidth = 210;
+
+  var keys = _toConsumableArray(new Set(data.map(function (d) {
+    return d["Playing Position"];
+  }))); // var dataset = d3.stack()(["M", "D", "F", "GK"].map(function(fruit) {
+  //   return data.map(function(d) {
+  //     return {x: (d.club), y: +d[fruit]};
+  //   });
+  // }));
+
+
+  var stackGen = d3.stack().keys(["M", "D", "F", "GK"]).order(d3.stackOrderNone).offset(d3.stackOffsetNone);
+  var stackedSeries = stackGen(data);
+  var x = d3.scaleBand().domain(data.map(function (d) {
+    return d.club;
+  })).range([0, 400]);
+  var xAxis = d3.axisBottom().scale(x);
+  var y = d3.scaleLinear().domain([0, d3.max(data, function (d) {
+    return d.sum;
+  })]).range([180, 0]).range([400, 0]);
+  var yAxis = d3.axisLeft().scale(y);
+  var svg = d3.select("#viz_area_2");
+  svg.append("g").attr("transform", "translate(50," + 400 + ")").call(xAxis).selectAll("text").attr("y", 0).attr("x", 6).attr("dy", ".35em").attr("transform", "rotate(-90)").style("text-anchor", "end");
+  svg.append("g").attr("transform", "translate(50)").call(yAxis).selectAll("text").attr("x", 30).attr("transform", "translate(-40)");
+  var groups = svg.selectAll("g.cost").attr("transform", "translate(50)").data(stackedSeries).enter().append("g").attr("class", "cost").style("fill", function (d, i) {
+    return colors[i];
+  });
+  var rect = groups.selectAll("rect").data(function (d) {
+    return d;
+  }).enter().append("rect").attr("transform", "translate(50)").attr("x", function (d) {
+    return x(d.data.club);
+  }).attr("width", x.bandwidth()).attr("y", function (d) {
+    return y(d[1]);
+  }).attr("height", function (d) {
+    return 400 - y(d[1] - d[0]);
+  }).on("mouseover", function () {
+    tooltip.style("display", null);
+  }).on("mouseout", function () {
+    tooltip.style("display", "none");
+  }).on('mousemove', function (d) {
+    // Mouse event stuffs again (overwrites above declaration).
+    //  console.log(d,d[1] - d[0],"ok")
+    var xPosition = d3.mouse(d3.event.target)[0] + 20;
+    var yPosition = d3.mouse(d3.event.target)[1]; //  tooltip
+
+    tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+    tooltip.select("text").text(d[1] - d[0]); //.attr("x", xPosition  ).attr("y"+ yPosition );
+    // console.log( )
+  });
+  var legend = svg.selectAll(".legend").data(colors).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
+    return "translate(450," + i * 19 + ")";
+  });
+  legend.append("rect").attr("x", 18).attr("width", 18).attr("height", 18).style("fill", function (d, i) {
+    return colors.slice().reverse()[i];
+  });
+  legend.append("text").attr("x", 50).attr("y", 9).attr("dy", ".35em").style("text-anchor", "start").text(function (d, i) {
+    switch (i) {
+      case 0:
+        return "GK";
+
+      case 1:
+        return "F";
+
+      case 2:
+        return "D";
+
+      case 3:
+        return "M";
+    }
+  });
+  var tooltip = svg.append("g").attr("class", "tooltip").style("display", "none");
+  tooltip.append("text").attr("x", 15).attr("dy", "1.2em").style("text-anchor", "middle").attr("font-size", "12px").attr("font-weight", "bold");
 }
 },{}],"scripts/helper.js":[function(require,module,exports) {
 "use strict";
@@ -2794,13 +2862,21 @@ $(function () {
     // creer tes fonctions dans un autre fichier et les appeler ici
     var svg = d3.select("#viz_area");
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("circle").attr("cx", x(10)).attr("cy", 100).attr("r", 40).style("fill", "blue");
-    var svg = d3.select("#viz_area_2");
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
+    svg.append("g").attr("class", "yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
+      console.log("ines");
+    }); // var svg = d3.select("#viz_area_2")
+    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    // svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
+
+    var data = preproc.stackedBarChartData(files[0]);
+    viz.drawStackedBarChart(data);
     var svg = d3.select("#viz_area_3");
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "green");
+    svg.append("g").attr("class", "green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green").on('mouseover', function () {
+      console.log("green");
+    }).on('mouseout', function () {
+      console.log("green");
+    });
     var svg = d3.select("#viz_area_4");
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue");
@@ -2843,8 +2919,127 @@ $(function () {
     for (var i = currentIndex + 1; i < elements.length; i++) {
       elements[i].style.opacity = 0;
     }
+
+    for (var i = currentIndex + 1; i < elements.length; i++) {
+      elements[i].style.opacity = 0;
+    } //console.log(elements[1].style)
+
+
+    for (var i = 0; i < elements.length; i++) {
+      if (elements[i].style.opacity >= 0.9) {
+        for (var j = 0; j < elements[i].children[0].children.length; j++) {
+          elements[i].children[0].children[j].style["pointer-events"] = "auto"; // console.log(elements[i].children[0].children[j])
+        } // console.log(elements[i].children[0].children)
+        //  elements[i].style.visibility = "visible"
+
+      } else {
+        for (var _j = 0; _j < elements[i].children[0].children.length; _j++) {
+          elements[i].children[0].children[_j].style["pointer-events"] = "none"; // console.log(elements[i].children[0].children[j])
+        }
+      }
+    } // console.log(d3.selectAll(".box").selectAll("svg")["_groups"])
+
   });
 });
+/*
+'use strict'
+
+import * as preproc from './scripts/preprocess.js'
+import * as viz from './scripts/viz.js'
+import * as helper from './scripts/helper.js'
+import * as legend from './scripts/legend.js'
+import * as tooltip from './scripts/tooltip.js'
+import * as  heatmap from './scripts/heatmap'
+
+import d3Tip from 'd3-tip'
+
+
+$(function () {
+
+  Promise.all([
+    d3.csv("StatsJoueursConv.csv"),
+    d3.csv("ClassementParEquipeConv.csv"),
+  ]).then(function (files) {
+
+    // files[0] data StatsJoueursConv
+    // files[1] data ClassementParEquipeConv
+
+    // creer tes fonctions dans un autre fichier et les appeler ici
+    var svg = d3.select("#viz_area")
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("circle").attr("cx", x(10)).attr("cy", 100).attr("r", 40).style("fill", "blue");
+
+    var svg = d3.select("#viz_area_2")
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
+
+    var svg = d3.select("#viz_area_3")
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "green");
+
+    var svg = d3.select("#viz_area_4")
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue");
+
+
+
+    var svg = d3.select("#viz_area_end")
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "black");
+
+    console.log(files[0])
+
+  })
+
+  var dimensions = {}, elements = [];
+
+  var onResize = function () {
+    dimensions.windowHeight = $(window).height();
+    dimensions.boxHeight = $('.box-placeholder').height();
+    dimensions.boxOffsetTop = $('.box-placeholder').offset().top;
+  };
+  $(window).resize(onResize);
+
+  $(document).on('ready', function () {
+    $('.box').each(function (index, box) {
+      if (index === 0) return true;
+      elements.push(box);
+    });
+    onResize();
+  });
+
+
+  document.addEventListener('scroll', function () {
+    var scrollPosition = window.scrollY
+
+    if (scrollPosition > 0) d3.select("#viz_area").style("opacity","0")
+    if (scrollPosition == 0) d3.select("#viz_area").style("opacity","1")
+
+
+    if (scrollPosition < 0) return true;
+    var division = scrollPosition / (dimensions.boxHeight / (elements.length ));
+    var currentIndex = Math.floor(division);
+    var rest = division - currentIndex;
+
+    for (var i = 0; i < currentIndex; i++) {
+      elements[i].style.opacity = 0;
+    }
+
+    elements[currentIndex].style.opacity = rest;
+
+    for (var i = currentIndex + 1; i < elements.length; i++) {
+      elements[i].style.opacity = 0;
+    }
+  });
+
+});
+
+// heatmap.appendHeatMap(files[0])
+    // var svg = d3.select("#viz_area_5")
+    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    // svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "red");
+
+    */
 },{"./scripts/preprocess.js":"scripts/preprocess.js","./scripts/viz.js":"scripts/viz.js","./scripts/helper.js":"scripts/helper.js","./scripts/legend.js":"scripts/legend.js","./scripts/tooltip.js":"scripts/tooltip.js","d3-tip":"../node_modules/d3-tip/index.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2873,7 +3068,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50623" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

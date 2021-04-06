@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -149,7 +149,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -184,12 +184,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"assets/typography.css":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"assets/typography.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.eot":[["grenze-gotisch-v1-latin-regular.754954ff.eot","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.eot"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.eot"],"./fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff2":[["grenze-gotisch-v1-latin-regular.08410b1f.woff2","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff2"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff2"],"./fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff":[["grenze-gotisch-v1-latin-regular.5faefa58.woff","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff"],"./fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.svg":[["grenze-gotisch-v1-latin-regular.320a36ac.svg","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.svg"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.svg"],"./fonts/montserrat/montserrat-v14-latin-regular.eot":[["montserrat-v14-latin-regular.f7eaba4f.eot","assets/fonts/montserrat/montserrat-v14-latin-regular.eot"],"assets/fonts/montserrat/montserrat-v14-latin-regular.eot"],"./fonts/montserrat/montserrat-v14-latin-regular.woff2":[["montserrat-v14-latin-regular.c4f2d94c.woff2","assets/fonts/montserrat/montserrat-v14-latin-regular.woff2"],"assets/fonts/montserrat/montserrat-v14-latin-regular.woff2"],"./fonts/montserrat/montserrat-v14-latin-regular.woff":[["montserrat-v14-latin-regular.d0f0e42a.woff","assets/fonts/montserrat/montserrat-v14-latin-regular.woff"],"assets/fonts/montserrat/montserrat-v14-latin-regular.woff"],"./fonts/montserrat/montserrat-v14-latin-regular.svg":[["montserrat-v14-latin-regular.0e8e1520.svg","assets/fonts/montserrat/montserrat-v14-latin-regular.svg"],"assets/fonts/montserrat/montserrat-v14-latin-regular.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./fonts\\grenze_gotish\\grenze-gotisch-v1-latin-regular.eot":[["grenze-gotisch-v1-latin-regular.754954ff.eot","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.eot"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.eot"],"./fonts\\grenze_gotish\\grenze-gotisch-v1-latin-regular.woff2":[["grenze-gotisch-v1-latin-regular.08410b1f.woff2","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff2"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff2"],"./fonts\\grenze_gotish\\grenze-gotisch-v1-latin-regular.woff":[["grenze-gotisch-v1-latin-regular.5faefa58.woff","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.woff"],"./fonts\\grenze_gotish\\grenze-gotisch-v1-latin-regular.svg":[["grenze-gotisch-v1-latin-regular.320a36ac.svg","assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.svg"],"assets/fonts/grenze_gotish/grenze-gotisch-v1-latin-regular.svg"],"./fonts\\montserrat\\montserrat-v14-latin-regular.eot":[["montserrat-v14-latin-regular.f7eaba4f.eot","assets/fonts/montserrat/montserrat-v14-latin-regular.eot"],"assets/fonts/montserrat/montserrat-v14-latin-regular.eot"],"./fonts\\montserrat\\montserrat-v14-latin-regular.woff2":[["montserrat-v14-latin-regular.c4f2d94c.woff2","assets/fonts/montserrat/montserrat-v14-latin-regular.woff2"],"assets/fonts/montserrat/montserrat-v14-latin-regular.woff2"],"./fonts\\montserrat\\montserrat-v14-latin-regular.woff":[["montserrat-v14-latin-regular.d0f0e42a.woff","assets/fonts/montserrat/montserrat-v14-latin-regular.woff"],"assets/fonts/montserrat/montserrat-v14-latin-regular.woff"],"./fonts\\montserrat\\montserrat-v14-latin-regular.svg":[["montserrat-v14-latin-regular.0e8e1520.svg","assets/fonts/montserrat/montserrat-v14-latin-regular.svg"],"assets/fonts/montserrat/montserrat-v14-latin-regular.svg"],"_css_loader":"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49568" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50623" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -393,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+},{}]},{},["../../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
 //# sourceMappingURL=/typography.880a8441.js.map
