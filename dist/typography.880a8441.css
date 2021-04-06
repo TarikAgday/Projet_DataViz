@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Grenze Gotisch';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/grenze-gotisch-v1-latin-regular.754954ff.eot');
+    src: local(''),
+         url('/grenze-gotisch-v1-latin-regular.08410b1f.woff2') format('woff2'), 
+         url('/grenze-gotisch-v1-latin-regular.5faefa58.woff') format('woff'), 
+         url('/grenze-gotisch-v1-latin-regular.320a36ac.svg#GrenzeGotisch') format('svg'); 
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/montserrat-v14-latin-regular.f7eaba4f.eot');
+    src: local('Montserrat Regular'), local('Montserrat-Regular'),
+         url('/montserrat-v14-latin-regular.c4f2d94c.woff2') format('woff2'), 
+         url('/montserrat-v14-latin-regular.d0f0e42a.woff') format('woff'), 
+         url('/montserrat-v14-latin-regular.0e8e1520.svg#Montserrat') format('svg'); 
+  }
+
+/*# sourceMappingURL=/typography.880a8441.css.map */
