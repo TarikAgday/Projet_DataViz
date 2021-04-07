@@ -124,6 +124,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.stackedBarChartData = stackedBarChartData;
+exports.heatmapProcess = heatmapProcess;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -138,7 +141,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function stackedBarChartData(data) {
-  // TODO : Generate the data structure as defined above
+  // Generate the data structure as defined above
   var res = [];
 
   var Clubs = _toConsumableArray(new Set(data.map(function (d) {
@@ -156,13 +159,14 @@ function stackedBarChartData(data) {
 
     for (var j = 0; j < data_per_club.length; j++) {
       if (data_per_club[j]["Playing Position"] == "M") {
-        m += parseInt(data_per_club[j]["Salaire"].slice(2));
+        console.log("Buddy", data_per_club[j]["Salary"]);
+        m += parseInt(data_per_club[j]["Salary"].slice(2));
       } else if (data_per_club[j]["Playing Position"] == "D") {
-        d += parseInt(data_per_club[j]["Salaire"].slice(2));
+        d += parseInt(data_per_club[j]["Salary"].slice(2));
       } else if (data_per_club[j]["Playing Position"] == "F") {
-        f += parseInt(data_per_club[j]["Salaire"].slice(2));
+        f += parseInt(data_per_club[j]["Salary"].slice(2));
       } else if (data_per_club[j]["Playing Position"] == "GK") {
-        gk += parseInt(data_per_club[j]["Salaire"].slice(2));
+        gk += parseInt(data_per_club[j]["Salary"].slice(2));
       }
     }
 
@@ -182,7 +186,81 @@ function stackedBarChartData(data) {
 
   return res;
 }
-},{}],"scripts/viz.js":[function(require,module,exports) {
+
+function heatmapProcess(data) {
+  var result = [];
+  var clubNames = getNeighborhoodNames(data);
+
+  var _loop2 = function _loop2(i) {
+    var filtered_data_neighborhood = data.filter(function (e) {
+      return e.Arrond_Nom == NeighborhoodNames[i];
+    });
+
+    var Years = _toConsumableArray(new Set(filtered_data_neighborhood.map(function (item) {
+      return item.Date_Plantation.getFullYear();
+    })));
+
+    var _loop4 = function _loop4(j) {
+      var count = filtered_data_neighborhood.filter(function (e) {
+        return e.Date_Plantation.getFullYear() == Years[j];
+      }).length;
+      result.push({
+        Arrond_Nom: NeighborhoodNames[i],
+        Plantation_Year: Years[j],
+        Comptes: count
+      });
+    };
+
+    for (var j = 0; j < Years.length; j++) {
+      _loop4(j);
+    }
+  };
+
+  for (var i = 0; i < NeighborhoodNames.length; i++) {
+    _loop2(i);
+  } // Generate the data structure
+
+
+  var clubResult = [];
+
+  var Clubs = _toConsumableArray(new Set(data.map(function (d) {
+    return d.Club;
+  }))); // Loop through each club
+
+
+  var _loop3 = function _loop3(_i) {
+    var data_per_club = data.filter(function (d) {
+      return d.Club == Clubs[_i];
+    }); // Designate the age groups
+
+    var ageGroupSalaries = new Array(13).fill(0);
+
+    for (var j = 0; j < data_per_club.length; j++) {
+      // Each ageGroup contains two years; e.g 15-16, 17-18 [...] 39-40 years old
+      var ageGroup = parseInt(data_per_club[j]["Age"] / 17);
+
+      for (var k = 0; k < ageGroupSalaries.length; j++) {
+        var age1 = k + 17;
+        var age2 = age1 + 1;
+
+        if (data_per_club[j].Age == age1 || data_per_club[j].Age == age2) {
+          ageGroupSalaries[ageGroup] += data_per_club[j]["Salary"].slice(2);
+        }
+      }
+    }
+
+    return {
+      v: clubResult
+    };
+  };
+
+  for (var _i = 0; _i < Clubs.length; _i++) {
+    var _ret = _loop3(_i);
+
+    if (_typeof(_ret) === "object") return _ret.v;
+  }
+}
+},{}],"scripts/stackedBarChart.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2839,7 +2917,7 @@ function _default() {
 
 var preproc = _interopRequireWildcard(require("./scripts/preprocess.js"));
 
-var viz = _interopRequireWildcard(require("./scripts/viz.js"));
+var viz = _interopRequireWildcard(require("./scripts/stackedBarChart.js"));
 
 var helper = _interopRequireWildcard(require("./scripts/helper.js"));
 
@@ -2864,10 +2942,10 @@ $(function () {
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     svg.append("g").attr("class", "yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
       console.log("ines");
-    }); // var svg = d3.select("#viz_area_2")
-    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    // svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
-
+    });
+    var svg = d3.select("#viz_area_2");
+    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
     var data = preproc.stackedBarChartData(files[0]);
     viz.drawStackedBarChart(data);
     var svg = d3.select("#viz_area_3");
@@ -3040,7 +3118,7 @@ $(function () {
     // svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "red");
 
     */
-},{"./scripts/preprocess.js":"scripts/preprocess.js","./scripts/viz.js":"scripts/viz.js","./scripts/helper.js":"scripts/helper.js","./scripts/legend.js":"scripts/legend.js","./scripts/tooltip.js":"scripts/tooltip.js","d3-tip":"../node_modules/d3-tip/index.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./scripts/preprocess.js":"scripts/preprocess.js","./scripts/stackedBarChart.js":"scripts/stackedBarChart.js","./scripts/helper.js":"scripts/helper.js","./scripts/legend.js":"scripts/legend.js","./scripts/tooltip.js":"scripts/tooltip.js","d3-tip":"../node_modules/d3-tip/index.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -3068,7 +3146,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50623" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52525" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
