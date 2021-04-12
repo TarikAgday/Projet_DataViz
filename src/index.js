@@ -20,11 +20,11 @@ $(function () {
     // files[1] data ClassementParEquipeConv
 
     // creer tes fonctions dans un autre fichier et les appeler ici
-    var svg = d3.select("#viz_area")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
-      console.log("ines")
-  })
+    // var svg = d3.select("#viz_area")
+    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    // svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
+    //   console.log("ines")
+    // })
 
     // var svg = d3.select("#viz_area_2")
     // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
@@ -34,7 +34,6 @@ $(function () {
     viz.drawStackedBarChart(data)
 
     var dataHeatMap = preproc.heatmapProcess(files[0])
-    console.log("DHM",dataHeatMap)
     heatmap.appendHeatMap(dataHeatMap)
     // heatmap.appendHeatMap(dataHeatMap)
 
