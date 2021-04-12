@@ -1,3 +1,4 @@
+
 /**
  * Sets the domain and range of the X scale.
  *

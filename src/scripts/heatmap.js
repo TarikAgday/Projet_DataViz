@@ -1,4 +1,5 @@
 import { color, interpolate, svg } from "d3";
+import { getClubsNames } from "./preprocess";
 
 
 /**
@@ -30,111 +31,92 @@ export function appendHeatMap (data) {
   // Cette structure sera utilisée
   // pour dessiner la carte de chaleur dans les étapes suivantes.
 
-            d3.select("#viz_area_5")
-            .append("g")
-            .selectAll(".ageGroupSalaries-g")
-            .data(data)
-            .join("g")
-            .attr("class", "ageGroupSalaries-g")
-            .append("rect")
-            .attr("class", "ageGroupSalaries-rect");
+  // set the dimensions and margins of the graph
+var margin = {top: 25, right: 30, bottom: 30, left: 150},
+width = 800 ,
+height = 590 - margin.top - margin.bottom;
 
-}
+var svg = d3.select("#viz_area_5")
+ .append("svg")
+  .attr("width", width + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
 
-/**
- * Updates the domain and range of the scale for the x axis
- *
- * @param {*} xScale The scale for the x axis
- * @param {object[]} ageGroups The data to be used
- * @param {number} width The width of the diagram
- */
+  // Labels of row and columns
+var clubs = d3.map(data, function(d){return d.Club;}).keys()
+var ageGroups = d3.map(data, function(d){return d.Age;}).keys()
 
-export function updateXScale (xScale, teamsNames, width) {
-    // Update X scale
-    xScale.domain(teamsNames)
-          .range([0,width])
+  // Build X scales and axis:
+var xScale = d3.scaleBand()
+.range([ 0, width ])
+.domain(ageGroups)
+.padding(0.01);
+svg.append("g")
+.attr("transform", "translate(0,"+ height  + ")")
+.call(d3.axisBottom().scale(xScale))
+.selectAll("text")
+  .attr("transform", "translate(-10 20) rotate(-90)")
+
+// Build Y scales and axis:
+var yScale = d3.scaleBand()
+  .range([ height, 0 ])
+  .domain(clubs)
+  .padding(0.01);
+svg.append("g")
+  .call(d3.axisLeft().scale(yScale));
+
+  // Build color scale
+var myColor = d3.scaleLinear()
+.domain([0,1000000000])
+.range(["white", "#69b3a2"])
+
+  // create a tooltip
+  var tooltip = d3.select("#viz_area_5")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "blue")
+    .style("padding", "1px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    tooltip.style("opacity", 1)
   }
-/**
- * Updates the domain and range of the scale for the y axis
- *
- * @param {*} yScale The scale for the y axis
- * @param {string[]} neighborhoodNames The names of the neighborhoods
- * @param {number} height The height of the diagram
- */
-export function updateYScale (yScale, ageGroups, height) {
-  // TODO : Update Y scale
-  yScale.domain(ageGroups)
-        .range([0,height])
-}
+  var mousemove = function(d) {
+    tooltip
+      .html("The exact value of<br>this cell is: " + d.ageGroupSalary)
+      .style("left", (d3.mouse(this)[0]+70) + "px")
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+  var mouseleave = function(d) {
+    tooltip.style("opacity", 0)
+  }
 
-/**
- *  Draws the X axis at the bottom of the diagram.
- *
- *  @param {*} xScale The scale to use to draw the axis
- */
-export function drawXAxis (xScale) {
-  // TODO : Draw X axis
-  let x_axis = d3.axisBottom(xScale)
-    d3.select(".x.axis")
-      .call(x_axis)
+  // add the rectangles
 
-}
+  d3.select("#viz_area_5")
+  .selectAll(".salary-g")
+  .data(data)
+  .join("g")
+  .attr("class", "salary-g")
+  .append("rect")
+  .attr("class", "salary-rect")
+  .attr("x", function (d) {
+      return xScale(d.Age);
+    })
+  .attr("y", function (d) {
+      return yScale(d.Club);
+    })
+  .attr("width", function (d) {
+      return xScale.bandwidth();
+    })
+  .attr("height", function (d) {
+      return yScale.bandwidth();
+    })
+  .attr("fill", function (d) {
+      return myColor(d.ageGroupSalary);})
+  .attr("transform", "translate( "+ margin.left +" 25)")
 
-/**
- * Draws the Y axis to the left of the diagram.
- *
- * @param {*} yScale The scale to use to draw the axis
- * @param {number} width The width of the graphic
- */
-export function drawYAxis (yScale, width) {
-  // TODO : Draw Y axis
-  let y_axis = d3.axisLeft(yScale)
-    d3.select(".y.axis")
-      .attr("transform", "translate(" + width +",0)")
-      .call(y_axis)
-}
-
-/**
- * Rotates the ticks on the X axis 45 degrees towards the left.
- */
-export function rotateXTicks () {
-  // TODO : Rotate X axis' ticks
-  // Source: http://bl.ocks.org/phoebebright/3061203
-  d3.selectAll(".x.axis text")
-  .attr("transform", function(d)
-      {
-        return "translate(" + this.getBBox().height*.05  + ")rotate(-45)";
-      })
-}
-
-/**
- * After the rectangles have been appended, this function dictates
- * their position, size and fill color.
- *
- * @param {*} xScale The x scale used to position the rectangles
- * @param {*} yScale The y scale used to position the rectangles
- * @param {*} colorScale The color scale used to set the rectangles' colors
- */
-export function updateRects (xScale, yScale, colorScale) {
-  // TODO : Set position, size and fill of rectangles according to bound data
-  // Largeur en x xScale.bandwidth
-
-
-        d3.select("#graph-g")
-        .selectAll(".ageGroupSalaries-rect")
-        .attr("x", function (d) {
-          return xScale(d.Club);
-        })
-        .attr("y", function (d) {
-          return yScale(d.Age);
-        })
-        .attr("fill", function (d) {
-          return colorScale(d.Salary);
-        })
-        .attr("height", function (d) {
-          return yScale.bandwidth();
-        })
-        .attr("width", function (d) {
-          return xScale.bandwidth();
-        });
 }

@@ -5,7 +5,7 @@
  * @param {object} margin The desired margins around the graph
  * @returns {*} The d3 Selection for the created g element
  */
-export function generateG (margin) {
+ export function generateG (margin) {
   return d3.select('.graph')
     .select('svg')
     .append('g')
