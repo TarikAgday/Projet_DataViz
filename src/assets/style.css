@@ -158,3 +158,9 @@ body, html {
 .inner-text {
     position: absolute;
 }
+
+.axis-text {
+    transform-origin: center;
+    transform-box: fill-box;
+    text-anchor: middle;
+}
