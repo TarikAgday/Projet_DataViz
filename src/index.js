@@ -3,6 +3,7 @@
 import * as preproc from './scripts/preprocess.js'
 import * as viz from './scripts/viz.js'
 import * as heatmap from './scripts/heatmap.js'
+import * as scatterPlot from './scripts/scatterplot.js'
 import * as legend from './scripts/legend.js'
 import * as tooltip from './scripts/tooltip.js'
 
@@ -29,6 +30,9 @@ $(function () {
     // var svg = d3.select("#viz_area_2")
     // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     // svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
+
+    const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
+    scatterPlot.drawScatteredPlotChart(scatteredPlotData)
 
     var data = preproc.stackedBarChartData(files[0])
     viz.drawStackedBarChart(data)
