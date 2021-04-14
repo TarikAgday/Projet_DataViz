@@ -7,14 +7,11 @@ const margin = {
 
 let svgSize, graphSize
 
+const cutoff = 14
+const maxBudget = 25000000
+
 export function drawScatteredPlotChart(data) {
     setSizing()
-
-    const g = generateG()
-
-    appendAxes(g)
-    appendGraphLabels(g)
-    positionLabels(g)
     
     const firstPos = d3.min(data, function (d) { return d.pos })
     const lastPos = d3.max(data, function (d) { return d.pos })
@@ -23,23 +20,57 @@ export function drawScatteredPlotChart(data) {
     .domain([firstPos, lastPos])
     .range([graphSize.width, 0])
     
-    const maxBudget = 25000000
-    
     const yScale = d3.scaleLinear()
     .domain([0, maxBudget])
     .range([graphSize.height, 0])
     
+    const budgetAverage = data.map(d => d.budget).reduce((a, c) => a + c) / data.length
+
+    const g = generateG()
+
+    g.append("rect")
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', xScale(cutoff))
+        .attr('height', yScale(budgetAverage))
+        .attr('fill', 'red')
+        .attr('fill-opacity', '0.2')
+
+    g.append("rect")
+        .attr('x', xScale(cutoff))
+        .attr('y', yScale(budgetAverage))
+        .attr('width', graphSize.width - xScale(cutoff))
+        .attr('height', graphSize.height - yScale(budgetAverage))
+        .attr('fill', 'green')
+        .attr('fill-opacity', '0.2')
+
+    g.append("rect")
+        .attr('x', 0)
+        .attr('y', yScale(budgetAverage))
+        .attr('width', xScale(cutoff))
+        .attr('height', graphSize.height - yScale(budgetAverage))
+        .attr('fill', 'orange')
+        .attr('fill-opacity', '0.2')
+
+    g.append("rect")
+        .attr('x', xScale(cutoff))
+        .attr('y', 0)
+        .attr('width', graphSize.width - xScale(cutoff))
+        .attr('height', yScale(budgetAverage))
+        .attr('fill', 'yellow')
+        .attr('fill-opacity', '0.2')
+
+    appendAxes(g)
+    appendGraphLabels(g)
+    positionLabels(g)
+
     drawXAxis(xScale)
     drawYAxis(yScale)
-
-    const budgetAverage = data.map(d => d.budget).reduce((a, c) => a + c) / data.length
-    console.log(budgetAverage)
-    console.log(data)
 
     g.append("text")
         .attr("x", xScale(21.5))
         .attr("y", yScale(11800000))
-        .text("Budget moyen pour la ligue: " + d3.format(".3s")(budgetAverage) + "$")
+        .text("Average league budget: " + d3.format(".3s")(budgetAverage) + "$")
 
     g.append("line")
         .attr("x1", 0)
@@ -50,17 +81,17 @@ export function drawScatteredPlotChart(data) {
         .attr("stroke-dasharray", "4")
 
     g.append("text")
-        .attr("x", xScale(16))
+        .attr("x", xScale(15.4))
         .attr("y", yScale(25250000))
-        .attr("fill", "orange")
-        .text("Accès aux playoffs")
+        .attr("fill", "black")
+        .text("Playoff access")
 
     g.append("line")
-        .attr("x1", xScale(14))
-        .attr("x2", xScale(14))
+        .attr("x1", xScale(cutoff))
+        .attr("x2", xScale(cutoff))
         .attr("y1", yScale(0))
         .attr("y2", yScale(maxBudget))
-        .attr("stroke", "orange")
+        .attr("stroke", "black")
         .attr("stroke-dasharray", "4")
 
     const circles = g.selectAll("circle")
@@ -104,7 +135,7 @@ function appendGraphLabels (g) {
       .attr('font-size', 20)
   
     g.append('text')
-      .text('Classement')
+      .text('General Standing')
       .attr('class', 'x axis-text')
       .attr('font-size', 20)
   }
