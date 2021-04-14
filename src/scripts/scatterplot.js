@@ -106,7 +106,7 @@ export function drawScatteredPlotChart(data) {
 }
 
 function generateG() {
-    return d3.select('#viz_area')
+    return d3.select('#viz_area_3')
         .append('g')
         .attr('id', 'scatter-plot')
         .attr('transform',
