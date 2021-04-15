@@ -4,7 +4,7 @@ import * as preproc from './scripts/preprocess.js'
 import * as viz from './scripts/viz.js'
 import * as heatmap from './scripts/heatmap.js'
 import * as bubbleChart from './scripts/bubbleChart'
-import * as legend from './scripts/legend.js'
+import * as connectedDotPlot from './scripts/connectedDotPlot'
 import * as tooltip from './scripts/tooltip.js'
 
 import d3Tip from 'd3-tip'
@@ -56,6 +56,8 @@ $(function () {
     //var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     //svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
 
+    var dataConnectedDotPlot = preproc.connectedDotPlotProcess(files[1])
+    connectedDotPlot.appendConnectedDotPlot(dataConnectedDotPlot)
 
 
     var svg = d3.select("#viz_area_end")
