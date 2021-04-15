@@ -3,6 +3,7 @@
 import * as preproc from './scripts/preprocess.js'
 import * as viz from './scripts/viz.js'
 import * as heatmap from './scripts/heatmap.js'
+import * as bubbleChart from './scripts/bubbleChart'
 import * as legend from './scripts/legend.js'
 import * as tooltip from './scripts/tooltip.js'
 
@@ -26,7 +27,8 @@ $(function () {
       console.log("ines")
   })
 
-    // var svg = d3.select("#viz_area_2")
+
+
     // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     // svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
 
@@ -34,23 +36,25 @@ $(function () {
     viz.drawStackedBarChart(data)
 
     var dataHeatMap = preproc.heatmapProcess(files[0])
-    console.log("DHM",dataHeatMap)
     heatmap.appendHeatMap(dataHeatMap)
+
+    var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
+    bubbleChart.appendBubbleChart(bubbleChartData)
     // heatmap.appendHeatMap(dataHeatMap)
 
-    //var svg = d3.select("#viz_area_3")
-    //var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    //svg.append("g").attr("class","green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green")
-    //.on('mouseover', function () {
-    //  console.log("green")
-    //})
-    //.on('mouseout', function () {
-    //  console.log("green")
-    //})
+   // var svg = d3.select("#viz_area_3")
+   // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+   // svg.append("g").attr("class","green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green")
+   // .on('mouseover', function () {
+   //   console.log("green")
+   // })
+   // .on('mouseout', function () {
+   //   console.log("green")
+   // })
 
-    var svg = d3.select("#viz_area_4")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
+    //var svg = d3.select("#viz_area_4")
+    //var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    //svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
 
 
 
