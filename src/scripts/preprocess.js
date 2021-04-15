@@ -77,12 +77,10 @@ export function heatmapProcess(data) {
   // Generate the data structure
   let clubResult = [];
   var Clubs = [...new Set(data.map(d => d.Club))]
-  console.log("Clubs",Clubs)
   // Loop through each club
   for (let i = 0; i < Clubs.length; i++) {
 
       let data_per_club = data.filter(d => d.Club == Clubs[i])
-      console.log("DPC",data_per_club)
 
       // Designate the age groups
       let ageGroupSalaries = new Array(13).fill(0)
@@ -101,7 +99,6 @@ export function heatmapProcess(data) {
             clubResult.push({Club : Clubs[i], Age : ageGroup, ageGroupSalary : ageGroupSalaries[ageGroup]})
 
         }
-      console.log("CR",clubResult)
   }return clubResult
 
 
@@ -121,11 +118,22 @@ export function bubbleChartPreProcess(data) {
                             MinsPlayed : data[i].MinutesPlayed, Position : data[i].PlayingPosition, Performance: data[i].X,
                             Salary:  Math.trunc(parseFloat((data[i].Salary.replace(/,/g,"").substring(2))))})
 
-
-  }console.log("Club Result Bubble",clubResult)
+  }
   return clubResult
 
+}
 
+export function connectedDotPlotProcess(data) {
 
+  let result = []
+
+ // Loop through each club
+ for (let i = 0; i < data.length; i++) {
+  var goals = [data[i].BM, data[i].BE]
+  result.push({Club : data[i].Équipe, values: goals})
+
+}
+console.log("SALUT", result)
+return result
 }
 
