@@ -33,8 +33,8 @@ export function appendHeatMap (data) {
 
   // set the dimensions and margins of the graph
 var margin = {top: 25, right: 30, bottom: 30, left: 150},
-width = 800 ,
-height = 590 - margin.top - margin.bottom;
+width = 2000 - margin.left - margin.right,
+    height = 1000 - margin.top - margin.bottom;
 
 var svg = d3.select("#viz_area_5")
  .append("svg")
@@ -47,17 +47,17 @@ var svg = d3.select("#viz_area_5")
   // Labels of row and columns
 var clubs = d3.map(data, function(d){return d.Club;}).keys()
 var ageGroups = d3.map(data, function(d){return d.Age;}).keys()
-
+console.log("XXX", ageGroups)
   // Build X scales and axis:
 var xScale = d3.scaleBand()
-.range([ 0, width ])
+.range([ 0, 1600 ])
 .domain(ageGroups)
 .padding(0.01);
 svg.append("g")
 .attr("transform", "translate(0,"+ height  + ")")
 .call(d3.axisBottom().scale(xScale))
 .selectAll("text")
-  .attr("transform", "translate(-10 20) rotate(-90)")
+  .attr("transform", "translate(0 0) rotate(0)")
 
 // Build Y scales and axis:
 var yScale = d3.scaleBand()
@@ -68,31 +68,10 @@ svg.append("g")
   .call(d3.axisLeft().scale(yScale));
 
   // Build color scale
-var myColor = d3.scaleLinear()
-.domain([0,1000000000])
-.range(["white", "#69b3a2"])
+  var myColor = d3.scaleLinear()
+  .range(["white", "#9b0026"])
+  .domain([0,800000])
 
-  // create a tooltip
-  var tooltip = d3.select("#viz_area_5")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "blue")
-    .style("padding", "1px")
-
-  // Three function that change the tooltip when user hover / move / leave a cell
-  var mouseover = function(d) {
-    tooltip.style("opacity", 1)
-  }
-  var mousemove = function(d) {
-    tooltip
-      .html("The exact value of<br>this cell is: " + d.ageGroupSalary)
-      .style("left", (d3.mouse(this)[0]+70) + "px")
-      .style("top", (d3.mouse(this)[1]) + "px")
-  }
-  var mouseleave = function(d) {
-    tooltip.style("opacity", 0)
-  }
 
   // add the rectangles
 
@@ -118,5 +97,91 @@ var myColor = d3.scaleLinear()
   .attr("fill", function (d) {
       return myColor(d.ageGroupSalary);})
   .attr("transform", "translate( "+ margin.left +" 25)")
+
+  //add the legend
+
+  initGradient (myColor)
+  initLegendBar ()
+  drawLegend (0, 550, height, width, "black", myColor)
+
+}
+
+
+/**
+ * Initializes the definition for the gradient to use with the
+ * given colorScale.
+ *
+ * @param {*} colorScale The color scale to use
+ */
+export function initGradient (colorScale) {
+  const svg = d3.select('#viz_area_5')
+
+  const defs = svg.append('defs')
+
+  const linearGradient = defs
+    .append('linearGradient')
+    .attr('id', 'gradient')
+    .attr('x1', 0).attr('y1', 1).attr('x2', 0).attr('y2', 0)
+
+  linearGradient.selectAll('stop')
+    .data(colorScale.ticks().map((tick, i, nodes) => (
+      {
+        offset: `${100 * (i / nodes.length)}%`,
+        color: colorScale(tick)
+      })))
+    .join('stop')
+    .attr('offset', d => d.offset)
+    .attr('stop-color', d => d.color)
+}
+
+/**
+ * Initializes the SVG rectangle for the legend.
+ */
+export function initLegendBar () {
+  const svg = d3.select('.heatmap-svg')
+  svg.append('rect').attr('class', 'legend bar')
+}
+
+/**
+ *  Initializes the group for the legend's axis.
+ */
+export function initLegendAxis () {
+  const svg = d3.select('.heatmap-svg')
+  svg
+    .append('g')
+    .attr('class', 'legend axis')
+}
+
+/**
+ * Draws the legend to the left of the graphic.
+ *
+ * @param {number} x The x position of the legend
+ * @param {number} y The y position of the legend
+ * @param {number} height The height of the legend
+ * @param {number} width The width of the legend
+ * @param {string} fill The fill of the legend
+ * @param {*} colorScale The color scale represented by the legend
+ */
+export function drawLegend (x, y, height, width, fill, colorScale) {
+  // TODO : Draw the legend
+  var leg = d3
+      .scaleLinear()
+      .domain(colorScale.domain())
+      .range([height, 0])
+
+      d3.select(".legend.axis")
+      .append("rect")
+      .attr("height", height)
+      .attr("width", width)
+      .attr("x", x)
+      .attr("y", y)
+      .attr("fill", fill)
+
+    d3.select(".legend.axis")
+      .append("g")
+      .attr("transform", "translate(" + x + ", " + y + ")")
+      .call(d3.axisLeft(leg)
+      .ticks(6)
+      );
 
 }

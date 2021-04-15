@@ -90,8 +90,7 @@ export function heatmapProcess(data) {
         // Each ageGroup contains two years; e.g 15-16, 17-18 [...] 39-40 years old
         for(let j = 0; j < data_per_club.length; j++){
           let ageCategorie= getAgeCategories((data_per_club[j].Age))
-
-          ageGroupSalaries[ageCategorie] += parseInt(Math.trunc(data_per_club[j].Salary.replace(',','').substring(2)))
+          ageGroupSalaries[ageCategorie] += Math.trunc(parseFloat((data_per_club[j].Salary.replace(/,/g,"").substring(2))))
 
         }
 
@@ -104,6 +103,28 @@ export function heatmapProcess(data) {
         }
       console.log("CR",clubResult)
   }return clubResult
+
+
+}
+
+
+export function bubbleChartPreProcess(data) {
+
+
+  // Generate the data structure
+  let clubResult = [];
+
+  // Loop through each club
+  for (let i = 0; i < data.length; i++) {
+
+            clubResult.push({Club : data[i].Club, LastName : data[i].LastName, FirstName: data[i].FirstName,
+                            MinsPlayed : data[i].MinutesPlayed, Position : data[i].PlayingPosition, Performance: data[i].X,
+                            Salary:  Math.trunc(parseFloat((data[i].Salary.replace(/,/g,"").substring(2))))})
+
+
+  }console.log("Club Result Bubble",clubResult)
+  return clubResult
+
 
 
 }
