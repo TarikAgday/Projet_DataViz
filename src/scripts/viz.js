@@ -6,7 +6,7 @@
  * @param {object[]} data The data to be used
  * @param {number} width The width of the graph
  */
- export function updateGroupXScale(scale, data, width) {
+export function updateGroupXScale(scale, data, width) {
   // TODO : Set the domain and range of the groups' x scale
 }
 
@@ -89,7 +89,7 @@ export function drawStackedBarChart(data) {
     .data(stackedSeries)
     .enter().append("g")
     .attr("class", "cost")
-    .style("fill", function (d, i) { return colors[i]; })
+    .style("fill", function (d, i) { return colors[i]; }) 
 
   var rect = groups.selectAll("rect")
     .data(d => d)
@@ -104,7 +104,7 @@ export function drawStackedBarChart(data) {
     .on("mouseout", function() { tooltip.style("display", "none"); })
     .on('mousemove', d => {
       // Mouse event stuffs again (overwrites above declaration).
-
+    
     //  console.log(d,d[1] - d[0],"ok")
      var xPosition = d3.mouse(d3.event.target)[0] + 20
      var yPosition =  d3.mouse(d3.event.target)[1]
@@ -113,7 +113,7 @@ export function drawStackedBarChart(data) {
      tooltip.select("text").text(d[1]-d[0]) //.attr("x", xPosition  ).attr("y"+ yPosition );
       // console.log( )
       })
-
+   
 
 
   var legend = svg.selectAll(".legend")
@@ -146,9 +146,9 @@ export function drawStackedBarChart(data) {
     var tooltip = svg.append("g")
     .attr("class", "tooltip")
     .style("display", "none");
-
-
-
+      
+ 
+  
   tooltip.append("text")
     .attr("x", 15)
     .attr("dy", "1.2em")

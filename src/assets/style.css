@@ -119,48 +119,49 @@ body, html {
     margin: 0;
     padding: 0;
     background: transparent;
+    pointer-events: none;
+    
 }
 .box:first-child {
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: 50% 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
+
     opacity: 1;
-    left: 500px;
-    z-index: -1;
+    /* pointer-events: auto; */
 }
+
 .box {
     width: 100%;
     height: 100vh;
-    background-size: cover;
-    background-position: 50% 50%;
     position: fixed;
     top: 0;
     left: 0;
     opacity: 0;
     left: 500px;
-    z-index: -1;
+   
 }
 
 .box-placeholder {
     position: relative;
-    height: 600vh; /*bestimmt den widerstand*/
+    height: 600vh; 
     background: transparent;
     font-size: 30px;
     color: red;
     padding-left: 2em;
     box-sizing: content-box;
+    /* pointer-events: auto; */
 }
 
 .inner-text {
     position: absolute;
 }
 
-.axis-text {
-    transform-origin: center;
-    transform-box: fill-box;
-    text-anchor: middle;
+g.yellow {
+    pointer-events: none;
 }
+
+/* g.cost {
+    pointer-events:  none;
+} */
+
+
+
+
