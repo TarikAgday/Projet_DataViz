@@ -1,3 +1,5 @@
+import d3Tip from 'd3-tip'
+
 const margin = {
     top: 75,
     right: 200,
@@ -27,6 +29,9 @@ export function drawScatteredPlotChart(data) {
     const budgetAverage = data.map(d => d.budget).reduce((a, c) => a + c) / data.length
 
     const g = generateG()
+
+    const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+    g.call(tip)
 
     g.append("rect")
         .attr('x', 0)
@@ -103,6 +108,8 @@ export function drawScatteredPlotChart(data) {
         .attr("cy", function (d) { return yScale(d.budget) })
         .attr("r", 5)
         .attr("fill", "black")
+        .on("mouseover",  function(d) { return tip.show(d,this) })
+        .on("mouseout",  function(d) { tip.hide(this) })
 }
 
 function generateG() {
@@ -170,3 +177,11 @@ function setSizing() {
         height: svgSize.height - margin.bottom - margin.top
     }
 }
+
+function getContents (d) {
+    return '<span> Club :  <span style="font-weight: normal">' + d.club 
+    + 
+    '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + d.budget
+    + '</span>'
+  }
+  
