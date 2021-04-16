@@ -5,6 +5,7 @@ import * as viz from './scripts/viz.js'
 import * as helper from './scripts/helper.js'
 import * as legend from './scripts/legend.js'
 import * as tooltip from './scripts/tooltip.js'
+import * as scatterPlot from './scripts/scatterplot.js'
 
 import d3Tip from 'd3-tip'
 
@@ -33,15 +34,18 @@ $(function () {
     var data = preproc.stackedBarChartData(files[0])
     viz.drawStackedBarChart(data)
 
-    var svg = d3.select("#viz_area_3")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("g").attr("class","green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green")
-    .on('mouseover', function () {
-      console.log("green")
-  })
-  .on('mouseout', function () {
-    console.log("green")
-})
+    const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
+    scatterPlot.drawScatteredPlotChart(scatteredPlotData)
+
+//     var svg = d3.select("#viz_area_3")
+//     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+//     svg.append("g").attr("class","green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green")
+//     .on('mouseover', function () {
+//       console.log("green")
+//   })
+//   .on('mouseout', function () {
+//     console.log("green")
+// })
 
     var svg = d3.select("#viz_area_4")
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);

@@ -158,6 +158,12 @@ g.yellow {
     pointer-events: none;
 }
 
+.axis-text {
+    transform-origin: center;
+    transform-box: fill-box;
+    text-anchor: middle;
+}
+
 /* g.cost {
     pointer-events:  none;
 } */

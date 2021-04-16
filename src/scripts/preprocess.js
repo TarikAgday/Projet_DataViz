@@ -32,3 +32,17 @@ export function stackedBarChartData(data) {
   return res
 }
 
+export function scatteredPlotProcess(data) {
+  const STANDING = "General Standing"
+  const PLAYOFFS_STANDING = "Playoffs Standing"
+  const TOTAL_BUDGET = "Total Budget"
+
+  return data.map(d => {
+    return {
+      club: d.Club,
+      pos: parseInt(d[STANDING]),
+      playoffPos: parseInt(d[PLAYOFFS_STANDING]),
+      budget: parseInt(d[TOTAL_BUDGET])
+    }
+  })
+}
