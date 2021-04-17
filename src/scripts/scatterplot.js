@@ -14,18 +14,18 @@ const maxBudget = 25000000
 
 export function drawScatteredPlotChart(data) {
     setSizing()
-    
+
     const firstPos = d3.min(data, function (d) { return d.pos })
     const lastPos = d3.max(data, function (d) { return d.pos })
-    
+
     const xScale = d3.scaleLinear()
     .domain([firstPos, lastPos])
     .range([graphSize.width, 0])
-    
+
     const yScale = d3.scaleLinear()
     .domain([0, maxBudget])
     .range([graphSize.height, 0])
-    
+
     const budgetAverage = data.map(d => d.budget).reduce((a, c) => a + c) / data.length
 
     const g = generateG()
@@ -113,7 +113,7 @@ export function drawScatteredPlotChart(data) {
 }
 
 function generateG() {
-    return d3.select('#viz_area_3')
+    return d3.select("#viz_area_1")
         .append('g')
         .attr('id', 'scatter-plot')
         .attr('transform',
@@ -140,7 +140,7 @@ function appendGraphLabels (g) {
       .attr('class', 'y axis-text')
       .attr('transform', 'rotate(-90)')
       .attr('font-size', 20)
-  
+
     g.append('text')
       .text('General Standing')
       .attr('class', 'x axis-text')
@@ -160,7 +160,7 @@ function positionLabels (g) {
     g.select('.x.axis-text')
     .attr('x', graphSize.width / 2)
     .attr('y', graphSize.height + 50)
-    
+
     g.select('.y.axis-text')
     .attr('x', -50)
     .attr('y', graphSize.height / 2)
@@ -179,9 +179,8 @@ function setSizing() {
 }
 
 function getContents (d) {
-    return '<span> Club :  <span style="font-weight: normal">' + d.club 
-    + 
+    return '<span> Club :  <span style="font-weight: normal">' + d.club
+    +
     '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + d.budget
     + '</span>'
   }
-  
