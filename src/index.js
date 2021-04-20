@@ -59,7 +59,10 @@ $(function () {
     console.log("data")
     console.log(data)
 
-    multiPannelPlot.drawMultiPannelBar(data)
+    multiPannelPlot.drawMultiPannelBar(data, 0, 0)
+    multiPannelPlot.drawMultiPannelBar(data, 400, 0)
+    multiPannelPlot.drawMultiPannelBar(data, 800, 0)
+    //multiPannelPlot.TESTdrawMultiPannelBar(data, 0, 0)
 
   })
 

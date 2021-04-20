@@ -1,4 +1,4 @@
-export function drawMultiPannelBar(data){
+export function drawMultiPannelBar(data, x_test, y_test){
     const h = 400, w = 400
     var margin = {top: 5, right: 5, bottom: 5, left: 5}
 
@@ -7,8 +7,8 @@ export function drawMultiPannelBar(data){
     .append("svg")
     .attr("width", w)
     .attr("height", h)
-    .attr("x", 0)
-    .attr("y", 0)
+    .attr("x", x_test)
+    .attr("y", y_test)
 
     var x = d3.scaleBand().domain(data[0].Players.map(function(d) {
         return d.Name
@@ -70,4 +70,17 @@ export function drawMultiPannelBar(data){
             return "#d9d574"
         }
     })
+
+
+    
+    // var svg = d3.select("#viz_area_5")
+    // .append("g")
+    // .append("svg")
+    // .append("rect")
+    // .attr("width", w)
+    // .attr("height", h)
+    // .attr("x", 400)
+    // .attr("y", 0)
+    // .style("fill", "black")
 }
+
