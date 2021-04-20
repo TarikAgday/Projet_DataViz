@@ -21,7 +21,7 @@ export function drawBarChart(data, x_test, y_test){
     const h = 400, w = 400
     var margin = {top: 5, right: 5, bottom: 5, left: 5}
 
-    var svg = d3.select("#viz_area_5")
+    var svg = d3.select("#viz_area_3")
     .append("g")
     .append("svg")
     .attr("width", w)
