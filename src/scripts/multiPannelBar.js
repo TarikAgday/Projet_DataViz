@@ -39,24 +39,31 @@ export function drawMultiPannelBar(data, mapData){
     var x = d3.scaleBand().domain(data[0].Players.map(function(d) {
         return d.Name
     })).range([0, 350])
-    // var y = d3.scaleLinear().range([height, 0])
-    // .domain([0, d3.max(data[0].Players, function(d){
-    //     return d.Minutes
-    // })])
+
+    var y = d3.scaleLinear().range([280, 0])
+    .domain([0, d3.max(data[0].Players, function(d){
+        return d.Minutes
+    })])
+
     var xAxis = d3.axisBottom().scale(x)
-    // var yAxis = d3.axisLeft().scale(y)
+    var yAxis = d3.axisLeft().scale(y)
 
     svg.append("g")
-    .attr("transform", "translate(50," + 200 + ")")
+    .attr("transform", "translate(50," + 280 + ")")
     .call(xAxis)
     .selectAll("text")
     .attr("transform", "rotate(-90)")
     .attr("dy", ".35em")
     .attr("y", 0)
     .attr("x", -65)
-    // .attr("dy", ".35em")
-    // .attr("transform", "rotate(-90)")
-    // .style("text-anchor", "end");
+
+
+    svg.append("g")
+    .attr("transform", "translate(50)")
+    .call(yAxis)
+    .selectAll("text")
+    .attr("x", 30)
+    .attr("transform", "translate(-40)")
     
 
 
