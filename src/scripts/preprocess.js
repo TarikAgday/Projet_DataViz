@@ -46,3 +46,35 @@ export function scatteredPlotProcess(data) {
     }
   })
 }
+
+export function mapMultiPannelProcess (data){
+  const multiPannelData = new Map()
+  data.forEach(d => {
+    if (!multiPannelData.has(d.Club))  {
+      multiPannelData.set(d.Club, new Map([[d["First Name"]+ " " + d["Last Name"], parseInt(d["MinutesPlayed"])]]))
+    } else {
+      multiPannelData.get(d.Club).set(d["First Name"] +" " + d["Last Name"], parseInt(d["MinutesPlayed"]))
+    }
+  })
+  return multiPannelData
+}
+
+export function multipannelProcess(multiPannelData){
+  const processedData = []
+  multiPannelData.forEach((players, team) =>{
+    const playersInfo = []
+    players.forEach((minutes, player) =>{
+      playersInfo.push({
+        "Name": player,
+        "Minutes": parseInt(minutes)
+      })
+    })
+    processedData.push({
+      "Team": team,
+      "Players": playersInfo
+    })
+  })
+  // console.log("processedData")
+  // console.log(processedData)
+  return processedData
+}

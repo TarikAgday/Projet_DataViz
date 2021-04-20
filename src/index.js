@@ -6,6 +6,7 @@ import * as helper from './scripts/helper.js'
 import * as legend from './scripts/legend.js'
 import * as tooltip from './scripts/tooltip.js'
 import * as scatterPlot from './scripts/scatterplot.js'
+import * as multiPannelPlot from './scripts/multiPannelBar.js'
 
 import d3Tip from 'd3-tip'
 
@@ -21,11 +22,11 @@ $(function () {
     // files[1] data ClassementParEquipeConv
 
     // creer tes fonctions dans un autre fichier et les appeler ici
-    var svg = d3.select("#viz_area")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
-      console.log("ines")
-  })
+  //   var svg = d3.select("#viz_area")
+  //   var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+  //   svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
+  //     console.log("ines")
+  // })
     
     // var svg = d3.select("#viz_area_2")
     // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
@@ -47,13 +48,22 @@ $(function () {
 //     console.log("green")
 // })
 
-    var svg = d3.select("#viz_area_4")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
-    var svg = d3.select("#viz_area_end")
-    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "yellow");
+    // var svg = d3.select("#viz_area_4").attr("height", 1200).attr("width", 1200).attr("fill", "black")
+    // // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    // // svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
+    // var svg = d3.select("#viz_area_end")
+    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+    // svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "yellow");
     
+    var mapData = preproc.mapMultiPannelProcess(files[0])
+    console.log("mapData")
+    console.log(mapData)
+    var data = preproc.multipannelProcess(mapData)
+    console.log("data")
+    console.log(data)
+
+    multiPannelPlot.drawMultiPannelBar(data, mapData)
+
   })
 
   var dimensions = {}, elements = [];
