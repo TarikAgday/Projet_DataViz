@@ -44,7 +44,6 @@ export function drawMultiPannelBar(data){
         return d.Minutes
     })])
 
-
     svg.append("g")
     .selectAll(".bar")
     .data(data[0].Players)
@@ -60,4 +59,15 @@ export function drawMultiPannelBar(data){
     .attr("width", x.bandwidth())
     .attr("height", function(d){ return y(d.Minutes)})
     .attr("transform", "translate(50," + -120 + ")")
+    .style("fill", function(d){
+        if (d.Position === "M"){
+            return "#b33040"
+        } else if (d.Position === "D"){
+            return "#d25c4d"
+        } else if (d.Position === "GK"){
+            return "#f2b447"
+        } else if (d.Position === "F"){
+            return "#d9d574"
+        }
+    })
 }
