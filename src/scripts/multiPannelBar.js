@@ -1,4 +1,22 @@
-export function drawMultiPannelBar(data, x_test, y_test){
+export function drawMultiPannelBar(dataTeams){
+    var x = 0, y = 0
+    var count = 0
+    dataTeams.forEach(function(d, i){
+        console.log(i)
+        console.log(d)
+        drawBarChart(d, x, y)
+        if (count < 3){
+            x+=400
+        }else {
+            x = 0
+            y+=400
+            count = 0
+        }
+        count++
+    })
+}
+
+export function drawBarChart(data, x_test, y_test){
     const h = 400, w = 400
     var margin = {top: 5, right: 5, bottom: 5, left: 5}
 
@@ -10,12 +28,12 @@ export function drawMultiPannelBar(data, x_test, y_test){
     .attr("x", x_test)
     .attr("y", y_test)
 
-    var x = d3.scaleBand().domain(data[0].Players.map(function(d) {
+    var x = d3.scaleBand().domain(data.Players.map(function(d) {
         return d.Name
     })).range([0, 350])
 
     var y = d3.scaleLinear().range([255, 0])
-    .domain([0, d3.max(data[0].Players, function(d){
+    .domain([0, d3.max(data.Players, function(d){
         return d.Minutes
     })])
 
@@ -40,13 +58,13 @@ export function drawMultiPannelBar(data, x_test, y_test){
     .attr("transform", "translate(-40)")
 
     var y = d3.scaleLinear().range([0, 255])
-    .domain([0, d3.max(data[0].Players, function(d){
+    .domain([0, d3.max(data.Players, function(d){
         return d.Minutes
     })])
 
     svg.append("g")
     .selectAll(".bar")
-    .data(data[0].Players)
+    .data(data.Players)
     .enter()
     .append("rect")
     .attr("class", "bar")
