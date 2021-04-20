@@ -47,26 +47,38 @@ export function scatteredPlotProcess(data) {
   })
 }
 
+
 export function mapMultiPannelProcess (data){
+  console.log(data)
   const multiPannelData = new Map()
   data.forEach(d => {
     if (!multiPannelData.has(d.Club))  {
-      multiPannelData.set(d.Club, new Map([[d["First Name"]+ " " + d["Last Name"], parseInt(d["MinutesPlayed"])]]))
+      multiPannelData.set(d.Club, new Map([[
+        d["First Name"]+ " " + d["Last Name"], {
+          "Minutes": parseInt(d["MinutesPlayed"]),
+          "Position": d["Playing Position"]
+        }]]))
     } else {
-      multiPannelData.get(d.Club).set(d["First Name"] +" " + d["Last Name"], parseInt(d["MinutesPlayed"]))
+      multiPannelData.get(d.Club).set(
+        d["First Name"] +" " + d["Last Name"], {
+        "Minutes": parseInt(d["MinutesPlayed"]),
+        "Position": d["Playing Position"]
+      })
     }
   })
   return multiPannelData
 }
 
-export function multipannelProcess(multiPannelData){
+export function multipannelProcess(data){
+  var multiPannelData = mapMultiPannelProcess(data)
   const processedData = []
   multiPannelData.forEach((players, team) =>{
     const playersInfo = []
-    players.forEach((minutes, player) =>{
+    players.forEach((info, player) =>{
       playersInfo.push({
         "Name": player,
-        "Minutes": parseInt(minutes)
+        "Minutes": parseInt(info.Minutes),
+        "Position": info.Position
       })
     })
     processedData.push({
@@ -74,7 +86,5 @@ export function multipannelProcess(multiPannelData){
       "Players": playersInfo
     })
   })
-  // console.log("processedData")
-  // console.log(processedData)
   return processedData
 }

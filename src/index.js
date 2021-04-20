@@ -55,14 +55,11 @@ $(function () {
     // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     // svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "yellow");
     
-    var mapData = preproc.mapMultiPannelProcess(files[0])
-    console.log("mapData")
-    console.log(mapData)
-    var data = preproc.multipannelProcess(mapData)
+    var data = preproc.multipannelProcess(files[0])
     console.log("data")
     console.log(data)
 
-    multiPannelPlot.drawMultiPannelBar(data, mapData)
+    multiPannelPlot.drawMultiPannelBar(data)
 
   })
 
