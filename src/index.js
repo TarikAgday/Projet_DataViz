@@ -7,6 +7,7 @@ import * as connectedDotPlot from './scripts/connectedDotPlot'
 import * as bubbleChart from './scripts/bubbleChart'
 import * as tooltip from './scripts/tooltip.js'
 import * as scatterPlot from './scripts/scatterplot.js'
+import * as multiPannelPlot from './scripts/multiPannelBar.js'
 
 import d3Tip from 'd3-tip'
 
@@ -33,10 +34,6 @@ $(function () {
     var dataConnectedDotPlot = preproc.connectedDotPlotProcess(files[1])
     connectedDotPlot.appendConnectedDotPlot(dataConnectedDotPlot)
 
-    // var svg = d3.select("#viz_area_2")
-    // var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    // svg.append("circle").attr("cx", x(50)).attr("cy", 100).attr("r", 40).style("fill", "blue");
-
     var data = preproc.stackedBarChartData(files[0])
     viz.drawStackedBarChart(data)
 
@@ -49,19 +46,13 @@ $(function () {
     var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
     bubbleChart.appendBubbleChart(bubbleChartData)
 
-//     var svg = d3.select("#viz_area_3")
-//     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-//     svg.append("g").attr("class","green").append("circle").attr("cx", x(70)).attr("cy", 150).attr("r", 40).style("fill", "green")
-//     .on('mouseover', function () {
-//       console.log("green")
-//   })
-//   .on('mouseout', function () {
-//     console.log("green")
-// })
+    
+    var data = preproc.multipannelProcess(files[0])
+    console.log("data")
+    console.log(data)
 
-//    var svg = d3.select("#viz_area_4")
-//    var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-//    svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "blue")
+    multiPannelPlot.drawMultiPannelBar(data)
+
     var svg = d3.select("#viz_area_end")
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
     svg.append("rect").attr("x", x(100)).attr("y", 100).attr("width", 40).attr("height", 40).style("fill", "yellow");

@@ -46,6 +46,49 @@ export function scatteredPlotProcess(data) {
   })
 }
 
+
+
+export function mapMultiPannelProcess (data){
+  console.log(data)
+  const multiPannelData = new Map()
+  data.forEach(d => {
+    if (!multiPannelData.has(d.Club))  {
+      multiPannelData.set(d.Club, new Map([[
+        d["First Name"]+ " " + d["Last Name"], {
+          "Minutes": parseInt(d["MinutesPlayed"]),
+          "Position": d["Playing Position"]
+        }]]))
+    } else {
+      multiPannelData.get(d.Club).set(
+        d["First Name"] +" " + d["Last Name"], {
+        "Minutes": parseInt(d["MinutesPlayed"]),
+        "Position": d["Playing Position"]
+      })
+    }
+  })
+  return multiPannelData
+}
+
+export function multipannelProcess(data){
+  var multiPannelData = mapMultiPannelProcess(data)
+  const processedData = []
+  multiPannelData.forEach((players, team) =>{
+    const playersInfo = []
+    players.forEach((info, player) =>{
+      playersInfo.push({
+        "Name": player,
+        "Minutes": parseInt(info.Minutes),
+        "Position": info.Position
+      })
+    })
+    processedData.push({
+      "Team": team,
+      "Players": playersInfo
+    })
+  })
+  return processedData
+}
+
   export function getClubsNames(data) {
     // TODO: Return the neihborhood names
     const uniqueClubNames = [...new Set(data.map(item => item.Club))];
@@ -152,3 +195,4 @@ export function scatteredPlotProcess(data) {
   }
     return result
   }
+
