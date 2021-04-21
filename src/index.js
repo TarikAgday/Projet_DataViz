@@ -2,7 +2,7 @@
 
 import * as preproc from './scripts/preprocess.js'
 import * as viz from './scripts/viz.js'
-import * as heatmap from './scripts/heatmap.js'
+import * as heatmap from './scripts/heatmap'
 import * as connectedDotPlot from './scripts/connectedDotPlot.js'
 import * as bubbleChart from './scripts/bubbleChart.js'
 import * as scatterPlot from './scripts/scatterplot.js'
