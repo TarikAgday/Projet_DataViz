@@ -1,4 +1,4 @@
-import d3Tip from "d3-tip"
+import d3Tip from 'd3-tip'
 
 // code source https://www.d3-graph-gallery.com/graph/bubble_template.html
 // set the dimensions and margins of the graph
