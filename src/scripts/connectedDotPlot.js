@@ -1,4 +1,4 @@
-import d3Tip from 'd3-tip'
+// import d3Tip from 'd3-tip'
 // Code source: https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 export function appendConnectedDotPlot (data){
   console.log("Coneccted Data", data)

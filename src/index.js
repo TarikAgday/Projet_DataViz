@@ -9,7 +9,7 @@ import * as tooltip from './scripts/tooltip.js'
 import * as scatterPlot from './scripts/scatterplot.js'
 import * as multiPannelPlot from './scripts/multiPannelBar.js'
 
-import d3Tip from 'd3-tip'
+// import d3Tip from 'd3-tip'
 
 
 $(function () {
@@ -46,7 +46,7 @@ $(function () {
     var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
     bubbleChart.appendBubbleChart(bubbleChartData)
 
-    
+
     var data = preproc.multipannelProcess(files[0])
     console.log("data")
     console.log(data)
