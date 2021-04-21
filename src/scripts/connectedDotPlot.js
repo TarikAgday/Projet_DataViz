@@ -1,5 +1,7 @@
+import d3Tip from 'd3-tip'
 // Code source: https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 export function appendConnectedDotPlot (data){
+  console.log("Coneccted Data", data)
     var teamsByStandings = ["Los Angeles FC","NYCFC","Atlanta","Seattle",
     "Philadelphia", "Real Salt Lake", "Minnesota","LA Galaxy", "Toronto FC",
     "DC United","Portland","FC Dallas","NY Red Bulls","New England","San Jose",
@@ -18,6 +20,15 @@ var svg = d3.select("#viz_area_6")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
+
+  //Viz title
+  svg.append("text")
+    .attr("x", (width / 2))
+    .attr("y", 0 - (margin.top/10))
+    .attr("text-anchor", "middle")
+    .style("font-size", "28px")
+    .style("text-decoration", "underline")
+    .text("Gaps between goals scored and goals conceided ordered by teams' rankings");
 
   // Add X axis
   var x = d3.scaleLinear()
@@ -45,7 +56,9 @@ var svg = d3.select("#viz_area_6")
       .attr("y1", function(d) { return y(d.Club); })
       .attr("y2", function(d) { return y(d.Club); })
       .attr("stroke", "grey")
-      .attr("stroke-width", "1px")
+      .attr("stroke-width", "5px")
+      .on("mouseover",  function(d) { return tip.show(d,this) })
+      .on("mouseout",  function(d) { tip.hide(this) })
 
   // Circles of variable 1
   svg.selectAll("mycircle")
@@ -54,8 +67,10 @@ var svg = d3.select("#viz_area_6")
     .append("circle")
       .attr("cx", function(d) { return x(d.values[0]); })
       .attr("cy", function(d) { return y(d.Club); })
-      .attr("r", "6")
+      .attr("r", "10")
       .style("fill", "#0000ff")
+      .on("mouseover",  function(d) { return tip.show(d,this) })
+      .on("mouseout",  function(d) { tip.hide(this) })
 
   // Circles of variable 2
   svg.selectAll("mycircle")
@@ -64,7 +79,23 @@ var svg = d3.select("#viz_area_6")
     .append("circle")
       .attr("cx", function(d) { return x(d.values[1]); })
       .attr("cy", function(d) { return y(d.Club); })
-      .attr("r", "6")
+      .attr("r", "10")
       .style("fill", "#ff0000")
+      .on("mouseover",  function(d) { return tip.show(d,this) })
+      .on("mouseout",  function(d) { tip.hide(this) })
+
+  // Function to generate tooltip
+const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+svg.call(tip)
+
+// Get content of Rectangle tooltip
+function getContents (d) {
+  return '</span><bold> Club : </bold><span style="font-weight: normal">' + d.Club
+  +
+      '<span> <br>Goals scored :  <span style="font-weight: normal">' + d.values[0]
+  +
+  '<span> <br>Goals against :  <span style="font-weight: normal">' + d.values[1]
+
+}
 
 }

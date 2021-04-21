@@ -127,10 +127,14 @@ export function scatteredPlotProcess(data) {
 
     // Loop through each club
     for (let i = 0; i < data.length; i++) {
-
-              clubResult.push({Club : data[i].Club, LastName : data[i].LastName, FirstName: data[i].FirstName,
-                              MinsPlayed : data[i].MinutesPlayed, Position : data[i].PlayingPosition, Performance: data[i].X,
-                              Salary:  Math.trunc(parseFloat((data[i].Salaire.replace(/,/g,"").substring(2))))})
+              if(data[i]["Playing Position"] == 'M'){
+                clubResult.push({Club : data[i].Club, LastName : data[i]["Last Name"], FirstName: data[i]["First Name"],
+                                MinsPlayed : data[i].MinutesPlayed, Position : data[i]["Playing Position"], Performance: (data[i].X/1000),
+                                Salary:  Math.trunc(parseFloat((data[i].Salaire.replace(/,/g,"").substring(2))))})}
+              else{
+              clubResult.push({Club : data[i].Club, LastName : data[i]["Last Name"], FirstName: data[i]["First Name"],
+                              MinsPlayed : data[i].MinutesPlayed, Position : data[i]["Playing Position"], Performance: data[i].X,
+                              Salary:  Math.trunc(parseFloat((data[i].Salaire.replace(/,/g,"").substring(2))))})}
 
     }
     return clubResult

@@ -1,7 +1,4 @@
-import { color, interpolate, svg } from "d3";
-import { getClubsNames } from "./preprocess";
-
-
+import d3Tip from 'd3-tip'
 /**
  * Sets the domain of the color scale
  *
@@ -26,13 +23,15 @@ export function setColorScaleDomain (colorScale, data) {
  * @param {object[]} data The data to use for binding
  */
 export function appendHeatMap (data) {
+  console.log("Data heatmap", data)
+
   // TODO : Append SVG rect elements
   // Ajoutez la structure SVG et liez-y les données (fonction appendRects).
   // Cette structure sera utilisée
   // pour dessiner la carte de chaleur dans les étapes suivantes.
 
   // set the dimensions and margins of the graph
-var margin = {top: 25, right: 150, bottom: 30, left: 150},
+var margin = {top: 100, right: 150, bottom: 30, left: 150},
 width = 1200 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
@@ -72,6 +71,16 @@ svg.append("g")
   .range(["white", "#9b0026"])
   .domain([0,800000])
 
+   //Viz title
+   svg.append("text")
+   .attr("x", (width / 2))
+   .attr("y", 0 - (margin.top/5))
+   .attr("text-anchor", "middle")
+   .style("font-size", "28px")
+   .style("text-decoration", "underline")
+   .text("Salaries by age groups");
+
+
 
   // add the rectangles
 
@@ -86,7 +95,7 @@ svg.append("g")
       return xScale(d.Age);
     })
   .attr("y", function (d) {
-      return yScale(d.Club);
+      return yScale(d.Club) + (0.75*(margin.top));
     })
   .attr("width", function (d) {
       return xScale.bandwidth();
@@ -97,12 +106,35 @@ svg.append("g")
   .attr("fill", function (d) {
       return myColor(d.ageGroupSalary);})
   .attr("transform", "translate( "+ margin.left +" 25)")
+  .on("mouseover",  function(d) { return tip.show(d,this) })
+  .on("mouseout",  function(d) { tip.hide(this) })
 
   //add the legend
 
   initGradient (myColor)
   initLegendBar ()
   drawLegend (0, 550, height, width, "black", myColor)
+
+
+
+// Function to generate tooltip
+const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+svg.call(tip)
+
+// Get content of Rectangle tooltip
+function getContents (d) {
+  return '</span><bold> Club : </bold><span style="font-weight: normal">' + d.Club
+  +
+      '<span> <br>Age group :  <span style="font-weight: normal">' + (15 + (d.Age*2)) + '-' + (15 + (d.Age*2)+1)
+  +
+  '</span><br><bold> Total salary : </bold><span style="font-weight: normal">' + formatNumber(d.ageGroupSalary) + " $"
+
+}
+
+//Format integers to add comas for millions or thousands values
+function formatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
 
 }
 
@@ -182,6 +214,7 @@ export function drawLegend (x, y, height, width, fill, colorScale) {
       .attr("transform", "translate(" + x + ", " + y + ")")
       .call(d3.axisLeft(leg)
       .ticks(6)
-      );
+      )
+
 
 }
