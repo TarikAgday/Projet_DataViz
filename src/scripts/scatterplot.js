@@ -1,4 +1,4 @@
-import d3Tip from 'd3-tip'
+//import d3Tip from 'd3-tip'
 
 const margin = {
     top: 75,
@@ -30,7 +30,7 @@ export function drawScatteredPlotChart(data) {
 
     const g = generateG()
 
-    const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+    const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
     g.call(tip)
 
     g.append("rect")

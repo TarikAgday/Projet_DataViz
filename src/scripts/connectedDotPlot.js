@@ -1,4 +1,4 @@
-import d3Tip from 'd3-tip'
+//import d3Tip from 'd3-tip'
 
 // Code source: https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 export function appendConnectedDotPlot (data){
@@ -86,7 +86,7 @@ var svg = d3.select("#viz_area_6")
       .on("mouseout",  function(d) { tip.hide(this) })
 
   // Function to generate tooltip
-const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
 svg.call(tip)
 
 // Get content of Rectangle tooltip

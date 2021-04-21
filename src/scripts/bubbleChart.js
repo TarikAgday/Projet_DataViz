@@ -1,4 +1,4 @@
-import d3Tip from 'd3-tip'
+//import d3Tip from 'd3-tip'
 
 // code source https://www.d3-graph-gallery.com/graph/bubble_template.html
 // set the dimensions and margins of the graph
@@ -243,7 +243,7 @@ export function appendBubbleChart (data) {
             .attr('fill', '#362023')
 
             // Function to generate tooltip
-            const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+            const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
               svg.call(tip)
 
             // Get content of Bubbles tooltip

@@ -1,4 +1,4 @@
-import d3Tip from 'd3-tip'
+//import d3Tip from 'd3-tip'
 /**
  * Sets the domain of the color scale
  *
@@ -118,7 +118,7 @@ svg.append("g")
 
 
 // Function to generate tooltip
-const tip = d3Tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
 svg.call(tip)
 
 // Get content of Rectangle tooltip
