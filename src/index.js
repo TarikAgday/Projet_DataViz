@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 
 import * as preproc from './scripts/preprocess.js'
 import * as viz from './scripts/viz.js'
