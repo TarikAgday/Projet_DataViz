@@ -1,4 +1,4 @@
-//import d3Tip from 'd3-tip'
+import d3Tip from "d3-tip"
 /**
  * Sets the domain of the color scale
  *

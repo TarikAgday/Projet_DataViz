@@ -5,11 +5,8 @@ import * as viz from './scripts/viz.js'
 import * as heatmap from './scripts/heatmap'
 import * as connectedDotPlot from './scripts/connectedDotPlot'
 import * as bubbleChart from './scripts/bubbleChart'
-import * as tooltip from './scripts/tooltip.js'
 import * as scatterPlot from './scripts/scatterplot.js'
 import * as multiPannelPlot from './scripts/multiPannelBar.js'
-
-// import d3Tip from 'd3-tip'
 
 
 $(function () {
