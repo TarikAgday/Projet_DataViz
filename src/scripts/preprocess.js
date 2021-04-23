@@ -49,14 +49,13 @@ export function scatteredPlotProcess(data) {
 
 
 export function mapMultiPannelProcess (data){
-  console.log(data)
   const multiPannelData = new Map()
   data.forEach(d => {
     if (!multiPannelData.has(d.Club))  {
       multiPannelData.set(d.Club, new Map([[
         d["First Name"]+ " " + d["Last Name"], {
           "Minutes": parseInt(d["MinutesPlayed"]),
-          "Position": d["Playing Position"]
+          "Position": d["Playing Position"],
         }]]))
     } else {
       multiPannelData.get(d.Club).set(
@@ -88,6 +87,57 @@ export function multipannelProcess(data){
   })
   return processedData
 }
+
+
+export function mapMultiBubbleChartProcess (data){
+  const multiPannelData = new Map()
+  data.forEach(d => {
+    if (!multiPannelData.has(d["Playing Position"]))  {
+      multiPannelData.set(d["Playing Position"], new Map([[
+        d["First Name"]+ " " + d["Last Name"], {
+          "Minutes": parseInt(d["MinutesPlayed"]),
+          "Performance": d.X,
+          "Club": d.Club,
+          "Salary": d.Salaire,
+          "Position": d["Playing Position"]
+        }]]))
+    } else {
+      multiPannelData.get(d["Playing Position"]).set(
+        d["First Name"] +" " + d["Last Name"], {
+        "Minutes": parseInt(d["MinutesPlayed"]),
+        "Performance": d.X,
+        "Club": d.Club,
+        "Salary": d.Salaire,
+        "Position": d["Playing Position"]
+      })
+    }
+  })
+  return multiPannelData
+}
+
+export function multipannelBubbleChartProcess(data){
+  var multiPannelData = mapMultiBubbleChartProcess(data)
+  const processedData = []
+  multiPannelData.forEach((players, position) =>{
+    const playersInfo = []
+    players.forEach((info, player) =>{
+      playersInfo.push({
+        "Name": player,
+        "Club": info.Club,
+        "Minutes": parseInt(info.Minutes),
+        "Performance": info.Performance,
+        "Position": info.Position,
+        "Salary": Math.trunc(parseFloat((info.Salary.replace(/,/g,"").substring(2))))
+      })
+    })
+    processedData.push({
+      "Position": position,
+      "Players": playersInfo
+    })
+  })
+  return processedData
+}
+
 
   export function getClubsNames(data) {
     // TODO: Return the neihborhood names

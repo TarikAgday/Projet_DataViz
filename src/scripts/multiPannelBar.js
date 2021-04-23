@@ -1,10 +1,7 @@
 export function drawMultiPannelBar(dataTeams){
-    console.log(dataTeams.length)
     var x = 0, y = 0
     var count = 0
     dataTeams.forEach(function(d, i){
-        console.log(i)
-        console.log(d)
         drawBarChart(d, x, y)
         if (count < 4){
             x+=400
@@ -69,10 +66,10 @@ export function drawBarChart(data, x_test, y_test){
     .enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("x", function(d){ 
+    .attr("x", function(d){
         return x(d.Name)
     })
-    .attr("y", function(d){ 
+    .attr("y", function(d){
         return h-y(d.Minutes)
     })
     .attr("width", x.bandwidth())
@@ -89,17 +86,5 @@ export function drawBarChart(data, x_test, y_test){
             return "#d9d574"
         }
     })
-
-
-    
-    // var svg = d3.select("#viz_area_5")
-    // .append("g")
-    // .append("svg")
-    // .append("rect")
-    // .attr("width", w)
-    // .attr("height", h)
-    // .attr("x", 400)
-    // .attr("y", 0)
-    // .style("fill", "black")
 }
 

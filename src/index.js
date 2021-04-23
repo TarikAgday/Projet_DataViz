@@ -23,9 +23,9 @@ $(function () {
     // creer tes fonctions dans un autre fichier et les appeler ici
     var svg = d3.select("#viz_area")
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
-      console.log("ines")
-  })
+    //svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
+    //  console.log("ines")
+
 
     // Area 2: Connected Dot Plot
     var dataConnectedDotPlot = preproc.connectedDotPlotProcess(files[1])
@@ -40,14 +40,12 @@ $(function () {
     const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
     scatterPlot.drawScatteredPlotChart(scatteredPlotData)
 
-    var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
-    bubbleChart.appendBubbleChart(bubbleChartData)
-
+    //var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
+   var dataMBUBLLE = preproc.multipannelBubbleChartProcess(files[0])
+   console.log("dataMBUBLLE",dataMBUBLLE)
+   bubbleChart.drawMultiPannelBubble(dataMBUBLLE)
 
     var data = preproc.multipannelProcess(files[0])
-    console.log("data")
-    console.log(data)
-
     multiPannelPlot.drawMultiPannelBar(data)
 
     var svg = d3.select("#viz_area_end")
