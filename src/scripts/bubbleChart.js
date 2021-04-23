@@ -167,7 +167,7 @@ export function appendBubbleChart (data, x , y) {
           .attr("class" , function(d){ return "dot" + d.Club })
           .attr("cx", function (d) { return x(d.Minutes)+margin.left } )
           .attr("cy", function (d) { return y(d.Performance)-margin.bottom } )
-          .attr("r", function (d) { return z(d.Salary*250); } )
+          .attr("r", function (d) { return z(d.Salary*500); } )
           .style("fill", "black")
          .on("mouseover",  function(d) { return tip.show(d,this) })
         .on("mouseout",  function(d) { tip.hide(this) })
@@ -249,8 +249,8 @@ export function appendBubbleChart (data, x , y) {
         var size = 20
         var allgroups = ["Atlanta", "Chicago", "Colorado", "Columbus", "DC",
         "Cincinnati", "Dallas", "Houston", "LA","LAFC",
-        "Minnesota", "Montreal", "New England Revolution ", "NYC",
-        "NYRB", "Orlando", "Philadelphia", "Portland",
+        "Minnesota", "Montreal", "New", //"New", missing NYRB NYC NE rev
+         "Orlando", "Philadelphia", "Portland",
         "Real", "San", "Seattle", "Sporting",
         "Toronto", "Vancouver" ]
 
