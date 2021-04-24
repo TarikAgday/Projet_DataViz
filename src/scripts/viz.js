@@ -57,7 +57,7 @@ export function drawStackedBarChart(data) {
     .on("mouseout", function() { tooltip.style("display", "none"); })
     .on('mousemove', d => {
       
-     var xPosition = d3.mouse(d3.event.target)[0] + 20
+     var xPosition = d3.mouse(d3.event.target)[0] + 5
      var yPosition =  d3.mouse(d3.event.target)[1]
 
     tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
