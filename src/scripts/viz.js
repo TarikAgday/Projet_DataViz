@@ -67,15 +67,19 @@ export function drawStackedBarChart(data) {
 
 
   var svg = d3.select("#viz_area_4")
+  svg.style("padding","100px")
 
   svg.append("g").attr("transform", "translate(50," + 400 + ")")
     .call(xAxis)
     .selectAll("text")
     .attr("y", 0)
-    .attr("x", 6)
+    .attr("x", -55)
     .attr("dy", ".35em")
-    .attr("transform", "rotate(-90)")
-    .style("text-anchor", "end");
+    // .attr("dx", ".100em")
+    // .attr("transform", "translate(1,500)")
+    .attr("transform", "rotate(-85)")
+    // .style("text-anchor", "end");
+    
 
   svg.append("g")
     .attr("transform", "translate(50)")
@@ -155,4 +159,20 @@ export function drawStackedBarChart(data) {
     .style("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("font-weight", "bold");
+
+  svg.append("text")
+    .attr("text-anchor", "middle")  
+    // .attr("transform", "translate(1,10)")
+    .text("SALARY");
+
+  svg.append("text")
+    // .attr("text-anchor", "middle")  
+    .attr("transform", "translate(460,410)")
+    .text("TEAM");
+
+  svg.append("text")
+    // .attr("text-anchor", "middle")  
+    .attr("transform", "translate(225,-25)")
+    .text("TEAM-SALARY");
+
 }
