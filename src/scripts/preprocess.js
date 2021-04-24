@@ -13,16 +13,20 @@ export function stackedBarChartData(data) {
       let data_per_club = data.filter(d => d.Club == Clubs[i])
       for(let j = 0 ; j < data_per_club.length; j++){
         if(data_per_club[j]["Playing Position"] == "M"){
-          m += parseInt(data_per_club[j]["Salaire"].slice(2))
+          m += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
+       
         }
         else if(data_per_club[j]["Playing Position"] == "D"){
-          d += parseInt(data_per_club[j]["Salaire"].slice(2))
+          d += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
+        
         }
         else if(data_per_club[j]["Playing Position"] == "F"){
-          f += parseInt(data_per_club[j]["Salaire"].slice(2))
+          f += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
+          
         }
         else if(data_per_club[j]["Playing Position"] == "GK"){
-          gk += parseInt(data_per_club[j]["Salaire"].slice(2))
+          gk += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
+          
         }
       }
 

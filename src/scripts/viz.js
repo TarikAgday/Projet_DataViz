@@ -1,59 +1,12 @@
 
-/**
- * Sets the domain and range of the X scale.
- *
- * @param {*} scale The x scale
- * @param {object[]} data The data to be used
- * @param {number} width The width of the graph
- */
-export function updateGroupXScale(scale, data, width) {
-  // TODO : Set the domain and range of the groups' x scale
+ function formatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
-/**
- * Sets the domain and range of the Y scale.
- *
- * @param {*} scale The Y scale
- * @param {object[]} data The data to be used
- * @param {number} height The height of the graph
- */
-export function updateYScale(scale, data, height) {
-  // TODO : Set the domain and range of the graph's y scale
-}
-
-/**
- * Creates the groups for the grouped bar chart and appends them to the graph.
- * Each group corresponds to an act.
- *
- * @param {object[]} data The data to be used
- * @param {*} x The graph's x scale
- */
-export function createGroups(data, x) {
-  // TODO : Create the groups
-  d3.select('#graph-g')
-}
-
-/**
- * Draws the bars inside the groups
- *
- * @param {*} y The graph's y scale
- * @param {*} xSubgroup The x scale to use to position the rectangles in the groups
- * @param {string[]} players The names of the players, each corresponding to a bar in each group
- * @param {number} height The height of the graph
- * @param {*} color The color scale for the bars
- * @param {*} tip The tooltip to show when each bar is hovered and hide when it's not
- */
 export function drawStackedBarChart(data) {
   var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
-  let legendCellSize = 20
-  let tooltipWidth = 210
-  var keys = [...new Set(data.map(d => d["Playing Position"]))]
 
-  // var dataset = d3.stack()(["M", "D", "F", "GK"].map(function(fruit) {
-  //   return data.map(function(d) {
-  //     return {x: (d.club), y: +d[fruit]};
-  //   });
-  // }));
+ 
   var stackGen = d3.stack().keys(["M", "D", "F", "GK"]).order(d3.stackOrderNone).offset(d3.stackOffsetNone)
 
   var stackedSeries = stackGen(data)
@@ -75,10 +28,7 @@ export function drawStackedBarChart(data) {
     .attr("y", 0)
     .attr("x", -55)
     .attr("dy", ".35em")
-    // .attr("dx", ".100em")
-    // .attr("transform", "translate(1,500)")
     .attr("transform", "rotate(-85)")
-    // .style("text-anchor", "end");
     
 
   svg.append("g")
@@ -107,18 +57,15 @@ export function drawStackedBarChart(data) {
     .on("mouseover", function() { tooltip.style("display", null); })
     .on("mouseout", function() { tooltip.style("display", "none"); })
     .on('mousemove', d => {
-      // Mouse event stuffs again (overwrites above declaration).
-
-    //  console.log(d,d[1] - d[0],"ok")
+      
      var xPosition = d3.mouse(d3.event.target)[0] + 20
      var yPosition =  d3.mouse(d3.event.target)[1]
-    //  tooltip
+
     tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-     tooltip.select("text").text(d[1]-d[0]) //.attr("x", xPosition  ).attr("y"+ yPosition );
-      // console.log( )
+     tooltip.select("text").text(formatNumber(d[1]-d[0]) + " $")
       })
 
-
+      
 
   var legend = svg.selectAll(".legend")
     .data(colors)
@@ -139,10 +86,10 @@ export function drawStackedBarChart(data) {
     .style("text-anchor", "start")
     .text(function (d, i) {
       switch (i) {
-        case 0: return "GK";
-        case 1: return "F";
-        case 2: return "D";
-        case 3: return "M";
+        case 0: return "Goalkeeper";
+        case 1: return "Forward";
+        case 2: return "Defender";
+        case 3: return "Midfielder";
 
       }
     });
@@ -162,16 +109,13 @@ export function drawStackedBarChart(data) {
 
   svg.append("text")
     .attr("text-anchor", "middle")  
-    // .attr("transform", "translate(1,10)")
     .text("SALARY");
 
-  svg.append("text")
-    // .attr("text-anchor", "middle")  
+  svg.append("text") 
     .attr("transform", "translate(460,410)")
     .text("TEAM");
 
-  svg.append("text")
-    // .attr("text-anchor", "middle")  
+  svg.append("text") 
     .attr("transform", "translate(225,-25)")
     .text("TEAM-SALARY");
 
