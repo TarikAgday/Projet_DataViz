@@ -1,4 +1,3 @@
-import * as d3Chromatic from 'd3-scale-chromatic'
 /**
  * Sets the domain of the color scale
  *
