@@ -168,7 +168,8 @@ export function appendBubbleChart (data, x , y) {
           .attr("cx", function (d) { return x(d.Minutes)+margin.left } )
           .attr("cy", function (d) { return y(d.Performance)-margin.bottom } )
           .attr("r", function (d) { return z(d.Salary*500); } )
-          .style("fill", "black")
+          .style("fill", "white")
+          .style("stroke", "black")
          .on("mouseover",  function(d) { return tip.show(d,this) })
         .on("mouseout",  function(d) { tip.hide(this) })
         // -3- Trigger the functions for hover
@@ -253,18 +254,33 @@ export function appendBubbleChart (data, x , y) {
          "Orlando", "Philadelphia", "Portland",
         "Real", "San", "Seattle", "Sporting",
         "Toronto", "Vancouver" ]
-
+        var teamChecked=new Array(24).fill(false)
         var svg = d3.select("#viz_area_5")
         svg.append('g')
           .selectAll("mylegend")
           .data(allgroups)
           .enter()
-          .append("circle")
-          .attr('class', 'circlesLeg')
-            .attr("cx", 1500)
-            .attr("cy", function(d,i){ return  400+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", 7)
-            .style("fill", "black")
+          .append('rect')
+          .attr('class', 'rectsLeg')
+            .attr("x", 1500)
+            .attr("width", 10)
+            .attr("y", function(d,i){ return  395+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("height",10)
+            .style("fill", "white")
+          .style("stroke", "black")
+          .on("click", function(d,i) {
+              if(!teamChecked[i]){
+                d3.select(this).text("x")
+                teamChecked[i]=true
+                d3.selectAll(".dot"+d)  //.filter(function(d) { return d. == "for_bath"; })
+                  .style("fill", "red")}
+              else{
+                teamChecked[i]=false
+                d3.selectAll(".dot"+d)  //.filter(function(d) { return d. == "for_bath"; })
+                  .style("fill", "white")}
+              }
+            )
+
 
 
 
@@ -283,13 +299,13 @@ export function appendBubbleChart (data, x , y) {
             .text(function(d){ return d})
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
-            .on("mouseover", function(d,i) {
+            .on("click", function(d,i) {
               console.log(d)
                 d3.selectAll(".dot"+d)//.filter(function(d) { return d. == "for_bath"; })
                 .style("fill", "red")})
-            .on("mouseleave", function(d,i) {
+            .on("click", function(d,i) {
                 d3.selectAll(".dot"+d)
-                .style("fill", "black")})
+                .style("fill", "white")})
 
            // const button = svg.append('g')
            // .attr('class', 'button')

@@ -1,4 +1,4 @@
-// import d3Tip from 'd3-tip'
+import * as d3Chromatic from 'd3-scale-chromatic'
 /**
  * Sets the domain of the color scale
  *
@@ -6,7 +6,6 @@
  * @param {object[]} data The data to be displayed
  */
 export function setColorScaleDomain (colorScale, data) {
-  // TODO : Set domain of color scale
   let min = 0
   let max = 0
   for (let index = 0; index < data.length; index++) {
@@ -23,40 +22,43 @@ export function setColorScaleDomain (colorScale, data) {
  * @param {object[]} data The data to use for binding
  */
 export function appendHeatMap (data) {
-  console.log("Data heatmap", data)
+var max = 0
+for (let index = 0; index < data.length; index++) {
 
-  // TODO : Append SVG rect elements
-  // Ajoutez la structure SVG et liez-y les données (fonction appendRects).
-  // Cette structure sera utilisée
-  // pour dessiner la carte de chaleur dans les étapes suivantes.
+    var element = data[index].ageGroupSalary
+    if(element>max){max=element}
 
-  // set the dimensions and margins of the graph
-var margin = {top: 100, right: 150, bottom: 30, left: 150},
-width = 1200 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+}console.log("max",max)
+// set the dimensions and margins of the graph
+  var margin = {top: 100, right: 150, bottom: 30, left: 150},
+  width = 1200 - margin.left - margin.right,
+      height = 1000 - margin.top - margin.bottom;
 
-var svg = d3.select("#viz_area_2")
- .append("svg")
-  .attr("width", width + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform",
+  var svg = d3.select("#viz_area_2")
+   .append("svg")
+    .attr("width", width + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  // Labels of row and columns
-var clubs = d3.map(data, function(d){return d.Club;}).keys()
-var ageGroups = d3.map(data, function(d){return d.Age;}).keys()
-console.log("XXX", ageGroups)
-  // Build X scales and axis:
-var xScale = d3.scaleBand()
-.range([ 0, width ])
-.domain(ageGroups)
-.padding(0.01);
-svg.append("g")
-.attr("transform", "translate(0,"+ height  + ")")
-.call(d3.axisBottom().scale(xScale))
-.selectAll("text")
-  .attr("transform", "translate(0 0) rotate(0)")
+// Labels of row and columns
+  var clubs = d3.map(data, function(d){return d.Club;}).keys()
+  var ageGroups = d3.map(data, function(d){return d.Age;}).keys()
+  var agetitles = ["15-16","17-18","19-20","21-22","23-24","25-26","27-28","29-30","31-32","33-34","35-36","37-38","39-40"]
+
+// Build X scales and axis:
+  var xScale = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(ageGroups)
+    .padding(0.01);
+  svg.append("g")
+    .attr("transform", "translate(0,"+ height  + ")")
+    .call(d3.axisBottom().scale(xScale)
+    .tickFormat(function(d,i){ return agetitles[i] }))
+  .selectAll("text")
+    .attr("transform", "translate(0 0) rotate(0)")
+
 
 // Build Y scales and axis:
 var yScale = d3.scaleBand()
@@ -66,20 +68,27 @@ var yScale = d3.scaleBand()
 svg.append("g")
   .call(d3.axisLeft().scale(yScale));
 
-  // Build color scale
+  //Axis titles
+
+
+svg.append("text")
+ .attr("transform", "translate(-80,-10)")
+ .text("Teams");
+
+// Build color scale
   var myColor = d3.scaleLinear()
   .range(["white", "#9b0026"])
-  .domain([0,800000])
+  .domain([0,1500000])
 
-   //Viz title
+
+//Viz title
    svg.append("text")
-   .attr("x", (width / 2))
-   .attr("y", 0 - (margin.top/5))
-   .attr("text-anchor", "middle")
-   .style("font-size", "28px")
-   .style("text-decoration", "underline")
-   .text("Salaries by age groups");
-
+    .attr("x", (width / 2))
+    .attr("y", 0 - (margin.top/5))
+    .attr("text-anchor", "middle")
+    .style("font-size", "28px")
+    .style("text-decoration", "underline")
+    .text("Salaries by age groups");
 
 
   // add the rectangles
@@ -105,16 +114,13 @@ svg.append("g")
     })
   .attr("fill", function (d) {
       return myColor(d.ageGroupSalary);})
+
   .attr("transform", "translate( "+ margin.left +" 25)")
+  .style("stroke", "black")
+  .style("stroke-width","0.2")
+  .style("stroke-opacity","0.3")
   .on("mouseover",  function(d) { return tip.show(d,this) })
   .on("mouseout",  function(d) { tip.hide(this) })
-
-  //add the legend
-
-  initGradient (myColor)
-  initLegendBar ()
-  drawLegend (0, 550, height, width, "black", myColor)
-
 
 
 // Function to generate tooltip
@@ -135,86 +141,47 @@ function getContents (d) {
 function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
-
+drawHeatmapLegend (myColor,myColor)
 }
 
 
-/**
- * Initializes the definition for the gradient to use with the
- * given colorScale.
- *
- * @param {*} colorScale The color scale to use
- */
-export function initGradient (colorScale) {
-  const svg = d3.select('#viz_area_5')
+export function drawHeatmapLegend (fill,colorScale) {
 
-  const defs = svg.append('defs')
 
-  const linearGradient = defs
-    .append('linearGradient')
-    .attr('id', 'gradient')
-    .attr('x1', 0).attr('y1', 1).attr('x2', 0).attr('y2', 0)
+    var x = 150 , y =1000 , width = 900, height = 15
 
-  linearGradient.selectAll('stop')
-    .data(colorScale.ticks().map((tick, i, nodes) => (
-      {
-        offset: `${100 * (i / nodes.length)}%`,
-        color: colorScale(tick)
-      })))
-    .join('stop')
-    .attr('offset', d => d.offset)
-    .attr('stop-color', d => d.color)
-}
-
-/**
- * Initializes the SVG rectangle for the legend.
- */
-export function initLegendBar () {
-  const svg = d3.select('.heatmap-svg')
-  svg.append('rect').attr('class', 'legend bar')
-}
-
-/**
- *  Initializes the group for the legend's axis.
- */
-export function initLegendAxis () {
-  const svg = d3.select('.heatmap-svg')
-  svg
-    .append('g')
-    .attr('class', 'legend axis')
-}
-
-/**
- * Draws the legend to the left of the graphic.
- *
- * @param {number} x The x position of the legend
- * @param {number} y The y position of the legend
- * @param {number} height The height of the legend
- * @param {number} width The width of the legend
- * @param {string} fill The fill of the legend
- * @param {*} colorScale The color scale represented by the legend
- */
-export function drawLegend (x, y, height, width, fill, colorScale) {
-  // TODO : Draw the legend
-  var leg = d3
+    var leg = d3
       .scaleLinear()
       .domain(colorScale.domain())
       .range([height, 0])
 
-      d3.select(".legend.axis")
-      .append("rect")
-      .attr("height", height)
-      .attr("width", width)
-      .attr("x", x)
-      .attr("y", y)
-      .attr("fill", fill)
+    var colorsLegend =  ["white","#f3e0e5","#e1b4bf","#b22859","#7a0000","black"]
+    var valueLegend = ["0" , "100k", "500k", "1M" , "2M" , "3.5M", "7.5M"]
 
-    d3.select(".legend.axis")
-      .append("g")
-      .attr("transform", "translate(" + x + ", " + y + ")")
-      .call(d3.axisLeft(leg)
-      .ticks(6)
-      )
+    const svg = d3.select("#viz_area_2")
+    svg.append('g')
+      .selectAll("legendRect")
+      .data(colorsLegend)
+      .enter()
+      .append('rect')
+      .attr('class', 'legend bar')
+        .attr("height", 15)
+        .attr("width", 150)
+        .attr("x", function(d,i){ return (150 + (i*150))})
+        .attr("y", y)
+        .attr("fill",function(d){ return d})
+        .style("stroke", "black")
 
+
+          svg.append("text")
+          .attr("transform", "translate(1060,975)")
+          .text("Age groups");
+
+          for (let i = 0; i < valueLegend.length; i++) {
+            svg.append("text")
+                .attr("transform", "translate("+(145 + (i*147))+","+1035+")")
+                .text(valueLegend[i]);
+
+          }
 
 }

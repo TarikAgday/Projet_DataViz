@@ -34,7 +34,9 @@ $(function () {
     var data = preproc.stackedBarChartData(files[0])
     viz.drawStackedBarChart(data)
 
+    console.log("DHTM", files[0])
     var dataHeatMap = preproc.heatmapProcess(files[0])
+    console.log("dhtm", dataHeatMap)
     heatmap.appendHeatMap(dataHeatMap)
 
     const scatteredPlotData = preproc.scatteredPlotProcess(files[1])

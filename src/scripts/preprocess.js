@@ -14,19 +14,19 @@ export function stackedBarChartData(data) {
       for(let j = 0 ; j < data_per_club.length; j++){
         if(data_per_club[j]["Playing Position"] == "M"){
           m += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
-       
+
         }
         else if(data_per_club[j]["Playing Position"] == "D"){
           d += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
-        
+
         }
         else if(data_per_club[j]["Playing Position"] == "F"){
           f += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
-          
+
         }
         else if(data_per_club[j]["Playing Position"] == "GK"){
           gk += Math.trunc(parseFloat((data_per_club[j]["Salaire"].replace(/,/g,"").substring(2))))
-          
+
         }
       }
 
@@ -151,34 +151,61 @@ export function multipannelBubbleChartProcess(data){
 
   export function getAgeCategories(number) {
     // TODO: Return the
-    switch(number) {
-      case "15" || "16":
+    switch(String(number)) {
+      case "15":
+      case  "16":
         return 0
-      case "17" || "18":
+
+      case "17":
+      case "18":
         return 1
-      case "19" || "20":
+
+      case "19":
+      case  "20":
         return 2
-      case "21" || "22":
+
+      case "21":
+      case "22":
         return 3
-      case "23" || "24":
+
+      case "23":
+      case  "24":
         return 4
-      case "25" || "26":
+
+      case "25":
+      case "26":
         return 5
-      case "27" || "28":
+
+      case "27":
+      case "28":
         return 6
-      case "29" || "30":
+
+
+        case "29":
+        case "30":
         return 7
-      case "31" || "32":
+
+        case "31":
+        case "32":
         return 8
-      case "33" || "34":
+
+        case "33":
+        case "34":
         return 9
-      case "35" || "36" :
+
+        case "35":
+        case "36" :
         return 10
-      case "37" || "38":
+
+        case "37":
+        case "38":
         return 11
-      case "39" || "40":
+
+      case "39":
+      case "40":
         return 12
-      default:
+
+        default:
         return null
     }
 
@@ -194,14 +221,16 @@ export function multipannelBubbleChartProcess(data){
     for (let i = 0; i < Clubs.length; i++) {
 
         let data_per_club = data.filter(d => d.Club == Clubs[i])
+        //console.log("DPC",data_per_club)
 
         // Designate the age groups
         let ageGroupSalaries = new Array(13).fill(0)
 
           // Each ageGroup contains two years; e.g 15-16, 17-18 [...] 39-40 years old
           for(let j = 0; j < data_per_club.length; j++){
-            let ageCategorie= getAgeCategories((data_per_club[j].Age))
+            let ageCategorie= getAgeCategories(data_per_club[j].Age)
             ageGroupSalaries[ageCategorie] += Math.trunc(parseFloat((data_per_club[j].Salaire.replace(/,/g,"").substring(2))))
+
 
           }
 

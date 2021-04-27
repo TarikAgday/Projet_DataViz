@@ -6,7 +6,7 @@
 export function drawStackedBarChart(data) {
   var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
 
- 
+
   var stackGen = d3.stack().keys(["M", "D", "F", "GK"]).order(d3.stackOrderNone).offset(d3.stackOffsetNone)
 
   var stackedSeries = stackGen(data)
@@ -28,7 +28,7 @@ export function drawStackedBarChart(data) {
     .attr("x", -55)
     .attr("dy", ".35em")
     .attr("transform", "rotate(-85)")
-    
+
 
   svg.append("g")
     .attr("transform", "translate(50)")
@@ -56,7 +56,7 @@ export function drawStackedBarChart(data) {
     .on("mouseover", function() { tooltip.style("display", null); })
     .on("mouseout", function() { tooltip.style("display", "none"); })
     .on('mousemove', d => {
-      
+
      var xPosition = d3.mouse(d3.event.target)[0] + 5
      var yPosition =  d3.mouse(d3.event.target)[1]
 
@@ -64,7 +64,7 @@ export function drawStackedBarChart(data) {
      tooltip.select("text").text(formatNumber(d[1]-d[0]) + " $")
       })
 
-      
+
 
   var legend = svg.selectAll(".legend")
     .data(colors)
@@ -107,14 +107,14 @@ export function drawStackedBarChart(data) {
     .attr("font-weight", "bold");
 
   svg.append("text")
-    .attr("text-anchor", "middle")  
+  .attr("transform", "translate(-10,-20)")
     .text("SALARY");
 
-  svg.append("text") 
+  svg.append("text")
     .attr("transform", "translate(460,410)")
     .text("TEAM");
 
-  svg.append("text") 
+  svg.append("text")
     .attr("transform", "translate(225,-25)")
     .text("TEAM-SALARY");
 
