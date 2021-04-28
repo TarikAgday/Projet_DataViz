@@ -193,7 +193,7 @@ function drawLegend(g) {
     g.insert("g", ".button")
         .attr("class", "legendQuant")
         .attr("y", "-20")
-        .attr("transform", "translate(950)")
+        .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
         .style("font-size", "12")
 
     const colorScale = d3.scaleOrdinal()
