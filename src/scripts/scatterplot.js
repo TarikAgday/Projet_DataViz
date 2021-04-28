@@ -99,15 +99,16 @@ export function drawScatteredPlotChart(data) {
         .attr("stroke", "black")
         .attr("stroke-dasharray", "4")
 
-    const circles = g.selectAll("circle")
+    const images = g.selectAll("image")
         .data(data)
         .enter()
-        .append("circle")
+        .append("image")
 
-    circles.attr("cx", function (d) { return xScale(d.pos) })
-        .attr("cy", function (d) { return yScale(d.budget) })
-        .attr("r", 5)
-        .attr("fill", "black")
+    images.attr("x", function (d) { return xScale(d.pos) - 10 })
+        .attr("y", function (d) { return yScale(d.budget) })
+        .attr("width", 32)
+        .attr("height", 32)
+        .attr("href", function(d) { return d.src })
         .on("mouseover",  function(d) { return tip.show(d,this) })
         .on("mouseout",  function(d) { tip.hide(this) })
 }
@@ -182,5 +183,5 @@ function getContents (d) {
     return '<span> Club :  <span style="font-weight: normal">' + d.club
     +
     '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + d.budget
-    + '</span>'
+    + '$</span>'
   }

@@ -40,12 +40,15 @@ export function scatteredPlotProcess(data) {
   const PLAYOFFS_STANDING = "Playoffs Standing"
   const TOTAL_BUDGET = "Total Budget"
 
+  console.log(data)
+
   return data.map(d => {
     return {
       club: d.Club,
       pos: parseInt(d[STANDING]),
       playoffPos: parseInt(d[PLAYOFFS_STANDING]),
-      budget: parseInt(d[TOTAL_BUDGET])
+      budget: parseInt(d[TOTAL_BUDGET]),
+      src: d.src
     }
   })
 }
