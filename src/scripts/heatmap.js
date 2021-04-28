@@ -29,9 +29,9 @@ for (let index = 0; index < data.length; index++) {
 
 }console.log("max",max)
 // set the dimensions and margins of the graph
-  var margin = {top: 100, right: 150, bottom: 30, left: 150},
-  width = 1200 - margin.left - margin.right,
-      height = 1000 - margin.top - margin.bottom;
+  var margin = {top: 100, right: 150, bottom: 30, left: 250},
+  width = 1500 - margin.left - margin.right,
+      height = 1300 - margin.top - margin.bottom;
 
   var svg = d3.select("#viz_area_2")
    .append("svg")
@@ -39,7 +39,7 @@ for (let index = 0; index < data.length; index++) {
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        "translate(" + margin.left+ "," + margin.top + ")");
 
 // Labels of row and columns
   var clubs = d3.map(data, function(d){return d.Club;}).keys()
@@ -48,13 +48,14 @@ for (let index = 0; index < data.length; index++) {
 
 // Build X scales and axis:
   var xScale = d3.scaleBand()
-    .range([ 0, width ])
+    .range([ 0, width-100 ])
     .domain(ageGroups)
     .padding(0.01);
   svg.append("g")
     .attr("transform", "translate(0,"+ height  + ")")
     .call(d3.axisBottom().scale(xScale)
     .tickFormat(function(d,i){ return agetitles[i] }))
+    .style("font-size", "22px")
   .selectAll("text")
     .attr("transform", "translate(0 0) rotate(0)")
 
@@ -65,14 +66,17 @@ var yScale = d3.scaleBand()
   .domain(clubs)
   .padding(0.01);
 svg.append("g")
-  .call(d3.axisLeft().scale(yScale));
+  .call(d3.axisLeft().scale(yScale))
+  .style("font", "22px Lora")
 
   //Axis titles
 
 
 svg.append("text")
- .attr("transform", "translate(-80,-10)")
- .text("Teams");
+ .attr("transform", "translate(-120,-10)")
+ .text("Teams")
+ .style("font", "32px Lora")
+ .style("fontWeight","bolder")
 
 // Build color scale
   var myColor = d3.scaleLinear()
@@ -85,9 +89,10 @@ svg.append("text")
     .attr("x", (width / 2))
     .attr("y", 0 - (margin.top/5))
     .attr("text-anchor", "middle")
-    .style("font-size", "28px")
+    .style("font", "36px Lora")
     .style("text-decoration", "underline")
-    .text("Salaries by age groups");
+    .text("SALARIES BY AGE GROUPS")
+    .style("font-size", "32px")
 
 
   // add the rectangles
@@ -147,7 +152,7 @@ drawHeatmapLegend (myColor,myColor)
 export function drawHeatmapLegend (fill,colorScale) {
 
 
-    var x = 150 , y =1000 , width = 900, height = 15
+    var x = 150 , y =1300 , width = 900, height = 15
 
     var leg = d3
       .scaleLinear()
@@ -164,22 +169,25 @@ export function drawHeatmapLegend (fill,colorScale) {
       .enter()
       .append('rect')
       .attr('class', 'legend bar')
-        .attr("height", 15)
-        .attr("width", 150)
-        .attr("x", function(d,i){ return (150 + (i*150))})
-        .attr("y", y)
+        .attr("height", 150)
+        .attr("width", 15)
+        .attr("y", function(d,i){ return (150 + (i*150))})
+        .attr("x", 1500)
         .attr("fill",function(d){ return d})
         .style("stroke", "black")
 
 
           svg.append("text")
-          .attr("transform", "translate(1060,975)")
-          .text("Age groups");
+          .attr("transform", "translate(1300,1275)")
+          .text("Age groups")
+          .style("font", "32px Lora")
 
           for (let i = 0; i < valueLegend.length; i++) {
             svg.append("text")
-                .attr("transform", "translate("+(145 + (i*147))+","+1035+")")
-                .text(valueLegend[i]);
+                .attr("transform", "translate("+1520+","+(150 + (i*152))+")")
+                .text(valueLegend[i])
+                .style("font", "22px Lora")
+                .style("fontWeight","bolder")
 
           }
 

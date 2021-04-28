@@ -37,10 +37,6 @@ export function appendBubbleChart (data, x , y) {
         .attr("x", x)
         .attr("y", y)
 
-
-
-
-
       // ---------------------------//
       //       AXIS  AND SCALE      //
       // ---------------------------//
