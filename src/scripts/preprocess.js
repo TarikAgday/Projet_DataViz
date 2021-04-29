@@ -40,8 +40,6 @@ export function scatteredPlotProcess(data) {
   const PLAYOFFS_STANDING = "Playoffs Standing"
   const TOTAL_BUDGET = "Total Budget"
 
-  console.log(data)
-
   return data.map(d => {
     return {
       club: d.Club,

@@ -10,6 +10,10 @@ const margin = {
 
 let svgSize, graphSize
 
+let currentSetting = "general"
+
+let xScale, yScale
+
 const cutoff = 14
 const maxBudget = 25000000
 
@@ -19,11 +23,11 @@ export function drawScatteredPlotChart(data) {
     const firstPos = d3.min(data, function (d) { return d.pos })
     const lastPos = d3.max(data, function (d) { return d.pos })
 
-    const xScale = d3.scaleLinear()
+    xScale = d3.scaleLinear()
     .domain([firstPos, lastPos])
     .range([graphSize.width, 0])
 
-    const yScale = d3.scaleLinear()
+    yScale = d3.scaleLinear()
     .domain([0, maxBudget])
     .range([graphSize.height, 0])
 
@@ -114,6 +118,7 @@ export function drawScatteredPlotChart(data) {
         .on("mouseout",  function(d) { tip.hide(this) })
 
     drawLegend(g)
+    drawButton(g)
 }
 
 function generateG() {
@@ -207,3 +212,46 @@ function drawLegend(g) {
     g.select(".legendQuant")
       .call(legend);
 }
+
+function drawButton (g) {
+    const button = g.append('g')
+      .attr('class', 'button')
+      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 70})`)
+      .attr('width', 130)
+      .attr('height', 25)
+      .on('click', () => {
+        const previousSetting = currentSetting
+        currentSetting = (currentSetting === "general" ? "playoff" : "general")
+        moveTeams(g)
+        d3.select('.button').select('.button-text').text(`See ${previousSetting} standings`)
+      })
+  
+    button.append('rect')
+      .attr('width', 130)
+      .attr('height', 30)
+      .attr('fill', '#f4f6f4')
+      .on('mouseenter', function () {
+        d3.select(this).attr('stroke', '#362023')
+      })
+      .on('mouseleave', function () {
+        d3.select(this).attr('stroke', '#f4f6f4')
+      })
+  
+    button.append('text')
+      .attr('x', 65)
+      .attr('y', 15)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('class', 'button-text')
+      .text('See playoff standings')
+      .attr('font-size', '10px')
+      .attr('fill', '#362023')
+}
+
+function moveTeams(g) {
+    const images = g.selectAll("image")
+
+    images.transition()
+        .duration(1000)
+        .attr("x", function (d) { return xScale(currentSetting === "general" ? d.pos : d.playoffPos) - 15 })
+  }
