@@ -1,4 +1,5 @@
 //import d3Tip from 'd3-tip'
+import d3Legend from 'd3-svg-legend'
 
 const margin = {
     top: 75,
@@ -9,6 +10,10 @@ const margin = {
 
 let svgSize, graphSize
 
+let currentSetting = "general"
+
+let xScale, yScale
+
 const cutoff = 14
 const maxBudget = 25000000
 
@@ -18,11 +23,11 @@ export function drawScatteredPlotChart(data) {
     const firstPos = d3.min(data, function (d) { return d.pos })
     const lastPos = d3.max(data, function (d) { return d.pos })
 
-    const xScale = d3.scaleLinear()
+    xScale = d3.scaleLinear()
     .domain([firstPos, lastPos])
     .range([graphSize.width, 0])
 
-    const yScale = d3.scaleLinear()
+    yScale = d3.scaleLinear()
     .domain([0, maxBudget])
     .range([graphSize.height, 0])
 
@@ -39,7 +44,7 @@ export function drawScatteredPlotChart(data) {
         .attr('width', xScale(cutoff))
         .attr('height', yScale(budgetAverage))
         .attr('fill', 'red')
-        .attr('fill-opacity', '0.2')
+        .attr('fill-opacity', '0.1')
 
     g.append("rect")
         .attr('x', xScale(cutoff))
@@ -47,7 +52,7 @@ export function drawScatteredPlotChart(data) {
         .attr('width', graphSize.width - xScale(cutoff))
         .attr('height', graphSize.height - yScale(budgetAverage))
         .attr('fill', 'green')
-        .attr('fill-opacity', '0.2')
+        .attr('fill-opacity', '0.1')
 
     g.append("rect")
         .attr('x', 0)
@@ -63,7 +68,7 @@ export function drawScatteredPlotChart(data) {
         .attr('width', graphSize.width - xScale(cutoff))
         .attr('height', yScale(budgetAverage))
         .attr('fill', 'yellow')
-        .attr('fill-opacity', '0.2')
+        .attr('fill-opacity', '0.1')
 
     appendAxes(g)
     appendGraphLabels(g)
@@ -99,17 +104,21 @@ export function drawScatteredPlotChart(data) {
         .attr("stroke", "black")
         .attr("stroke-dasharray", "4")
 
-    const circles = g.selectAll("circle")
+    const images = g.selectAll("image")
         .data(data)
         .enter()
-        .append("circle")
+        .append("image")
 
-    circles.attr("cx", function (d) { return xScale(d.pos) })
-        .attr("cy", function (d) { return yScale(d.budget) })
-        .attr("r", 5)
-        .attr("fill", "black")
+    images.attr("x", function (d) { return xScale(d.pos) - 15 })
+        .attr("y", function (d) { return yScale(d.budget) })
+        .attr("width", 32)
+        .attr("height", 32)
+        .attr("href", function(d) { return d.src })
         .on("mouseover",  function(d) { return tip.show(d,this) })
         .on("mouseout",  function(d) { tip.hide(this) })
+
+    drawLegend(g)
+    drawButton(g)
 }
 
 function generateG() {
@@ -182,5 +191,67 @@ function getContents (d) {
     return '<span> Club :  <span style="font-weight: normal">' + d.club
     +
     '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + d.budget
-    + '</span>'
+    + '$</span>'
+}
+
+function drawLegend(g) {
+    g.insert("g", ".button")
+        .attr("class", "legendQuant")
+        .attr("y", "-20")
+        .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
+        .style("font-size", "12")
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(["terrible", "bad", "okay", "good"])
+        .range(["red", "orange", "yellow", "green"])
+
+    const legend = d3Legend.legendColor().title("Legend ")
+      .shape("path", d3.symbol().type(d3.symbolCircle).size(250)())
+      .scale(colorScale)
+
+    g.select(".legendQuant")
+      .call(legend);
+}
+
+function drawButton (g) {
+    const button = g.append('g')
+      .attr('class', 'button')
+      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 70})`)
+      .attr('width', 130)
+      .attr('height', 25)
+      .on('click', () => {
+        const previousSetting = currentSetting
+        currentSetting = (currentSetting === "general" ? "playoff" : "general")
+        moveTeams(g)
+        d3.select('.button').select('.button-text').text(`See ${previousSetting} standings`)
+      })
+  
+    button.append('rect')
+      .attr('width', 130)
+      .attr('height', 30)
+      .attr('fill', '#f4f6f4')
+      .on('mouseenter', function () {
+        d3.select(this).attr('stroke', '#362023')
+      })
+      .on('mouseleave', function () {
+        d3.select(this).attr('stroke', '#f4f6f4')
+      })
+  
+    button.append('text')
+      .attr('x', 65)
+      .attr('y', 15)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('class', 'button-text')
+      .text('See playoff standings')
+      .attr('font-size', '10px')
+      .attr('fill', '#362023')
+}
+
+function moveTeams(g) {
+    const images = g.selectAll("image")
+
+    images.transition()
+        .duration(1000)
+        .attr("x", function (d) { return xScale(currentSetting === "general" ? d.pos : d.playoffPos) - 15 })
   }

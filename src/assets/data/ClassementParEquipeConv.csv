@@ -1,25 +1,25 @@
-Playoffs Standing,General Standing,Club,Guaranteed Budget,Pts,BM,BE,DB,Total Budget
-4,1,Los Angeles FC,11315559,72,85,37,48,15631367
-5,2,NYCFC,9749665,64,63,42,21,10156845
-3,3,Atlanta,12474130,58,58,43,15,12660008
-1,4,Seattle,12142147,56,52,49,3,14150539
-7,5,Philadelphia,8940760,55,58,50,8,9882607
-8,6,Real Salt Lake,10118576,53,46,41,5,10973538
-11,7,Minnesota,9758706,53,52,43,9,10700660
-6,8,LA Galaxy,18826276,51,58,59,-1,19209502
-2,9,Toronto FC,21585738,50,57,52,5,24261531
-14,10,DC United,9733820,50,42,38,4,10774959
-12,11,Portland,11928195,49,52,49,3,13253916
-9,12,FC Dallas,7808258,48,54,46,8,9137519
-10,13,NY Red Bulls,8111867,48,53,51,2,9005565
-13,14,New England,9842854,45,50,57,-7,10973967
-15,15,San Jose,9762324,44,52,55,-3,10334088
-16,16,Colorado,7687479,42,58,63,-5,8412498
-17,17,Chicago,15412903,42,55,47,8,16906580
-18,18,Montreal,8449848,41,47,60,-13,12946804
-19,19,Houston,7932085,40,49,59,-10,8597724
-20,20,Sporting KC,11524012,38,49,67,-18,13090449
-21,21,Columbus,9743082,38,39,47,-8,11368196
-22,22,Orlando City,11568952,37,44,52,-8,12268820
-23,23,Vancouver,7348982,34,37,59,-22,8468176
-24,24,FC Cincinnati,8366444,24,31,75,-44,10867745
+Playoffs Standing,General Standing,Club,Guaranteed Budget,Pts,BM,BE,DB,Total Budget,src
+4,1,Los Angeles FC,11315559,72,85,37,48,15631367,https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Los_Angeles_Football_Club.svg/1200px-Los_Angeles_Football_Club.svg.png
+5,2,NYCFC,9749665,64,63,42,21,10156845,https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/New_York_City_FC.svg/1200px-New_York_City_FC.svg.png
+3,3,Atlanta,12474130,58,58,43,15,12660008,https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Atlanta_MLS.svg/1200px-Atlanta_MLS.svg.png
+1,4,Seattle,12142147,56,52,49,3,14150539,https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Seattle_Sounders_FC.svg/1200px-Seattle_Sounders_FC.svg.png
+7,5,Philadelphia,8940760,55,58,50,8,9882607,https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Philadelphia_Union_2018_logo.svg/1200px-Philadelphia_Union_2018_logo.svg.png
+8,6,Real Salt Lake,10118576,53,46,41,5,10973538,https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Real_Salt_Lake_2010.svg/1200px-Real_Salt_Lake_2010.svg.png
+11,7,Minnesota,9758706,53,52,43,9,10700660,https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Minnesota_United_FC_%28MLS%29_Primary_logo.svg/1200px-Minnesota_United_FC_%28MLS%29_Primary_logo.svg.png
+6,8,LA Galaxy,18826276,51,58,59,-1,19209502,https://upload.wikimedia.org/wikipedia/en/thumb/7/70/Los_Angeles_Galaxy_logo.svg/1200px-Los_Angeles_Galaxy_logo.svg.png
+2,9,Toronto FC,21585738,50,57,52,5,24261531,https://a1.espncdn.com/combiner/i?img=%2Fi%2Fteamlogos%2Fsoccer%2F500%2F7318.png
+14,10,DC United,9733820,50,42,38,4,10774959,https://upload.wikimedia.org/wikipedia/en/thumb/3/32/D.C._United_logo_%282016%29.svg/1200px-D.C._United_logo_%282016%29.svg.png
+12,11,Portland,11928195,49,52,49,3,13253916,https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Portland_Timbers_logo.svg/1200px-Portland_Timbers_logo.svg.png
+9,12,FC Dallas,7808258,48,54,46,8,9137519,https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/FC_Dallas_logo.svg/1200px-FC_Dallas_logo.svg.png
+10,13,NY Red Bulls,8111867,48,53,51,2,9005565,https://upload.wikimedia.org/wikipedia/en/thumb/5/51/New_York_Red_Bulls_logo.svg/1200px-New_York_Red_Bulls_logo.svg.png
+13,14,New England,9842854,45,50,57,-7,10973967,https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/New_England_Revolution_logo.svg/1200px-New_England_Revolution_logo.svg.png
+15,15,San Jose,9762324,44,52,55,-3,10334088,https://upload.wikimedia.org/wikipedia/en/thumb/9/98/San_Jose_Earthquakes_2014.svg/1200px-San_Jose_Earthquakes_2014.svg.png
+16,16,Colorado,7687479,42,58,63,-5,8412498,https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Colorado_Rapids_logo.svg/1200px-Colorado_Rapids_logo.svg.png
+17,17,Chicago,15412903,42,55,47,8,16906580,https://i.pinimg.com/originals/9a/a7/a2/9aa7a2bbb979c72a3008553851d85380.png
+18,18,Montreal,8449848,41,47,60,-13,12946804,https://www.logofootball.net/wp-content/uploads/Montreal-Impact-Logo.png
+19,19,Houston,7932085,40,49,59,-10,8597724,https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Houston_Dynamo_FC_logo.svg/1024px-Houston_Dynamo_FC_logo.svg.png
+20,20,Sporting KC,11524012,38,49,67,-18,13090449,https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Sporting_Kansas_City_logo.svg/1200px-Sporting_Kansas_City_logo.svg.png
+21,21,Columbus,9743082,38,39,47,-8,11368196,https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Columbus_Crew_SC_Logo.svg/1200px-Columbus_Crew_SC_Logo.svg.png
+22,22,Orlando City,11568952,37,44,52,-8,12268820,https://upload.wikimedia.org/wikipedia/en/thumb/6/6a/Orlando_City_2014.svg/1200px-Orlando_City_2014.svg.png
+23,23,Vancouver,7348982,34,37,59,-22,8468176,https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/1200px-Vancouver_Whitecaps_FC_logo.svg.png
+24,24,FC Cincinnati,8366444,24,31,75,-44,10867745,https://upload.wikimedia.org/wikipedia/en/thumb/7/78/FC_Cincinnati_primary_logo_2018.svg/1200px-FC_Cincinnati_primary_logo_2018.svg.png

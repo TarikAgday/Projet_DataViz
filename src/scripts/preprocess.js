@@ -45,7 +45,8 @@ export function scatteredPlotProcess(data) {
       club: d.Club,
       pos: parseInt(d[STANDING]),
       playoffPos: parseInt(d[PLAYOFFS_STANDING]),
-      budget: parseInt(d[TOTAL_BUDGET])
+      budget: parseInt(d[TOTAL_BUDGET]),
+      src: d.src
     }
   })
 }
