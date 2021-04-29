@@ -2,7 +2,6 @@
 
 // Code source: https://bl.ocks.org/tlfrd/e1ddc3d0289215224a69405f5e538f51
 export function appendConnectedDotPlot (data){
-  console.log("Coneccted Data", data)
     var teamsByStandings = ["Los Angeles FC","NYCFC","Atlanta","Seattle",
     "Philadelphia", "Real Salt Lake", "Minnesota","LA Galaxy", "Toronto FC",
     "DC United","Portland","FC Dallas","NY Red Bulls","New England","San Jose",
@@ -172,7 +171,6 @@ export function drawConnectedDotPlotLegend (){  // Legend
       .attr("text-anchor", "left")
       .style("alignment-baseline", "middle")
       .on("click", function(d,i) {
-        console.log(d)
           d3.selectAll(".dot"+d)//.filter(function(d) { return d. == "for_bath"; })
           .style("fill", "red")})
       .on("click", function(d,i) {

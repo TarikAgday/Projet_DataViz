@@ -27,7 +27,7 @@ for (let index = 0; index < data.length; index++) {
     var element = data[index].ageGroupSalary
     if(element>max){max=element}
 
-}console.log("max",max)
+}
 // set the dimensions and margins of the graph
   var margin = {top: 100, right: 150, bottom: 30, left: 250},
   width = 1500 - margin.left - margin.right,

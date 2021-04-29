@@ -99,6 +99,7 @@ export function mapMultiBubbleChartProcess (data){
     if (!multiPannelData.has(d["Playing Position"]))  {
       multiPannelData.set(d["Playing Position"], new Map([[
         d["First Name"]+ " " + d["Last Name"], {
+          "Age": d.Age,
           "Minutes": parseInt(d["MinutesPlayed"]),
           "Performance": d.X,
           "Club": d.Club,
@@ -108,6 +109,7 @@ export function mapMultiBubbleChartProcess (data){
     } else {
       multiPannelData.get(d["Playing Position"]).set(
         d["First Name"] +" " + d["Last Name"], {
+        "Age": d.Age,
         "Minutes": parseInt(d["MinutesPlayed"]),
         "Performance": d.X,
         "Club": d.Club,
@@ -127,6 +129,7 @@ export function multipannelBubbleChartProcess(data){
     players.forEach((info, player) =>{
       playersInfo.push({
         "Name": player,
+        "Age": info.Age,
         "Club": info.Club,
         "Minutes": parseInt(info.Minutes),
         "Performance": info.Performance,

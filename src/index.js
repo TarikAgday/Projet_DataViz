@@ -15,8 +15,8 @@ $(function () {
     d3.csv("StatsJoueursConv.csv"),
     d3.csv("ClassementParEquipeConv.csv"),
   ]).then(function (files) {
-    console.log("FILES 0 ", files[0])
-    console.log("FILES 1 ", files[1])
+    //console.log("FILES 0 ", files[0])
+    //console.log("FILES 1 ", files[1])
     // files[0] data StatsJoueursConv
     // files[1] data ClassementParEquipeConv
 
@@ -34,9 +34,8 @@ $(function () {
     var data = preproc.stackedBarChartData(files[0])
     viz.drawStackedBarChart(data)
 
-    console.log("DHTM", files[0])
+
     var dataHeatMap = preproc.heatmapProcess(files[0])
-    console.log("dhtm", dataHeatMap)
     heatmap.appendHeatMap(dataHeatMap)
 
     const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
@@ -44,7 +43,6 @@ $(function () {
 
     //var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
    var dataMBUBLLE = preproc.multipannelBubbleChartProcess(files[0])
-   console.log("dataMBUBLLE",dataMBUBLLE)
    bubbleChart.drawMultiPannelBubble(dataMBUBLLE)
 
     var data = preproc.multipannelProcess(files[0])
