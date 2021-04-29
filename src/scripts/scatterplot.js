@@ -1,5 +1,5 @@
 //import d3Tip from 'd3-tip'
-import d3Legend from 'd3-svg-legend'
+// import d3Legend from 'd3-svg-legend'
 
 const margin = {top: 100, right: 150, bottom: 30, left: 250}
 
