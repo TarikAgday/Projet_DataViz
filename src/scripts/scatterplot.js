@@ -203,7 +203,7 @@ function drawLegend(g) {
 
     const colorScale = d3.scaleOrdinal()
         .domain(["terrible", "bad", "okay", "good"])
-        .range(["red", "orange", "yellow", "green"])
+        .range(["#FFE7E5", "orange", "yellow", "green"])
 
     const legend = d3Legend.legendColor().title("Legend ")
       .shape("path", d3.symbol().type(d3.symbolCircle).size(250)())
@@ -225,7 +225,7 @@ function drawButton (g) {
         moveTeams(g)
         d3.select('.button').select('.button-text').text(`See ${previousSetting} standings`)
       })
-  
+
     button.append('rect')
       .attr('width', 130)
       .attr('height', 30)
@@ -236,7 +236,7 @@ function drawButton (g) {
       .on('mouseleave', function () {
         d3.select(this).attr('stroke', '#f4f6f4')
       })
-  
+
     button.append('text')
       .attr('x', 65)
       .attr('y', 15)

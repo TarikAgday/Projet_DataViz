@@ -92,7 +92,7 @@ svg.append("text")
     .style("font", "36px Lora")
     .style("text-decoration", "underline")
     .text("SALARIES BY AGE GROUPS")
-    .style("font-size", "32px")
+    .style("font", "32px Lora")
 
 
   // add the rectangles

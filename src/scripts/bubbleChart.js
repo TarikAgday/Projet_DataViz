@@ -247,15 +247,16 @@ d3.selection.prototype.moveToFront = function() {
           .append('rect')
           .attr('class', 'rectsLeg')
             .attr("x", 1500)
-            .attr("width", 10)
+            .attr("width", 30)
             .attr("y", function(d,i){ return  395+(i * (size + 5) + (size/2))})
-            .attr("height",10)
+            .attr("height",30)
             .style("fill", "white")
          .style("stroke", "black")
           .on("click", function(d,i) {
-            console.log("D",d, mycolor(d.replace("-"," ")))
+            console.log("D",d, mycolor(d.replace(/-/g," ")))
               if(!teamChecked[i]){
-                var data = d.replace("-"," ")
+                var data = d.replace(/-/g," ")
+                console.log(data)
                 teamChecked[i]=true
                 d3.selectAll(".dot"+d)
                   .style("fill", function (d,i) { return mycolor(data)} )
@@ -281,10 +282,11 @@ d3.selection.prototype.moveToFront = function() {
           .data(allgroups)
           .enter()
           .append("text")
-            .attr("x", 1500 + size*.8)
-            .attr("y", function(d,i){ return 400+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", 1530 + size*.8)
+            .attr("y", function(d,i){ return 410+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
             .style("fill", "black")
-            .text(function(d){ return d.replace("-"," ")})
+            .text(function(d){ return d.replace(/-/g," ")})
+            .style("font", "20px Lora")
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
 
