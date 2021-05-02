@@ -1,17 +1,18 @@
 export function drawMultiPannelBar(dataTeams){
     var x = 0, y = 0
     var count = 0
-    dataTeams.forEach(function(d, i){
-        drawBarChart(d, x, y)
-        if (count < 4){
-            x+=400
-        }else {
-            x = 0
-            y+=400
-            count = -1
-        }
-        count++
-    })
+    drawBarChart(dataTeams[0], x, y)
+    // dataTeams.forEach(function(d, i){
+    //     drawBarChart(d, x, y)
+    //     if (count < 4){
+    //         x+=400
+    //     }else {
+    //         x = 0
+    //         y+=400
+    //         count = -1
+    //     }
+    //     count++
+    // })
 }
 
 export function drawBarChart(data, x_test, y_test){
