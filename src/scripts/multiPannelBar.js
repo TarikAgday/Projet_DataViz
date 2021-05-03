@@ -1,5 +1,6 @@
 export function drawMultiPannelBar(dataTeams){
     var svg = d3.select("#viz_area_3")
+
     svg.append("text")
     .attr("x", 600)
     .attr("y", 50)
@@ -23,6 +24,35 @@ export function drawMultiPannelBar(dataTeams){
         }
         count++
     })
+    const colors = ["#24A302", "#054385", "#C60808", "#FFA33C"]
+
+    var legend = svg.selectAll(".legend")
+    .data(colors)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function (d, i) { return "translate(500," + (i * 15+350)+ ")"; })
+
+    legend.append("rect")
+    .attr("x", 750)
+    .attr("width", 12)
+    .attr("height", 12)
+    .style("fill", function (d, i) { return colors.slice().reverse()[i]; });
+
+    legend.append("text")
+    .attr("x",  780)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .style("font", "15px Lora")
+    .text(function (d, i) {
+      switch (i) {
+        case 0: return "Midfielder";
+        case 1: return "Defender";
+        case 2: return "Goalkeeper";
+        case 3: return "Forward";
+
+      }
+    });
 }
 
 export function drawBarChart(data, x_test, y_test){
@@ -104,6 +134,8 @@ export function drawBarChart(data, x_test, y_test){
        "orange": "#FFA33C"
    }
 
+
+
     svg.append("g")
     .selectAll(".bar")
     .data(data.Players)
@@ -131,5 +163,10 @@ export function drawBarChart(data, x_test, y_test){
             return color.orange
         }
     })
+
+
+
 }
+
+
 
