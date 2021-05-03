@@ -1,4 +1,15 @@
 export function drawMultiPannelBar(dataTeams){
+    var svg = d3.select("#viz_area_3")
+    svg.append("text")
+    .attr("x", 600)
+    .attr("y", 50)
+    .attr("text-anchor", "middle")
+    .style("font", "36px Lora")
+    .style("text-decoration", "bold")
+    .text("Number of minutes played by players for each teams")
+    .style("font-size", "30px")
+
+
     var x = 0, y = 0
     var count = 0
     dataTeams.forEach(function(d, i){
