@@ -61,6 +61,17 @@ export function drawBarChart(data, x_test, y_test){
         return d.Minutes
     })])
 
+    //Viz title
+   svg.append("text")
+   .attr("x", 125)
+   .attr("y", 75)
+   .attr("text-anchor", "middle")
+   .style("font", "36px Lora")
+   .style("text-decoration", "bold")
+   .text(data.Team)
+   .style("font-size", "10px")
+
+
     svg.append("g")
     .selectAll(".bar")
     .data(data.Players)
