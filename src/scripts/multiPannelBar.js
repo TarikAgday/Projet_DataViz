@@ -15,7 +15,7 @@ export function drawMultiPannelBar(dataTeams){
     dataTeams.forEach(function(d, i){
         drawBarChart(d, x, y)
         if (count < 5){
-            x+=210
+            x+=200
         }else {
             x = 0
             y+=210
@@ -38,7 +38,7 @@ export function drawBarChart(data, x_test, y_test){
 
     var x = d3.scaleBand().domain(data.Players.map(function(d) {
         return d.Name
-    })).range([0, 150])
+    })).range([0, 160])
 
     var y = d3.scaleLinear().range([120, 0])
     .domain([0, d3.max(data.Players, function(d){
@@ -68,7 +68,10 @@ export function drawBarChart(data, x_test, y_test){
     .attr("transform", "translate(204,205)")
     .text("Players")
     .style("font", "9px Lora")
-    .style("fontWeight","bolder")
+    .attr("transform", "rotate(-90)")
+    .attr("dy", ".50em")
+    .attr("y", 215)
+    .attr("x", -215)
 
 
     svg.append("g")
@@ -94,6 +97,12 @@ export function drawBarChart(data, x_test, y_test){
    .text(data.Team)
    .style("font-size", "14px")
 
+   const color = {
+       "green": "#24A302",
+       "blue": "#054385",
+       "red": "#C60808",
+       "orange": "#FFA33C"
+   }
 
     svg.append("g")
     .selectAll(".bar")
@@ -110,15 +119,16 @@ export function drawBarChart(data, x_test, y_test){
     .attr("width", x.bandwidth())
     .attr("height", function(d){ return y(d.Minutes)})
     .attr("transform", "translate(50," + -120 + ")")
+    .attr("style", "outline: thin white;")   
     .style("fill", function(d){
         if (d.Position === "M"){
-            return "#b33040"
+            return color.green
         } else if (d.Position === "D"){
-            return "#d25c4d"
+            return color.blue
         } else if (d.Position === "GK"){
-            return "#f2b447"
+            return color.red
         } else if (d.Position === "F"){
-            return "#d9d574"
+            return color.orange
         }
     })
 }
