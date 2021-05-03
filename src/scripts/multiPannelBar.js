@@ -59,11 +59,18 @@ export function drawBarChart(data, x_test, y_test){
     .attr("y", 0)
     .attr("x", -35)
 
+    svg.append("text")
+    .attr("transform", "translate(20,75)")
+    .text("Minutes")
+    .style("font", "9px Lora")
+    .style("fontWeight","bolder")
+
 
     svg.append("g")
     .attr("transform", "translate(50, 80)")
     .call(yAxis)
     .selectAll("text")
+    .style("font", "10px Lora")
     .attr("x", 30)
     .attr("transform", "translate(-40)")
 
@@ -80,7 +87,7 @@ export function drawBarChart(data, x_test, y_test){
    .style("font", "36px Lora")
    .style("text-decoration", "bold")
    .text(data.Team)
-   .style("font-size", "10px")
+   .style("font-size", "14px")
 
 
     svg.append("g")
