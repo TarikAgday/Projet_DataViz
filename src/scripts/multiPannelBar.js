@@ -15,10 +15,10 @@ export function drawMultiPannelBar(dataTeams){
     dataTeams.forEach(function(d, i){
         drawBarChart(d, x, y)
         if (count < 5){
-            x+=200
+            x+=210
         }else {
             x = 0
-            y+=200
+            y+=210
             count = -1
         }
         count++
@@ -27,7 +27,6 @@ export function drawMultiPannelBar(dataTeams){
 
 export function drawBarChart(data, x_test, y_test){
     const h = 320, w = 250
-    var margin = {top: 5, right: 5, bottom: 5, left: 5}
 
     var svg = d3.select("#viz_area_3")
     .append("g")
@@ -47,7 +46,7 @@ export function drawBarChart(data, x_test, y_test){
     })])
 
     var xAxis = d3.axisBottom().scale(x)
-    var yAxis = d3.axisLeft().scale(y)
+    var yAxis = d3.axisLeft().scale(y).ticks(8)
 
     svg.append("g")
     .attr("transform", "translate(50," + 200 + ")")
@@ -55,13 +54,19 @@ export function drawBarChart(data, x_test, y_test){
     .selectAll("text")
     .style("font", "5px times")
     .attr("transform", "rotate(-90)")
-    .attr("dy", ".35em")
+    .attr("dy", ".50em")
     .attr("y", 0)
     .attr("x", -35)
 
     svg.append("text")
     .attr("transform", "translate(20,75)")
     .text("Minutes")
+    .style("font", "9px Lora")
+    .style("fontWeight","bolder")
+
+    svg.append("text")
+    .attr("transform", "translate(204,205)")
+    .text("Players")
     .style("font", "9px Lora")
     .style("fontWeight","bolder")
 
