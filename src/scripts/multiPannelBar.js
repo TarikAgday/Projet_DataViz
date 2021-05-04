@@ -24,6 +24,23 @@ export function drawMultiPannelBar(dataTeams){
         }
         count++
     })
+
+    // const color = {
+    //     "green": "#24A302",
+    //     "blue": "#054385",
+    //     "red": "#C60808",
+    //     "orange": "#FFA33C"
+    // }
+
+    // if (d.Position === "M"){
+    //     return color.green
+    // } else if (d.Position === "D"){
+    //     return color.blue
+    // } else if (d.Position === "GK"){
+    //     return color.red
+    // } else if (d.Position === "F"){
+    //     return color.orange
+    // }
     const colors = ["#24A302", "#054385", "#C60808", "#FFA33C"]
 
     var legend = svg.selectAll(".legend")
@@ -36,7 +53,7 @@ export function drawMultiPannelBar(dataTeams){
     .attr("x", 750)
     .attr("width", 12)
     .attr("height", 12)
-    .style("fill", function (d, i) { return colors.slice().reverse()[i]; });
+    .style("fill", function (d, i) { return colors.slice()[i]; });
 
     legend.append("text")
     .attr("x",  780)
@@ -54,6 +71,8 @@ export function drawMultiPannelBar(dataTeams){
       }
     });
 }
+
+
 
 export function drawBarChart(data, x_test, y_test){
     const h = 320, w = 250
@@ -141,8 +160,11 @@ export function drawBarChart(data, x_test, y_test){
     .data(data.Players)
     .enter()
     .append("rect")
+    .join("g")
     .attr("class", "bar")
     .attr("x", function(d){
+        console.log("drawing stuff")
+        console.log(d)
         return x(d.Name)
     })
     .attr("y", function(d){
@@ -163,6 +185,32 @@ export function drawBarChart(data, x_test, y_test){
             return color.orange
         }
     })
+    .on("mouseover",  function(d) { return tip.show(d,this) })
+    .on("mouseout",  function(d) { tip.hide(this) })
+
+    // Function to generate tooltip
+const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+svg.call(tip)
+
+
+// Get content of Rectangle tooltip
+function getContents (d) {
+  let content =  '</span><bold> Club : </bold><span style="font-weight: normal">' + data.Team
+  +  '<span> <br>Player Name:  <span style="font-weight: normal">' + d.Name 
+  +     '<span> <br>Player Minutes:  <span style="font-weight: normal">' + d.Minutes
+  +     '<span> <br>Player Position:  <span style="font-weight: normal">' 
+  if (d.Position === "M") {
+    content+= "Midfielder"
+  } else if (d.Position === "D") {
+    content+= "Defender"
+  } else if (d.Position === "GK") {
+    content+= "GoalKeeper"
+  } else if (d.Position === "F") {
+    content+= "Forward"
+  }
+
+  return content
+}
 
 
 
