@@ -117,9 +117,11 @@ export function appendBubbleChart (data, x, y) {
               '</span><br><bold> Minutes played : </bold><span style="font-weight: normal">' + d.Minutes
   }
 
-  // Format integers to add comas for millions or thousands values
   /**
-   * @param num
+   * Formatting the numbers
+   *
+   * @param {number} num the number to format
+   * @returns {number} the formatter number
    */
   function formatNumber (num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
