@@ -85,9 +85,29 @@ export function multipannelProcess(data){
         "Position": info.Position
       })
     })
+
+    const str = ["M", "D", "GK", "F"] 
+    const playersM = [], playersD = [], playersGK = [], playersF = []
+
+    playersInfo.forEach((player) =>{
+      // console.log(player.Position)
+      if (player.Position === "M") {
+        playersM.push(player)
+      } else if (player.Position === "D") {
+        playersD.push(player)
+      } else if (player.Position === "GK") {
+        playersGK.push(player)
+      } else {
+        playersF.push(player)
+      }
+    })
+
+    const sortedArray  = playersM.concat(playersD).concat(playersGK).concat(playersF)
+
+
     processedData.push({
       "Team": team,
-      "Players": playersInfo
+      "Players": sortedArray
     })
   })
   return processedData
