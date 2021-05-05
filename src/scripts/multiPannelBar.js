@@ -24,7 +24,7 @@ export function drawMultiPannelBar(dataTeams){
         }
         count++
     })
-
+ 
     // const color = {
     //     "green": "#24A302",
     //     "blue": "#054385",
@@ -195,10 +195,9 @@ svg.call(tip)
 
 // Get content of Rectangle tooltip
 function getContents (d) {
-  let content =  '</span><bold> Club : </bold><span style="font-weight: normal">' + data.Team
-  +  '<span> <br>Player Name:  <span style="font-weight: normal">' + d.Name 
-  +     '<span> <br>Player Minutes:  <span style="font-weight: normal">' + d.Minutes
-  +     '<span> <br>Player Position:  <span style="font-weight: normal">' 
+  let content =  '</span><bold> Name : </bold><span style="font-weight: normal">' + d.Name 
+  +     '<span> <br>Minutes:  <span style="font-weight: normal">' + d.Minutes
+  +     '<span> <br>Position:  <span style="font-weight: normal">' 
   if (d.Position === "M") {
     content+= "Midfielder"
   } else if (d.Position === "D") {
