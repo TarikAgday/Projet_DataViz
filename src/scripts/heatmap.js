@@ -172,19 +172,19 @@ export function drawHeatmapLegend (fill,colorScale) {
         .attr("height", 100)
         .attr("width", 15)
         .attr("y", function(d,i){ return (100 + (i*100))})
-        .attr("x", 1300)
+        .attr("x", 1350)
         .attr("fill",function(d){ return d})
         .style("stroke", "black")
 
 
           svg.append("text")
-          .attr("transform", "translate(1800,1275)")
+          .attr("transform", "translate(1300,870)")
           .text("Age groups")
           .style("font", "32px Lora")
 
           for (let i = 0; i < valueLegend.length; i++) {
             svg.append("text")
-                .attr("transform", "translate("+1930+","+(150 + (i*152))+")")
+                .attr("transform", "translate("+1370+","+(100 + (i*100))+")")
                 .text(valueLegend[i])
                 .style("font", "22px Lora")
                 .style("fontWeight","bolder")
