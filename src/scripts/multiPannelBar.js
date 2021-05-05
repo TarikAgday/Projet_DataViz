@@ -168,7 +168,12 @@ export function drawBarChart(data, x_test, y_test){
             return color.orange
         }
     })
-    .on("mouseover",  function(d) { return tip.show(d,this) })
+    .on("mouseover",  function(d) { 
+        if(d.Minutes === 0){
+            
+        }
+        return tip.show(d,this) 
+    })
     .on("mouseout",  function(d) { tip.hide(this) })
 
     // Function to generate tooltip
