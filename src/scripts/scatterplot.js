@@ -202,7 +202,7 @@ function drawLegend(g) {
         .attr("class", "legendQuant")
         .attr("y", "-20")
         .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
-        .style("font", "36px Lora")
+        .style("font", "26px Lora")
 
     const colorScale = d3.scaleOrdinal()
         .domain(["terrible", "bad", "okay", "good"])
