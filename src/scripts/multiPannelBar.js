@@ -115,6 +115,7 @@ export function drawBarChart(data, x_test, y_test){
     .attr("x", 30)
     .attr("transform", "translate(-40)")
 
+
     var y = d3.scaleLinear().range([0, 120])
     .domain([0, d3.max(data.Players, function(d){
         return d.Minutes
@@ -191,6 +192,7 @@ export function drawBarChart(data, x_test, y_test){
         }
 
         content += '<span> <br>Salary:  <span style="font-weight: normal">' + d.Salary
+        + '<span> <br>Age:  <span style="font-weight: normal">' + d.Age
 
         return content
     }

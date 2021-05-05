@@ -62,14 +62,16 @@ export function mapMultiPannelProcess (data){
         d["First Name"]+ " " + d["Last Name"], {
           "Minutes": parseInt(d["MinutesPlayed"]),
           "Position": d["Playing Position"],
-          "Salary": d["Salaire"]
+          "Salary": d["Salaire"],
+          "Age": d["Age"],
         }]]))
     } else {
       multiPannelData.get(d.Club).set(
         d["First Name"] +" " + d["Last Name"], {
         "Minutes": parseInt(d["MinutesPlayed"]),
         "Position": d["Playing Position"],
-        "Salary": d["Salaire"]
+        "Salary": d["Salaire"],
+        "Age": d["Age"],
       })
     }
   })
@@ -86,7 +88,8 @@ export function multipannelProcess(data){
         "Name": player,
         "Minutes": parseInt(info.Minutes),
         "Position": info.Position,
-        "Salary": info.Salary
+        "Salary": info.Salary,
+        "Age": info.Age,
       })
     })
 
