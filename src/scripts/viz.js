@@ -4,8 +4,7 @@ const height = 600, width = 800
 }
 
 export function drawStackedBarChart(data) {
-  var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574"];
-
+  var colors = ["#C60808", "#FFA33C", "#24A302", "#054385"];
 
   var stackGen = d3.stack().keys(["M", "D", "F", "GK"]).order(d3.stackOrderNone).offset(d3.stackOffsetNone)
 
