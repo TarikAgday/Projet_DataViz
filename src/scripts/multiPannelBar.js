@@ -24,23 +24,7 @@ export function drawMultiPannelBar(dataTeams){
         }
         count++
     })
- 
-    // const color = {
-    //     "green": "#24A302",
-    //     "blue": "#054385",
-    //     "red": "#C60808",
-    //     "orange": "#FFA33C"
-    // }
 
-    // if (d.Position === "M"){
-    //     return color.green
-    // } else if (d.Position === "D"){
-    //     return color.blue
-    // } else if (d.Position === "GK"){
-    //     return color.red
-    // } else if (d.Position === "F"){
-    //     return color.orange
-    // }
     const colors = ["#24A302", "#054385", "#C60808", "#FFA33C"]
 
     var legend = svg.selectAll(".legend")
