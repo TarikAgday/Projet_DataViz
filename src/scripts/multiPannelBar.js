@@ -147,8 +147,6 @@ export function drawBarChart(data, x_test, y_test){
     .join("g")
     .attr("class", "bar")
     .attr("x", function(d){
-        console.log("drawing stuff")
-        console.log(d)
         return x(d.Name)
     })
     .attr("y", function(d){
