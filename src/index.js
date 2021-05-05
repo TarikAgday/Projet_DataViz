@@ -15,17 +15,8 @@ $(function () {
     d3.csv("StatsJoueursConv.csv"),
     d3.csv("ClassementParEquipeConv.csv"),
   ]).then(function (files) {
-    //console.log("FILES 0 ", files[0])
-    //console.log("FILES 1 ", files[1])
-    // files[0] data StatsJoueursConv
-    // files[1] data ClassementParEquipeConv
-
-    // creer tes fonctions dans un autre fichier et les appeler ici
     var svg = d3.select("#viz_area")
     var x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
-    //svg.append("g").attr("class","yellow").append("circle").attr("cx", x(20)).attr("cy", 120).attr("r", 40).style("fill", "yellow").on('mousemove', function () {
-    //  console.log("ines")
-
 
     // Area 2: Connected Dot Plot
     var dataConnectedDotPlot = preproc.connectedDotPlotProcess(files[1])
@@ -41,7 +32,6 @@ $(function () {
     const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
     scatterPlot.drawScatteredPlotChart(scatteredPlotData)
 
-    //var bubbleChartData = preproc.bubbleChartPreProcess(files[0])
    var dataMBUBLLE = preproc.multipannelBubbleChartProcess(files[0])
    bubbleChart.drawMultiPannelBubble(dataMBUBLLE)
 
@@ -98,25 +88,18 @@ $(function () {
       elements[i].style.opacity = 0;
     }
 
-    //console.log(elements[1].style)
-
     for (var i = 0; i < elements.length; i++) {
       if (elements[i].style.opacity >= 0.6){
         for (let j = 0; j< elements[i].children[0].children.length; j++){
           elements[i].children[0].children[j].style["pointer-events"] = "auto"
-          // console.log(elements[i].children[0].children[j])
         }
-        // console.log(elements[i].children[0].children)
-      //  elements[i].style.visibility = "visible"
     }
       else {
         for (let j = 0; j< elements[i].children[0].children.length; j++){
           elements[i].children[0].children[j].style["pointer-events"] = "none"
-          // console.log(elements[i].children[0].children[j])
         }
     }
   }
-  // console.log(d3.selectAll(".box").selectAll("svg")["_groups"])
   });
 
 });
