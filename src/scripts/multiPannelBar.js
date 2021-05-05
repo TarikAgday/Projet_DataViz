@@ -190,6 +190,8 @@ export function drawBarChart(data, x_test, y_test){
             content+= "Forward"
         }
 
+        content += '<span> <br>Salary:  <span style="font-weight: normal">' + d.Salary
+
         return content
     }
 
