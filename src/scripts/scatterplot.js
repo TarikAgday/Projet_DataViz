@@ -76,6 +76,7 @@ export function drawScatteredPlotChart(data) {
         .attr("x", xScale(21.5))
         .attr("y", yScale(11800000))
         .text("Average league budget: " + d3.format(".3s")(budgetAverage) + "$")
+        .style("font", "22px Lora")
 
     g.append("line")
         .attr("x1", 0)
@@ -90,6 +91,7 @@ export function drawScatteredPlotChart(data) {
         .attr("y", yScale(25250000))
         .attr("fill", "black")
         .text("Playoff access")
+       .style("font", "22px Lora")
 
     g.append("line")
         .attr("x1", xScale(cutoff))
@@ -143,15 +145,19 @@ function appendGraphLabels (g) {
       .text('Budget ($)')
       .attr('class', 'y axis-text')
       .attr('transform', 'rotate(-90)')
-      .attr('font-size', 20)
+      .style("font", "32px Lora")
 
     g.append('text')
       .text('General Standing')
       .attr('class', 'x axis-text')
-      .attr('font-size', 20)
+      .style("font", "32px Lora")
   }
 
 const formatValue = d3.format(".2s")
+
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
 
 function drawYAxis (yScale) {
     const yAxis = d3.axisLeft(yScale).tickFormat(function(d) { return formatValue(d).replace("M", "M$") })
@@ -173,7 +179,7 @@ function positionLabels (g) {
 function setSizing() {
     svgSize = {
         width: 1500,
-        height: 1300
+        height: 1250
     }
 
     graphSize = {
@@ -185,8 +191,8 @@ function setSizing() {
 function getContents (d) {
     return '<span> Club :  <span style="font-weight: normal">' + d.club
     +
-    '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + d.budget
-    + '$</span>'
+    '</span><br><bold>Budget : </bold><span style="font-weight: normal">' + formatNumber(d.budget)
+    + ' $</span>'
 }
 
 function drawLegend(g) {
@@ -194,11 +200,11 @@ function drawLegend(g) {
         .attr("class", "legendQuant")
         .attr("y", "-20")
         .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
-        .style("font-size", "12")
+        .style("font", "22px Lora")
 
     const colorScale = d3.scaleOrdinal()
         .domain(["terrible", "bad", "okay", "good"])
-        .range(["#FFE7E5", "orange", "yellow", "green"])
+        .range(["rgba(255,0,0,0.1)", "rgba(255,165,0,0.2)", "rgba(255,255,0,0.1)", "rgba(0,128,0,0.1)"])
 
     const legend = d3Legend.legendColor().title("Legend ")
       .shape("path", d3.symbol().type(d3.symbolCircle).size(250)())
@@ -211,7 +217,7 @@ function drawLegend(g) {
 function drawButton (g) {
     const button = g.append('g')
       .attr('class', 'button')
-      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 70})`)
+      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 100})`)
       .attr('width', 130)
       .attr('height', 25)
       .on('click', () => {
