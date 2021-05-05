@@ -4,16 +4,16 @@
 // set the dimensions and margins of the graph
 
 export function drawMultiPannelBubble(dataPosition){
-  var x = 200, y = 200
+  var x = 50, y = 75
   var count = 0
   dataPosition.forEach(function(d, i){
 
     appendBubbleChart(d, x, y)
       if (count < 1){
-          x+=950
+          x+=500
       }else {
-          x = 200
-          y+=900
+          x = 50
+          y+=450
           count = -1
       }
       count++
@@ -22,8 +22,8 @@ export function drawMultiPannelBubble(dataPosition){
 
 export function appendBubbleChart (data, x , y) {
 
-    var margin = {top: 20, right: 15, bottom: 25, left: 100}
-       var height = 700, width = 900
+    var margin = {top: 10, right: 15, bottom: 25, left: 100}
+       var height = 400, width = 600
 
     // append the svg object to the body of the page
     var svg = d3.select("#viz_area_5")
@@ -47,7 +47,7 @@ export function appendBubbleChart (data, x , y) {
         .call(d3.axisBottom(x).ticks(3))
 
   var y = d3.scaleLinear()
-  .range([ height,0])
+  .range([ height-50,0])
   .domain([0, d3.max(data.Players, function(d){
       return (parseInt(d.Performance)*1.10)
   })])
@@ -64,7 +64,7 @@ export function appendBubbleChart (data, x , y) {
     .style("font", "20px Lora")
 
   svg.append("g")
-    .attr("transform", "translate("+margin.left+","+(-margin.bottom)+")")
+    .attr("transform", "translate("+margin.left+","+(-margin.bottom+50)+")")
     .call(yAxis)
     .style("font", "20px Lora")
 
@@ -104,7 +104,7 @@ export function appendBubbleChart (data, x , y) {
         .append("circle")
           .attr("class" , function(d){ return "dot" + d.Club.replace(/\s/g, '-') })
           .attr("cx", function (d) { return x(d.Minutes)+margin.left } )
-          .attr("cy", function (d) { return y(d.Performance)-margin.bottom } )
+          .attr("cy", function (d) { return y(d.Performance)-margin.bottom+50 } )
           .attr("r", function (d) { return z(d.Salary*500); } )
           .style("fill", "white")
           .style("opacity", "0.75")
@@ -150,11 +150,11 @@ export function appendBubbleChart (data, x , y) {
     .attr('class', 'titles')
       .attr("x", function(d,i){
           if(i%2 == 0)
-          {return  700}
-          else{return 1600}})
+          {return  300}
+          else{return 900}})
       .attr("y", function(d,i)
-      { if(i<2){return 200}
-        else{return 1100}})
+      { if(i<2){return 50}
+        else{return 550}})
       .text(function(d,i){return d})
       .style("fill", "black")
       .style("font", "20px Lora")
@@ -202,9 +202,9 @@ d3.selection.prototype.moveToFront = function() {
           .enter()
           .append('rect')
           .attr('class', 'rectsLeg')
-            .attr("x", 2150)
+            .attr("x", 1100)
             .attr("width", 30)
-            .attr("y", function(d,i){ return  585+(i * (size + 5) + (size/2))})
+            .attr("y", function(d,i){ return  205+(i * (size + 5) + (size/2))})
             .attr("height",30)
             .style("fill", "white")
          .style("stroke", "black")
@@ -238,8 +238,8 @@ d3.selection.prototype.moveToFront = function() {
           .data(allgroups)
           .enter()
           .append("text")
-            .attr("x", 2170 + size*.8)
-            .attr("y", function(d,i){ return 600+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", 1120 + size*.8)
+            .attr("y", function(d,i){ return 220+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
             .style("fill", "black")
             .text(function(d){ return d.replace(/-/g," ")})
             .style("font", "20px Lora")
