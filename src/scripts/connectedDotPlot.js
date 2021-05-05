@@ -24,14 +24,12 @@ var svg = d3.select("#viz_area_6")
 
   //Viz title
   svg.append("text")
-    .attr("x", (width / 2)+100)
+    .attr("x", (width / 2) + 200)
     .attr("y", 0 - (margin.top/10))
     .attr("text-anchor", "middle")
     .style("font-size", "30px")
     .style("text-decoration", "underline")
-    .attr("transform", "translate(200,0)")
     .text("Gaps between goals scored and goals conceided");
-
 
   // Add X axis
   var x = d3.scaleLinear()
@@ -48,99 +46,98 @@ var svg = d3.select("#viz_area_6")
     .domain(teamsByStandings)
     .padding(1);
   svg.append("g")
-  .attr('transform', 'translate( 200, 0)')
+  .attr('transform', 'translate(200, 0)')
     .style("font", "22px Lora")
-    .call(d3.axisLeft(y))
-
-
-  //Axis titles
-  svg.append("text")
-    .attr("transform", "translate(925,1100)")
-    .text("Goals");
-
-  svg.append("text")
-    .attr("transform", "translate(0,700) rotate(-90)")
-    .style("font", "22px Lora")
-    .text("Teams by ordered by general ranking, from top to bottom");
-
-
-  // Lines
-  svg.selectAll("myline")
+    .call(d3.axisLeft(y))    
+    
+    // Lines
+    svg.selectAll("myline")
     .data(data)
     .enter()
     .append("line")
-      .attr("x1", function(d) { return x(d.values[0])+200; })
-      .attr("x2", function(d) { return x(d.values[1])+200; })
-      .attr("y1", function(d) { return y(d.Club); })
-      .attr("y2", function(d) { return y(d.Club); })
-      .attr("stroke", "grey")
-      .attr("stroke-width", "5px")
-      .on("mouseover",  function(d) { return tip.show(d,this) })
-      .on("mouseout",  function(d) { tip.hide(this) })
-
-  // Circles of goals scored
-  svg.selectAll("mycircle")
+    .attr("x1", function(d) { return x(d.values[0])+200; })
+    .attr("x2", function(d) { return x(d.values[1])+200; })
+    .attr("y1", function(d) { return y(d.Club); })
+    .attr("y2", function(d) { return y(d.Club); })
+    .attr("stroke", "grey")
+    .attr("stroke-width", "5px")
+    .on("mouseover",  function(d) { return tip.show(d,this) })
+    .on("mouseout",  function(d) { tip.hide(this) })
+    
+    // Circles of goals scored
+    svg.selectAll("mycircle")
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function(d) { return x(d.values[0])+200; })
-      .attr("cy", function(d) { return y(d.Club); })
-      .attr("r", "10")
-      .style("fill", "#0000ff")
-      .on("mouseover",  function(d) { return tip.show(d,this) })
-      .on("mouseout",  function(d) { tip.hide(this) })
-
-  // Circles goals conceided
-  svg.selectAll("mycircle")
+    .attr("cx", function(d) { return x(d.values[0])+200; })
+    .attr("cy", function(d) { return y(d.Club); })
+    .attr("r", "10")
+    .style("fill", "#0000ff")
+    .on("mouseover",  function(d) { return tip.show(d,this) })
+    .on("mouseout",  function(d) { tip.hide(this) })
+    
+    // Circles goals conceided
+    svg.selectAll("mycircle")
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function(d) { return x(d.values[1])+200; })
-      .attr("cy", function(d) { return y(d.Club); })
-      .attr("r", "10")
-      .style("fill", "#ff0000")
-      .on("mouseover",  function(d) { return tip.show(d,this) })
-      .on("mouseout",  function(d) { tip.hide(this) })
-
-      // Legend
-      var size = 20
-      var allgroups = ["Goals scored","Goals conceided"]
-      svg.append('g')
-        .selectAll("mylegend")
-        .data(allgroups)
-        .enter()
-        .append('circle')
-        .attr('class', 'circlesLeg')
-          .attr("cx", 1200)
-          .attr("cy", function(d,i){ return  395+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
-          .attr("r", "10")
-          .style("fill", "red")
-        .style("stroke", "black")
-
-  // Function to generate tooltip
-const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
-svg.call(tip)
-
-// Get content of Rectangle tooltip
-function getContents (d) {
-  return '</span><bold> Club : </bold><span style="font-weight: normal">' + d.Club
-  +
+    .attr("cx", function(d) { return x(d.values[1])+200; })
+    .attr("cy", function(d) { return y(d.Club); })
+    .attr("r", "10")
+    .style("fill", "#ff0000")
+    .on("mouseover",  function(d) { return tip.show(d,this) })
+    .on("mouseout",  function(d) { tip.hide(this) })
+    
+    // Legend
+    var size = 20
+    var allgroups = ["Goals scored","Goals conceided"]
+    svg.append('g')
+    .selectAll("mylegend")
+    .data(allgroups)
+    .enter()
+    .append('circle')
+    .attr('class', 'circlesLeg')
+    .attr("cx", 1200)
+    .attr("cy", function(d,i){ return  395+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", "10")
+    .style("fill", "red")
+    .style("stroke", "black")
+    
+    //Axis titles
+    svg.append("text")
+      .attr("transform", "translate(550,650)")
+      .style("font", "32px Lora")
+      .text("Goals");
+  
+    svg.append("text")
+      .attr("transform", "translate(0,550) rotate(-90)")
+      .style("font", "22px Lora")
+      .text("Teams by ordered by general ranking, from top to bottom");
+    
+    // Function to generate tooltip
+    const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+    svg.call(tip)
+    
+    // Get content of Rectangle tooltip
+    function getContents (d) {
+      return '</span><bold> Club : </bold><span style="font-weight: normal">' + d.Club
+      +
       '<span> <br>Goals scored :  <span style="font-weight: normal">' + d.values[0]
-  +
-  '<span> <br>Goals against :  <span style="font-weight: normal">' + d.values[1]
-
-}
-drawConnectedDotPlotLegend()
-}
-
-
-
-export function drawConnectedDotPlotLegend (){  // Legend
-  var size = 20
-  var allgroups = ["Goals scored","Goals conceided"]
-  var color = ["blue","red"]
-  var svg = d3.select("#viz_area_6")
-  svg.append('g')
+      +
+      '<span> <br>Goals against :  <span style="font-weight: normal">' + d.values[1]
+      
+    }
+    drawConnectedDotPlotLegend()
+  }
+  
+  
+  
+  export function drawConnectedDotPlotLegend (){  // Legend
+    var size = 20
+    var allgroups = ["Goals scored","Goals conceided"]
+    var color = ["blue","red"]
+    var svg = d3.select("#viz_area_6")
+    svg.append('g')
     .selectAll("mylegend")
     .data(color)
     .enter()

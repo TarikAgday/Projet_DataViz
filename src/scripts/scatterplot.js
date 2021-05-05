@@ -142,12 +142,11 @@ function appendGraphLabels (g) {
     g.append('text')
       .text('Budget ($)')
       .attr('class', 'y axis-text')
-      .attr('transform',
-            'translate(100,-650)')
+      .attr('transform', 'rotate(-90)')
       .style("font", "32px Lora")
 
     g.append('text')
-      .text('General Standing')
+      .text('Standing')
       .attr('class', 'x axis-text')
       .style("font", "32px Lora")
   }
