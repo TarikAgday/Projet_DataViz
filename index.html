@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <div class="box" ><svg id="viz_area" height=900 width=600  style="background-image:url('src/assets/images/ligue.png'); padding-left: 200px">
+    <div class="box image" ><svg id="viz_area" height=900 width=600  style="background-image:url('src/assets/images/ligue.png'); padding-left: 200px">
 
     </svg></div>
     <div class="box"><svg id="viz_area_1" height=1600 width=1600 ></svg></div>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="box-placeholder">
-    <div class="inner-text text1" style="bottom: 5vh; top: 96vh; width:30%; text-align:justify; color:black; font: 28px Lora; overflow-y: hidden;";>
+    <div class="inner-text text1" style="bottom: 5vh; top: 96vh; width:30%; text-align:justify; color:black; font: 25px Lora; overflow-y: hidden;";>
         <br><b> MAJOR LEAGUE SOCCER 2019 SEASON ANALYSIS<BR><BR>BUDGETS BY TEAMS</b>
          24 teams evenly spread in the West
          and Eastern conference were fighting
@@ -43,7 +43,7 @@
             the average while the red and darker yellow reactangle represents teams
             that did not qualify for the playoffs.
     </div>
-    <div class="inner-text text2" style="top: 160vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+    <div class="inner-text text2" style="top: 190vh; width:30%; text-align:justify; color:black; font: 25px Lora";>
         <b><br><br>SALARIES BY AGE GROUPS</b>
         <br><br>
         The second graph is a heatmap of the
@@ -55,7 +55,7 @@
         (27,3 years old). Also, this graph shows us a tendance to
         invest more money on young players.
         </div>
-     <div class="inner-text text3" style="top: 250vh; width:420px; text-align:justify; color:black; font: 30px Lora";>
+     <div class="inner-text text3" style="top: 290vh; width:420px; text-align:justify; color:black; font: 25px Lora";>
         <b>MINUTES PLAYED </b><br><br>
         Coaches have different approaches on the use of their rosters.
         Some rely on a kernel of key players while others prefer to
@@ -65,7 +65,7 @@
     </div>
 
 
-    <div class="inner-text text4" style="top: 350vh; width:600px; text-align:justify; color:black; font: 30px Lora";>
+    <div class="inner-text text4" style="top: 350vh; width:600px; text-align:justify; color:black; font: 25px Lora";>
         <b>TEAMS' BUDGET DISPERSION </b><br><br>
         As we saw in the first graph, teams' budgets vary from one team to another. However, this graph shows us
         on how much is spent on each position. we also need to consider that teams generally have 3 goalkeepers,
@@ -73,26 +73,30 @@
         can clearily see a bigger investment of teams' on offensive players (biggest part of budget for lower number of players).
 
     </div>
-    <!--
 
-    <div class="inner-text" style="top: 430vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+
+    <div class="inner-text text5" style="top: 430vh; width:25%; color:black; font: 25px Lora";>
         <b>PERFORMANCE VS SALARIES </b><br><br>
-    Here is a comparison of performance <br> between players by their position per <br>minutes played.<br>
-    <br> Click on a team in the legend to  <br> highlight their players.<br><br>
-    <br>Bubble size represents a player salary  <br>
-    <br><br>Midfielders are ranked by their <br>forward-passing distance in meters
-    <br><br> Defenders are ranked by the <br> number of tackles leading to <br> regain possession
-    <br><br> Forwards are ranked by the <br> number of goals scored
-    <br><br> Goalkeepers are ranked by the <br> number of goals conceided
+        Here is a comparison of performance between players by their position per minutes played.<br>
+        <br> Click on a team in the legend to highlight their players.<br>
+        <br>Each bubble size represents a player salary<br>
+        <ul>
+            <li>Midfielders are ranked by their forward-passing distance in meters</li>
+            <li>Defenders are ranked by the number of tackles leading to regain possession</li>
+            <li>Forwards are ranked by the number of goals scored</li>
+            <li>Goalkeepers are ranked by the number of goals conceided</li>
+        </ul>
+    </div>
 
-</div><div class="inner-text" style="top: 520vh; width:550px; text-align:justify; color:black; font: 40px Lora";>
-    <b>GOALS </b><br><br>
-    This graph presents the goals scored and conceided by every teams.
-    <br><br> It helps us understand teams' offensive and defensive ultimate performance.
-    Some coaches focus more on their offense while others on their defense and
-    this visualization demonstrates how both approach can lead to a good performance.
 
-</div> -->
+    <div class="inner-text text6" style="top: 530vh; width:25%; color:black; font: 25px Lora";>
+        <b>GOALS </b><br><br>
+        This graph presents the goals scored and conceided by every teams.
+        <br><br> It helps us understand teams' offensive and defensive ultimate performance.
+        Some coaches focus more on their offense while others on their defense and
+        this visualization demonstrates how both approach can lead to a good performance.
+
+    </div> 
 </div>
 
 <script src="https://d3js.org/d3.v5.js"></script>
@@ -104,6 +108,9 @@
 <script type="text/javascript">
     $(document).scroll(function(){
         var y = $(this).scrollTop();
+        if(y>700){
+            $('.image').fadeOut();
+        }
         if (y<700){
             $('.text1').fadeIn();
         } else if (y > 900) {
@@ -123,6 +130,11 @@
             $('.text4').fadeOut();
         } else if (y>2600) {
             $('.text4').fadeIn();
+        }
+        if (y<3300|| y > 4300){
+            $('.text5').fadeOut();
+        } else if (y>3400) {
+            $('.text5').fadeIn();
         }
 
     });
