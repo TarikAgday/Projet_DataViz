@@ -1,4 +1,4 @@
-
+const height = 600, width = 800
  function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
@@ -10,23 +10,23 @@ export function drawStackedBarChart(data) {
   var stackGen = d3.stack().keys(["M", "D", "F", "GK"]).order(d3.stackOrderNone).offset(d3.stackOffsetNone)
 
   var stackedSeries = stackGen(data)
-  const x = d3.scaleBand().domain(data.map(d => d.club)).range([0, 1000])
+  const x = d3.scaleBand().domain(data.map(d => d.club)).range([0, width])
   var xAxis = d3.axisBottom().scale(x)
 
-  const y = d3.scaleLinear().domain([0, d3.max(data, function (d) { return d.sum; })]).range([1000, 0]).range([1000, 0]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, function (d) { return d.sum; })]).range([height, 0]).range([height, 0]);
   var yAxis = d3.axisLeft().scale(y)
 
 
 
 
   var svg = d3.select("#viz_area_4")
-  var svg = svg.append("g").attr("transform", " translate(300,200)")
-  svg.append("g").attr("transform", "translate(50," + 1000 + ")")
+  var svg = svg.append("g").attr("transform", " translate(300,100)")
+  svg.append("g").attr("transform", "translate(50," + height + ")")
     .call(xAxis)
     .selectAll("text")
-    .style("font", "25px Lora")
+    .style("font", "20px Lora")
     .attr("y", 0)
-    .attr("x", -135)
+    .attr("x", -120)
     .attr("dy", ".35em")
     .attr("transform", "rotate(-85)")
 
@@ -54,7 +54,7 @@ export function drawStackedBarChart(data) {
     .attr("x", d => x(d.data.club))
     .attr("width", x.bandwidth())
     .attr("y", d => y(d[1]))
-    .attr("height", d => 1000 - y(d[1] - d[0]))
+    .attr("height", d => height - y(d[1] - d[0]))
     .on("mouseover", function() { tooltip.style("display", null); })
     .on("mouseout", function() { tooltip.style("display", "none"); })
     .on('mousemove', d => {
@@ -72,7 +72,7 @@ export function drawStackedBarChart(data) {
     .data(colors)
     .enter().append("g")
     .attr("class", "legend")
-    .attr("transform", function (d, i) { return "translate(450," + i * 25+ ")"; });
+    .attr("transform", function (d, i) { return "translate(160," + i * 25+ ")"; });
 
   legend.append("rect")
     .attr("x", 750)
@@ -115,7 +115,7 @@ export function drawStackedBarChart(data) {
     .text("SALARY");
 
   svg.append("text")
-    .attr("transform", "translate(1075,1000)")
+    .attr("transform", "translate(880," + height+ ")")
     .style("font", "30px Lora")
     .text("TEAM");
 
