@@ -7,8 +7,9 @@ export function appendConnectedDotPlot (data){
     "DC United","Portland","FC Dallas","NY Red Bulls","New England","San Jose",
     "Colorado","Chicago",  "Montreal", "Houston", "Sporting KC",
     "Columbus", "Orlando City", "Vancouver","FC Cincinnati"]
+
 // set the dimensions and margins of the graph
-var margin = {top: 40, right: 150, bottom: 60, left: 150},
+var margin = {top: 150, right: 150, bottom: 60, left: 150},
     width = 1200 - margin.left - margin.right,
     height = 1200 - margin.top - margin.bottom;
 
@@ -26,9 +27,10 @@ var svg = d3.select("#viz_area_6")
     .attr("x", (width / 2)+100)
     .attr("y", 0 - (margin.top/10))
     .attr("text-anchor", "middle")
-    .style("font-size", "28px")
+    .style("font-size", "30px")
     .style("text-decoration", "underline")
-    .text("Gaps between goals scored and goals conceided ordered by teams' rankings");
+    .attr("transform", "translate(200,0)")
+    .text("Gaps between goals scored and goals conceided");
 
 
   // Add X axis
@@ -36,7 +38,8 @@ var svg = d3.select("#viz_area_6")
     .domain([0,100])
     .range([ 0, width]);
   svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .attr("transform", "translate(200," + height + ")")
+    .style("font", "22px Lora")
     .call(d3.axisBottom(x))
 
   // Y axis
@@ -45,7 +48,10 @@ var svg = d3.select("#viz_area_6")
     .domain(teamsByStandings)
     .padding(1);
   svg.append("g")
+  .attr('transform', 'translate( 200, 0)')
+    .style("font", "22px Lora")
     .call(d3.axisLeft(y))
+
 
   //Axis titles
   svg.append("text")
@@ -53,8 +59,8 @@ var svg = d3.select("#viz_area_6")
     .text("Goals");
 
   svg.append("text")
-    .attr("transform", "translate(0,500)")
-    .attr("transform", "rotate(-90)")
+    .attr("transform", "translate(0,700) rotate(-90)")
+    .style("font", "22px Lora")
     .text("Teams by ordered by general ranking, from top to bottom");
 
 
@@ -63,8 +69,8 @@ var svg = d3.select("#viz_area_6")
     .data(data)
     .enter()
     .append("line")
-      .attr("x1", function(d) { return x(d.values[0]); })
-      .attr("x2", function(d) { return x(d.values[1]); })
+      .attr("x1", function(d) { return x(d.values[0])+200; })
+      .attr("x2", function(d) { return x(d.values[1])+200; })
       .attr("y1", function(d) { return y(d.Club); })
       .attr("y2", function(d) { return y(d.Club); })
       .attr("stroke", "grey")
@@ -72,24 +78,24 @@ var svg = d3.select("#viz_area_6")
       .on("mouseover",  function(d) { return tip.show(d,this) })
       .on("mouseout",  function(d) { tip.hide(this) })
 
-  // Circles of variable 1
+  // Circles of goals scored
   svg.selectAll("mycircle")
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function(d) { return x(d.values[0]); })
+      .attr("cx", function(d) { return x(d.values[0])+200; })
       .attr("cy", function(d) { return y(d.Club); })
       .attr("r", "10")
       .style("fill", "#0000ff")
       .on("mouseover",  function(d) { return tip.show(d,this) })
       .on("mouseout",  function(d) { tip.hide(this) })
 
-  // Circles of variable 2
+  // Circles goals conceided
   svg.selectAll("mycircle")
     .data(data)
     .enter()
     .append("circle")
-      .attr("cx", function(d) { return x(d.values[1]); })
+      .attr("cx", function(d) { return x(d.values[1])+200; })
       .attr("cy", function(d) { return y(d.Club); })
       .attr("r", "10")
       .style("fill", "#ff0000")
@@ -98,7 +104,7 @@ var svg = d3.select("#viz_area_6")
 
       // Legend
       var size = 20
-      var allgroups = ["Goals scored","Goals Conceided"]
+      var allgroups = ["Goals scored","Goals conceided"]
       svg.append('g')
         .selectAll("mylegend")
         .data(allgroups)
@@ -110,17 +116,6 @@ var svg = d3.select("#viz_area_6")
           .attr("r", "10")
           .style("fill", "red")
         .style("stroke", "black")
-        //.on("click", function(d,i) {
-        //    if(!teamChecked[i]){
-        //      d3.select(this).text("x")
-        //      teamChecked[i]=true
-        //      d3.selectAll(".dot"+d)  //.filter(function(d) { return d. == "for_bath"; })
-        //        .style("fill", "red")}
-        //    else{
-        //      teamChecked[i]=false
-        //      d3.selectAll(".dot"+d)  //.filter(function(d) { return d. == "for_bath"; })
-        //        .style("fill", "white")}
-        //})
 
   // Function to generate tooltip
 const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
@@ -142,7 +137,7 @@ drawConnectedDotPlotLegend()
 
 export function drawConnectedDotPlotLegend (){  // Legend
   var size = 20
-  var allgroups = ["Goals scored","Goals Conceided"]
+  var allgroups = ["Goals scored","Goals conceided"]
   var color = ["blue","red"]
   var svg = d3.select("#viz_area_6")
   svg.append('g')
@@ -169,6 +164,7 @@ export function drawConnectedDotPlotLegend (){  // Legend
       .style("fill", "black")
       .text(function(d){ return d})
       .attr("text-anchor", "left")
+      .style("font-size", "22px")
       .style("alignment-baseline", "middle")
       .on("click", function(d,i) {
           d3.selectAll(".dot"+d)//.filter(function(d) { return d. == "for_bath"; })

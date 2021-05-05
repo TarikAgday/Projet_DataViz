@@ -1,12 +1,7 @@
 //import d3Tip from 'd3-tip'
 import d3Legend from 'd3-svg-legend'
 
-const margin = {
-    top: 75,
-    right: 200,
-    bottom: 100,
-    left: 80
-}
+const margin = {top: 100, right: 150, bottom: 30, left: 250}
 
 let svgSize, graphSize
 
@@ -177,8 +172,8 @@ function positionLabels (g) {
 
 function setSizing() {
     svgSize = {
-        width: 1200,
-        height: 1200
+        width: 1500,
+        height: 1300
     }
 
     graphSize = {
