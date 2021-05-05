@@ -55,7 +55,7 @@
         (27,3 years old). Also, this graph shows us a tendance to
         invest more money on young players.
         </div>
-    <!-- <div class="inner-text" style="top: 180vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+     <div class="inner-text text3" style="top: 250vh; width:420px; text-align:justify; color:black; font: 30px Lora";>
         <b>MINUTES PLAYED </b><br><br>
         Coaches have different approaches on the use of their rosters.
         Some rely on a kernel of key players while others prefer to
@@ -63,6 +63,7 @@
         the players. This graph's intention is to illustrate the importance of each players in their respective teams.
 
     </div>
+    <!--
 
     <div class="inner-text" style="top: 340vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
         <b>TEAMS' BUDGET DISPERSION </b><br><br>
@@ -107,11 +108,17 @@
         } else if (y > 900) {
             $('.text1').fadeOut();
         }
-        if (y < 950 || y > 1500){
+        if (y < 950 || y > 1600){
             $('.text2').fadeOut();
         } else if (y>950){
             $('.text2').fadeIn();
         } 
+        if (y<1600 || y > 2500){
+            $('.text3').fadeOut();
+        } else if (y>1600) {
+            $('.text3').fadeIn();
+        }
+
     });
 </script>
 
