@@ -29,7 +29,7 @@ $(function () {
     var dataHeatMap = preproc.heatmapProcess(files[0])
     heatmap.appendHeatMap(dataHeatMap)
 
-    d3.select("#viz_area_1").style("margin-left", "500")
+    // d3.select("#viz_area_1").style("margin-left", "200")
     const scatteredPlotData = preproc.scatteredPlotProcess(files[1])
     scatterPlot.drawScatteredPlotChart(scatteredPlotData)
 
