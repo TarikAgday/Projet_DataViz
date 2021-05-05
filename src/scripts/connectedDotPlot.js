@@ -10,8 +10,8 @@ export function appendConnectedDotPlot (data){
 
 // set the dimensions and margins of the graph
 var margin = {top: 150, right: 150, bottom: 60, left: 150},
-    width = 1200 - margin.left - margin.right,
-    height = 1200 - margin.top - margin.bottom;
+    width = 1100 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#viz_area_6")
