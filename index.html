@@ -23,7 +23,7 @@
 </div>
 
 <div class="box-placeholder">
-    <div class="inner-text" style="bottom: 5vh; top: 96vh; width:600px; text-align:justify; color:black; font: 28px Lora";>
+    <div class="inner-text text1" style="bottom: 5vh; top: 96vh; width:600px; text-align:justify; color:black; font: 28px Lora; overflow-y: hidden;";>
         <br><b> MAJOR LEAGUE SOCCER 2019 SEASON ANALYSIS<BR><BR>BUDGETS BY TEAMS</b>
          24 teams evenly spread in the West
          and Eastern conference were fighting
@@ -43,7 +43,7 @@
             the average while the red and darker yellow reactangle represents teams
             that did not qualify for the playoffs.
     </div>
-    <div class="inner-text" style="top: 250vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+    <div class="inner-text text2" style="top: 160vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
         <b><br><br>SALARIES BY AGE GROUPS</b>
         <br><br>
         The second graph is a heatmap of the
@@ -55,7 +55,7 @@
         (27,3 years old). Also, this graph shows us a tendance to
         invest more money on young players.
         </div>
-    <div class="inner-text" style="top: 240vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+     <div class="inner-text text3" style="top: 250vh; width:420px; text-align:justify; color:black; font: 30px Lora";>
         <b>MINUTES PLAYED </b><br><br>
         Coaches have different approaches on the use of their rosters.
         Some rely on a kernel of key players while others prefer to
@@ -63,6 +63,7 @@
         the players. This graph's intention is to illustrate the importance of each players in their respective teams.
 
     </div>
+    <!--
 
     <div class="inner-text" style="top: 340vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
         <b>TEAMS' BUDGET DISPERSION </b><br><br>
@@ -90,7 +91,7 @@
     Some coaches focus more on their offense while others on their defense and
     this visualization demonstrates how both approach can lead to a good performance.
 
-</div>
+</div> -->
 </div>
 
 <script src="https://d3js.org/d3.v5.js"></script>
@@ -98,6 +99,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script type="module" src="src/index.js"></script>
+
+<script type="text/javascript">
+    $(document).scroll(function(){
+        var y = $(this).scrollTop();
+        if (y<700){
+            $('.text1').fadeIn();
+        } else if (y > 900) {
+            $('.text1').fadeOut();
+        }
+        if (y < 950 || y > 1600){
+            $('.text2').fadeOut();
+        } else if (y>950){
+            $('.text2').fadeIn();
+        } 
+        if (y<1600 || y > 2500){
+            $('.text3').fadeOut();
+        } else if (y>1600) {
+            $('.text3').fadeIn();
+        }
+
+    });
+</script>
 
 </body>
 </html>
