@@ -1,4 +1,4 @@
-const margin = {top: 50, right: 150, bottom: 30, left: 250}
+const margin = {top: 80, right: 150, bottom: 30, left: 250}
 
 let svgSize, graphSize
 
