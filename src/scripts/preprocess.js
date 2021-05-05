@@ -54,6 +54,7 @@ export function scatteredPlotProcess(data) {
 
 
 export function mapMultiPannelProcess (data){
+  console.log(data)
   const multiPannelData = new Map()
   data.forEach(d => {
     if (!multiPannelData.has(d.Club))  {
@@ -61,12 +62,16 @@ export function mapMultiPannelProcess (data){
         d["First Name"]+ " " + d["Last Name"], {
           "Minutes": parseInt(d["MinutesPlayed"]),
           "Position": d["Playing Position"],
+          "Salary": d["Salaire"],
+          "Age": d["Age"],
         }]]))
     } else {
       multiPannelData.get(d.Club).set(
         d["First Name"] +" " + d["Last Name"], {
         "Minutes": parseInt(d["MinutesPlayed"]),
-        "Position": d["Playing Position"]
+        "Position": d["Playing Position"],
+        "Salary": d["Salaire"],
+        "Age": d["Age"],
       })
     }
   })
@@ -82,7 +87,9 @@ export function multipannelProcess(data){
       playersInfo.push({
         "Name": player,
         "Minutes": parseInt(info.Minutes),
-        "Position": info.Position
+        "Position": info.Position,
+        "Salary": info.Salary,
+        "Age": info.Age,
       })
     })
 
