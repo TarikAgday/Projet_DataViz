@@ -30,7 +30,7 @@ for (let index = 0; index < data.length; index++) {
 }
 // set the dimensions and margins of the graph
   var margin = {top: 100, right: 150, bottom: 30, left: 250},
-  width = 1500 - margin.left - margin.right,
+  width = 2000 - margin.left - margin.right,
       height = 1300 - margin.top - margin.bottom;
 
   var svg = d3.select("#viz_area_2")
@@ -172,19 +172,19 @@ export function drawHeatmapLegend (fill,colorScale) {
         .attr("height", 150)
         .attr("width", 15)
         .attr("y", function(d,i){ return (150 + (i*150))})
-        .attr("x", 1500)
+        .attr("x", 1900)
         .attr("fill",function(d){ return d})
         .style("stroke", "black")
 
 
           svg.append("text")
-          .attr("transform", "translate(1400,1275)")
+          .attr("transform", "translate(1800,1275)")
           .text("Age groups")
           .style("font", "32px Lora")
 
           for (let i = 0; i < valueLegend.length; i++) {
             svg.append("text")
-                .attr("transform", "translate("+1520+","+(150 + (i*152))+")")
+                .attr("transform", "translate("+1930+","+(150 + (i*152))+")")
                 .text(valueLegend[i])
                 .style("font", "22px Lora")
                 .style("fontWeight","bolder")
