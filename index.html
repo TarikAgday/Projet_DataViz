@@ -63,9 +63,9 @@
         the players. This graph's intention is to illustrate the importance of each players in their respective teams.
 
     </div>
-    <!--
 
-    <div class="inner-text" style="top: 340vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
+
+    <div class="inner-text text4" style="top: 340vh; width:600px; text-align:justify; color:black; font: 30px Lora";>
         <b>TEAMS' BUDGET DISPERSION </b><br><br>
         As we saw in the first graph, teams' budgets vary from one team to another. However, this graph shows us
         on how much is spent on each position. we also need to consider that teams generally have 3 goalkeepers,
@@ -73,6 +73,7 @@
         can clearily see a bigger investment of teams' on offensive players (biggest part of budget for lower number of players).
 
     </div>
+    <!--
 
     <div class="inner-text" style="top: 430vh; width:600px; text-align:justify; color:black; font: 40px Lora";>
         <b>PERFORMANCE VS SALARIES </b><br><br>
@@ -117,6 +118,11 @@
             $('.text3').fadeOut();
         } else if (y>1600) {
             $('.text3').fadeIn();
+        }
+        if (y<2600 || y > 3300){
+            $('.text4').fadeOut();
+        } else if (y>2600) {
+            $('.text4').fadeIn();
         }
 
     });
