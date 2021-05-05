@@ -14,7 +14,7 @@ export function drawMultiPannelBar(dataTeams){
     var x = 0, y = 0
     var count = 0
     dataTeams.forEach(function(d, i){
-        drawBarChart(d, x, y)
+        const barchar = drawBarChart(d, x, y)
         if (count < 5){
             x+=200
         }else {
@@ -171,29 +171,29 @@ export function drawBarChart(data, x_test, y_test){
     .on("mouseout",  function(d) { tip.hide(this) })
 
     // Function to generate tooltip
-const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
-svg.call(tip)
+    const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+    svg.call(tip)
 
 
-// Get content of Rectangle tooltip
-function getContents (d) {
-  let content =  '</span><bold> Name : </bold><span style="font-weight: normal">' + d.Name 
-  +     '<span> <br>Minutes:  <span style="font-weight: normal">' + d.Minutes
-  +     '<span> <br>Position:  <span style="font-weight: normal">' 
-  if (d.Position === "M") {
-    content+= "Midfielder"
-  } else if (d.Position === "D") {
-    content+= "Defender"
-  } else if (d.Position === "GK") {
-    content+= "GoalKeeper"
-  } else if (d.Position === "F") {
-    content+= "Forward"
-  }
+    // Get content of Rectangle tooltip
+    function getContents (d) {
+        let content =  '</span><bold> Name : </bold><span style="font-weight: normal">' + d.Name 
+        +     '<span> <br>Minutes:  <span style="font-weight: normal">' + d.Minutes
+        +     '<span> <br>Position:  <span style="font-weight: normal">' 
+        if (d.Position === "M") {
+            content+= "Midfielder"
+        } else if (d.Position === "D") {
+            content+= "Defender"
+        } else if (d.Position === "GK") {
+            content+= "GoalKeeper"
+        } else if (d.Position === "F") {
+            content+= "Forward"
+        }
 
-  return content
-}
+        return content
+    }
 
-
+    return svg 
 
 }
 
