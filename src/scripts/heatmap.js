@@ -48,7 +48,7 @@ for (let index = 0; index < data.length; index++) {
 
 // Build X scales and axis:
   var xScale = d3.scaleBand()
-    .range([ 0, width-100 ])
+    .range([ 150, width -100])
     .domain(ageGroups)
     .padding(0.01);
   svg.append("g")
@@ -57,7 +57,7 @@ for (let index = 0; index < data.length; index++) {
     .tickFormat(function(d,i){ return agetitles[i] }))
     .style("font-size", "22px")
   .selectAll("text")
-    .attr("transform", "translate(0 0) rotate(0)")
+
 
 
 // Build Y scales and axis:
@@ -68,12 +68,12 @@ var yScale = d3.scaleBand()
 svg.append("g")
   .call(d3.axisLeft().scale(yScale))
   .style("font", "22px Lora")
-
+  .attr("transform", "translate(150 0) rotate(0)")
   //Axis titles
 
 
 svg.append("text")
- .attr("transform", "translate(-120,-10)")
+ .attr("transform", "translate(30,-10)")
  .text("Teams")
  .style("font", "32px Lora")
  .style("fontWeight","bolder")
@@ -178,7 +178,7 @@ export function drawHeatmapLegend (fill,colorScale) {
 
 
           svg.append("text")
-          .attr("transform", "translate(1300,1275)")
+          .attr("transform", "translate(1400,1275)")
           .text("Age groups")
           .style("font", "32px Lora")
 
