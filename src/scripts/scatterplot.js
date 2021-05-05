@@ -1,7 +1,7 @@
 //import d3Tip from 'd3-tip'
 import d3Legend from 'd3-svg-legend'
 
-const margin = {top: 100, right: 150, bottom: 30, left: 250}
+const margin = {top: 200, right: 150, bottom: 30, left: 250}
 
 let svgSize, graphSize
 
@@ -138,13 +138,15 @@ function drawXAxis (xScale) {
     d3.select('.x.axis')
       .attr('transform', 'translate( 0, ' + graphSize.height + ')')
       .call(d3.axisBottom(xScale).ticks(24))
+    .style("font", "20px Lora")
 }
 
 function appendGraphLabels (g) {
     g.append('text')
       .text('Budget ($)')
       .attr('class', 'y axis-text')
-      .attr('transform', 'rotate(-90)')
+      .attr('transform',
+            'translate(100,-650)')
       .style("font", "32px Lora")
 
     g.append('text')
@@ -163,7 +165,7 @@ function drawYAxis (yScale) {
     const yAxis = d3.axisLeft(yScale).tickFormat(function(d) { return formatValue(d).replace("M", "M$") })
 
     d3.select('.y.axis')
-      .call(yAxis)
+      .call(yAxis).style("font", "20px Lora")
   }
 
 function positionLabels (g) {
@@ -172,14 +174,14 @@ function positionLabels (g) {
     .attr('y', graphSize.height + 50)
 
     g.select('.y.axis-text')
-    .attr('x', -50)
+    .attr('x', -80)
     .attr('y', graphSize.height / 2)
   }
 
 function setSizing() {
     svgSize = {
-        width: 1500,
-        height: 1250
+        width: 1900,
+        height: 1500
     }
 
     graphSize = {
@@ -200,15 +202,16 @@ function drawLegend(g) {
         .attr("class", "legendQuant")
         .attr("y", "-20")
         .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
-        .style("font", "22px Lora")
+        .style("font", "36px Lora")
 
     const colorScale = d3.scaleOrdinal()
         .domain(["terrible", "bad", "okay", "good"])
         .range(["rgba(255,0,0,0.1)", "rgba(255,165,0,0.2)", "rgba(255,255,0,0.1)", "rgba(0,128,0,0.1)"])
 
-    const legend = d3Legend.legendColor().title("Legend ")
+    const legend = d3Legend.legendColor().title("Legend")
       .shape("path", d3.symbol().type(d3.symbolCircle).size(250)())
       .scale(colorScale)
+
 
     g.select(".legendQuant")
       .call(legend);
@@ -217,9 +220,9 @@ function drawLegend(g) {
 function drawButton (g) {
     const button = g.append('g')
       .attr('class', 'button')
-      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 100})`)
+      .attr('transform', `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 180})`)
       .attr('width', 130)
-      .attr('height', 25)
+      .attr('height', 40)
       .on('click', () => {
         const previousSetting = currentSetting
         currentSetting = (currentSetting === "general" ? "playoff" : "general")
@@ -228,8 +231,8 @@ function drawButton (g) {
       })
 
     button.append('rect')
-      .attr('width', 130)
-      .attr('height', 30)
+      .attr('width', 180)
+      .attr('height', 70)
       .attr('fill', '#f4f6f4')
       .on('mouseenter', function () {
         d3.select(this).attr('stroke', '#362023')
@@ -239,13 +242,13 @@ function drawButton (g) {
       })
 
     button.append('text')
-      .attr('x', 65)
-      .attr('y', 15)
+      .attr('x', 87)
+      .attr('y', 35)
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('class', 'button-text')
       .text('See playoff standings')
-      .attr('font-size', '10px')
+      .attr('font-size', '20px')
       .attr('fill', '#362023')
 }
 
