@@ -20,7 +20,7 @@ export function drawStackedBarChart(data) {
 
 
   var svg = d3.select("#viz_area_4")
-  var svg = svg.append("g").attr("transform", " translate(200,200)")
+  var svg = svg.append("g").attr("transform", " translate(300,200)")
   svg.append("g").attr("transform", "translate(50," + 1000 + ")")
     .call(xAxis)
     .selectAll("text")
