@@ -1,210 +1,206 @@
-export function drawMultiPannelBar(dataTeams){
-    var svg = d3.select("#viz_area_3")
+/**
+ * @param {{}} dataTeams the data used for the multi pannel
+ */
+export function drawMultiPannelBar (dataTeams) {
+  var svg = d3.select('#viz_area_3')
 
-    svg.append("text")
-    .attr("x", 600)
-    .attr("y", 50)
-    .attr("text-anchor", "middle")
-    .style("font", "36px Lora")
-    .style("text-decoration", "bold")
-    .text("Number of minutes played by players for each teams")
-    .style("font-size", "30px")
+  svg.append('text')
+    .attr('x', 600)
+    .attr('y', 50)
+    .attr('text-anchor', 'middle')
+    .style('font', '36px Lora')
+    .style('text-decoration', 'bold')
+    .text('Number of minutes played by players for each teams')
+    .style('font-size', '30px')
 
+  var x = 0; var y = 0
+  var count = 0
+  dataTeams.forEach(function (d, i) {
+    drawBarChart(d, x, y)
+    if (count < 5) {
+      x += 200
+    } else {
+      x = 0
+      y += 210
+      count = -1
+    }
+    count++
+  })
 
-    var x = 0, y = 0
-    var count = 0
-    dataTeams.forEach(function(d, i){
-        const barchar = drawBarChart(d, x, y)
-        if (count < 5){
-            x+=200
-        }else {
-            x = 0
-            y+=210
-            count = -1
-        }
-        count++
-    })
+  const colors = ['#24A302', '#054385', '#C60808', '#FFA33C']
 
-    const colors = ["#24A302", "#054385", "#C60808", "#FFA33C"]
-
-    var legend = svg.selectAll(".legend")
+  var legend = svg.selectAll('.legend')
     .data(colors)
-    .enter().append("g")
-    .attr("class", "legend")
-    .attr("transform", function (d, i) { return "translate(500," + (i * 15+350)+ ")"; })
+    .enter().append('g')
+    .attr('class', 'legend')
+    .attr('transform', function (d, i) { return 'translate(500,' + (i * 15 + 350) + ')' })
 
-    legend.append("rect")
-    .attr("x", 750)
-    .attr("width", 12)
-    .attr("height", 12)
-    .style("fill", function (d, i) { return colors.slice()[i]; });
+  legend.append('rect')
+    .attr('x', 750)
+    .attr('width', 12)
+    .attr('height', 12)
+    .style('fill', function (d, i) { return colors.slice()[i] })
 
-    legend.append("text")
-    .attr("x",  780)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .style("text-anchor", "start")
-    .style("font", "15px Lora")
+  legend.append('text')
+    .attr('x', 780)
+    .attr('y', 9)
+    .attr('dy', '.35em')
+    .style('text-anchor', 'start')
+    .style('font', '15px Lora')
     .text(function (d, i) {
       switch (i) {
-        case 0: return "Midfielder";
-        case 1: return "Defender";
-        case 2: return "Goalkeeper";
-        case 3: return "Forward";
-
+        case 0: return 'Midfielder'
+        case 1: return 'Defender'
+        case 2: return 'Goalkeeper'
+        case 3: return 'Forward'
       }
-    });
+    })
 }
 
+/**
+ * @param {{}} data the data needed for one barchar
+ * @param {number} x the x axes where to draw the bar char
+ * @param {number} y the y axes where to draw the bar char
+ */
+export function drawBarChart (data, x, y) {
+  const h = 320; const w = 250
 
+  var svg = d3.select('#viz_area_3')
+    .append('g')
+    .append('svg')
+    .attr('width', w)
+    .attr('height', h)
+    .attr('x', x)
+    .attr('y', y)
 
-export function drawBarChart(data, x_test, y_test){
-    const h = 320, w = 250
+  x = d3.scaleBand().domain(data.Players.map(function (d) {
+    return d.Name
+  })).range([0, 160])
 
-    var svg = d3.select("#viz_area_3")
-    .append("g")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h)
-    .attr("x", x_test)
-    .attr("y", y_test)
-
-    var x = d3.scaleBand().domain(data.Players.map(function(d) {
-        return d.Name
-    })).range([0, 160])
-
-    var y = d3.scaleLinear().range([120, 0])
-    .domain([0, d3.max(data.Players, function(d){
-        return d.Minutes
+  y = d3.scaleLinear().range([120, 0])
+    .domain([0, d3.max(data.Players, function (d) {
+      return d.Minutes
     })])
 
-    var xAxis = d3.axisBottom().scale(x)
-    var yAxis = d3.axisLeft().scale(y).ticks(8)
+  var xAxis = d3.axisBottom().scale(x)
+  var yAxis = d3.axisLeft().scale(y).ticks(8)
 
-    svg.append("g")
-    .attr("transform", "translate(50," + 200 + ")")
+  svg.append('g')
+    .attr('transform', 'translate(50,' + 200 + ')')
     .call(xAxis)
-    .selectAll("text")
-    .style("font", "5px times")
-    .attr("transform", "rotate(-90)")
-    .attr("dy", ".50em")
-    .attr("y", 0)
-    .attr("x", -35)
+    .selectAll('text')
+    .style('font', '5px times')
+    .attr('transform', 'rotate(-90)')
+    .attr('dy', '.50em')
+    .attr('y', 0)
+    .attr('x', -35)
 
-    svg.append("text")
-    .attr("transform", "translate(20,75)")
-    .text("Minutes")
-    .style("font", "9px Lora")
-    .style("fontWeight","bolder")
+  svg.append('text')
+    .attr('transform', 'translate(20,75)')
+    .text('Minutes')
+    .style('font', '9px Lora')
+    .style('fontWeight', 'bolder')
 
-    svg.append("text")
-    .attr("transform", "translate(204,205)")
-    .text("Players")
-    .style("font", "9px Lora")
-    .attr("transform", "rotate(-90)")
-    .attr("dy", ".50em")
-    .attr("y", 215)
-    .attr("x", -215)
+  svg.append('text')
+    .attr('transform', 'translate(204,205)')
+    .text('Players')
+    .style('font', '9px Lora')
+    .attr('transform', 'rotate(-90)')
+    .attr('dy', '.50em')
+    .attr('y', 215)
+    .attr('x', -215)
 
-
-    svg.append("g")
-    .attr("transform", "translate(50, 80)")
+  svg.append('g')
+    .attr('transform', 'translate(50, 80)')
     .call(yAxis)
-    .selectAll("text")
-    .style("font", "10px Lora")
-    .attr("x", 30)
-    .attr("transform", "translate(-40)")
+    .selectAll('text')
+    .style('font', '10px Lora')
+    .attr('x', 30)
+    .attr('transform', 'translate(-40)')
 
-
-    var y = d3.scaleLinear().range([0, 120])
-    .domain([0, d3.max(data.Players, function(d){
-        return d.Minutes
+  y = d3.scaleLinear().range([0, 120])
+    .domain([0, d3.max(data.Players, function (d) {
+      return d.Minutes
     })])
 
-    //Viz title
-   svg.append("text")
-   .attr("x", 125)
-   .attr("y", 75)
-   .attr("text-anchor", "middle")
-   .style("font", "36px Lora")
-   .style("text-decoration", "bold")
-   .text(data.Team)
-   .style("font-size", "14px")
+  // Viz title
+  svg.append('text')
+    .attr('x', 125)
+    .attr('y', 75)
+    .attr('text-anchor', 'middle')
+    .style('font', '36px Lora')
+    .style('text-decoration', 'bold')
+    .text(data.Team)
+    .style('font-size', '14px')
 
-   const color = {
-       "green": "#24A302",
-       "blue": "#054385",
-       "red": "#C60808",
-       "orange": "#FFA33C"
-   }
+  const color = {
+    green: '#24A302',
+    blue: '#054385',
+    red: '#C60808',
+    orange: '#FFA33C'
+  }
 
-
-
-    svg.append("g")
-    .selectAll(".bar")
+  svg.append('g')
+    .selectAll('.bar')
     .data(data.Players)
     .enter()
-    .append("rect")
-    .join("g")
-    .attr("class", "bar")
-    .attr("x", function(d){
-        return x(d.Name)
+    .append('rect')
+    .join('g')
+    .attr('class', 'bar')
+    .attr('x', function (d) {
+      return x(d.Name)
     })
-    .attr("y", function(d){
-        return h-y(d.Minutes)
+    .attr('y', function (d) {
+      return h - y(d.Minutes)
     })
-    .attr("width", x.bandwidth())
-    .attr("height", function(d){ return y(d.Minutes)})
-    .attr("transform", "translate(50," + -120 + ")")
-    .attr("style", "outline: thin white;")   
-    .style("fill", function(d){
-        if (d.Position === "M"){
-            return color.green
-        } else if (d.Position === "D"){
-            return color.blue
-        } else if (d.Position === "GK"){
-            return color.red
-        } else if (d.Position === "F"){
-            return color.orange
-        }
+    .attr('width', x.bandwidth())
+    .attr('height', function (d) { return y(d.Minutes) })
+    .attr('transform', 'translate(50,' + -120 + ')')
+    .attr('style', 'outline: thin white;')
+    .style('fill', function (d) {
+      if (d.Position === 'M') {
+        return color.green
+      } else if (d.Position === 'D') {
+        return color.blue
+      } else if (d.Position === 'GK') {
+        return color.red
+      } else if (d.Position === 'F') {
+        return color.orange
+      }
     })
-    .on("mouseover",  function(d) { 
-        if(d.Minutes === 0){
-            
-        }
-        return tip.show(d,this) 
+    .on('mouseover', function (d) {
+      if (d.Minutes === 0) {
+
+      }
+      return tip.show(d, this)
     })
-    .on("mouseout",  function(d) { tip.hide(this) })
+    .on('mouseout', function (d) { tip.hide(this) })
 
-    // Function to generate tooltip
-    const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
-    svg.call(tip)
+  // Function to generate tooltip
+  const tip = d3.tip().attr('class', 'd3-tip').html(function (d) { return getContents(d) })
+  svg.call(tip)
 
-
-    // Get content of Rectangle tooltip
-    function getContents (d) {
-        let content =  '</span><bold> Name : </bold><span style="font-weight: normal">' + d.Name 
-        +     '<span> <br>Minutes:  <span style="font-weight: normal">' + d.Minutes
-        +     '<span> <br>Position:  <span style="font-weight: normal">' 
-        if (d.Position === "M") {
-            content+= "Midfielder"
-        } else if (d.Position === "D") {
-            content+= "Defender"
-        } else if (d.Position === "GK") {
-            content+= "GoalKeeper"
-        } else if (d.Position === "F") {
-            content+= "Forward"
-        }
-
-        content += '<span> <br>Salary:  <span style="font-weight: normal">' + d.Salary
-        + '<span> <br>Age:  <span style="font-weight: normal">' + d.Age
-
-        return content
+  /**
+   * @param {{}} d the information of each player
+   * @returns {string} the content of the tooltip
+   */
+  function getContents (d) {
+    let content = '</span><bold> Name : </bold><span style="font-weight: normal">' + d.Name +
+        '<span> <br>Minutes:  <span style="font-weight: normal">' + d.Minutes +
+        '<span> <br>Position:  <span style="font-weight: normal">'
+    if (d.Position === 'M') {
+      content += 'Midfielder'
+    } else if (d.Position === 'D') {
+      content += 'Defender'
+    } else if (d.Position === 'GK') {
+      content += 'GoalKeeper'
+    } else if (d.Position === 'F') {
+      content += 'Forward'
     }
 
-    return svg 
+    content += '<span> <br>Salary:  <span style="font-weight: normal">' + d.Salary +
+        '<span> <br>Age:  <span style="font-weight: normal">' + d.Age
 
+    return content
+  }
 }
-
-
-
