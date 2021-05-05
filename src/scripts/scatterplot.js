@@ -1,6 +1,3 @@
-//import d3Tip from 'd3-tip'
-import d3Legend from 'd3-svg-legend'
-
 const margin = {top: 50, right: 150, bottom: 30, left: 250}
 
 let svgSize, graphSize
@@ -198,23 +195,58 @@ function getContents (d) {
 }
 
 function drawLegend(g) {
-    g.insert("g", ".button")
-        .attr("class", "legendQuant")
-        .attr("y", "-20")
-        .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 30})`)
-        .style("font", "26px Lora")
+    g.append('rect')
+    .attr('width', 30)
+    .attr('height', 30)
+    .attr('fill', 'rgba(255,0,0,0.1)')
+    .attr('stroke', 'black')
+    .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2})`)
 
-    const colorScale = d3.scaleOrdinal()
-        .domain(["terrible", "bad", "okay", "good"])
-        .range(["rgba(255,0,0,0.1)", "rgba(255,165,0,0.2)", "rgba(255,255,0,0.1)", "rgba(0,128,0,0.1)"])
+    g.append('rect')
+    .attr('width', 30)
+    .attr('height', 30)
+    .attr('fill', 'rgba(255,165,0,0.2)')
+    .attr('stroke', 'black')
+    .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 35})`)
 
-    const legend = d3Legend.legendColor().title("Legend")
-      .shape("path", d3.symbol().type(d3.symbolCircle).size(250)())
-      .scale(colorScale)
+    g.append('rect')
+    .attr('width', 30)
+    .attr('height', 30)
+    .attr('fill', 'rgba(255,255,0,0.1)')
+    .attr('stroke', 'black')
+    .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 70})`)
 
+    g.append('rect')
+    .attr('width', 30)
+    .attr('height', 30)
+    .attr('fill', 'rgba(0,128,0,0.1)')
+    .attr('stroke', 'black')
+    .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 + 105})`)
 
-    g.select(".legendQuant")
-      .call(legend);
+    g.append('text')
+    .attr("transform", `translate(${graphSize.width + 60}, ${graphSize.height / 2 + 24})`)
+    .style("font", "26px Lora")
+    .text('Terrible')
+
+    g.append('text')
+    .attr("transform", `translate(${graphSize.width + 60}, ${graphSize.height / 2 + 59})`)
+    .style("font", "26px Lora")
+    .text('Bad')
+
+    g.append('text')
+    .attr("transform", `translate(${graphSize.width + 60}, ${graphSize.height / 2 + 94})`)
+    .style("font", "26px Lora")
+    .text('Okay')
+
+    g.append('text')
+    .attr("transform", `translate(${graphSize.width + 60}, ${graphSize.height / 2 + 129})`)
+    .style("font", "26px Lora")
+    .text('Good')
+
+    g.append('text')
+    .attr("transform", `translate(${graphSize.width + 20}, ${graphSize.height / 2 - 20})`)
+    .style("font", "26px Lora")
+    .text('Legend')
 }
 
 function drawButton (g) {
