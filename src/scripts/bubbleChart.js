@@ -4,16 +4,16 @@
 // set the dimensions and margins of the graph
 
 export function drawMultiPannelBubble(dataPosition){
-  var x = 0, y = 100
+  var x = 200, y = 200
   var count = 0
   dataPosition.forEach(function(d, i){
 
     appendBubbleChart(d, x, y)
       if (count < 1){
-          x+=850
+          x+=950
       }else {
-          x = 0
-          y+=700
+          x = 200
+          y+=900
           count = -1
       }
       count++
@@ -41,7 +41,7 @@ export function appendBubbleChart (data, x , y) {
       // Add X axis
       var x = d3.scaleLinear()
         .domain([0, 3400])
-        .range([ 0, width ]);
+        .range([ 0, width-200 ]);
       svg.append('g')
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x).ticks(3))
@@ -150,11 +150,11 @@ export function appendBubbleChart (data, x , y) {
     .attr('class', 'titles')
       .attr("x", function(d,i){
           if(i%2 == 0)
-          {return  300}
-          else{return 1000}})
+          {return  700}
+          else{return 1600}})
       .attr("y", function(d,i)
-      { if(i<2){return 100}
-        else{return 800}})
+      { if(i<2){return 200}
+        else{return 1100}})
       .text(function(d,i){return d})
       .style("fill", "black")
       .style("font", "20px Lora")
@@ -202,9 +202,9 @@ d3.selection.prototype.moveToFront = function() {
           .enter()
           .append('rect')
           .attr('class', 'rectsLeg')
-            .attr("x", 1700)
+            .attr("x", 2150)
             .attr("width", 30)
-            .attr("y", function(d,i){ return  395+(i * (size + 5) + (size/2))})
+            .attr("y", function(d,i){ return  585+(i * (size + 5) + (size/2))})
             .attr("height",30)
             .style("fill", "white")
          .style("stroke", "black")
@@ -238,8 +238,8 @@ d3.selection.prototype.moveToFront = function() {
           .data(allgroups)
           .enter()
           .append("text")
-            .attr("x", 1730 + size*.8)
-            .attr("y", function(d,i){ return 410+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", 2170 + size*.8)
+            .attr("y", function(d,i){ return 600+(i * (size + 5) + (size/2))}) // 100 is where the first dot appears. 25 is the distance between dots
             .style("fill", "black")
             .text(function(d){ return d.replace(/-/g," ")})
             .style("font", "20px Lora")
