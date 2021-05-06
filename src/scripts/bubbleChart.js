@@ -70,10 +70,25 @@ export function appendBubbleChart (data, x, y) {
     .call(xAxis)
     .style('font', '20px Lora')
 
+  svg.append('text')
+    .text('Salary')
+    .style('font', '20px Lora')
+    .style('fontWeight', 'bolder')
+    .attr('transform', 'rotate(-90)')
+    .attr('dy', '.50em')
+    .attr('y', 510)
+    .attr('x', -400)
+
   svg.append('g')
     .attr('transform', 'translate(' + margin.left + ',' + (-margin.bottom + 50) + ')')
     .call(yAxis)
     .style('font', '20px Lora')
+
+  svg.append('text')
+    .attr('transform', 'translate(45,20)')
+    .text('Performance')
+    .style('font', '20px Lora')
+    .style('fontWeight', 'bolder')
 
   // Add a scale for bubble size
   var z = d3.scaleSqrt()
